@@ -1,0 +1,41 @@
+%-----------------------------------------------------------------------------------
+% Kopf-Zeilen
+%-----------------------------------------------------------------------------------
+
+\usepackage[automark]{scrpage2}	% Seiten-Stil f\"ur scrartcl
+\pagestyle{scrheadings}		% Kopfzeilen nach scr-Standard		
+\ifx\chapter\undefined 		% falls Kapitel nicht definiert sind
+  \automark[subsection]{section}% Kopf- und Fusszeilen setzen
+\else				% Kapitel sind definiert
+  \automark[section]{chapter}	% Kopf- und Fusszeilen setzen
+\fi
+
+%-----------------------------------------------------------------------------------
+%   Maske f\"ur \"Uberschrift 
+%-----------------------------------------------------------------------------------
+% Belegung der notwendigen Kommandos f\"ur die Titelseite
+\newcommand{\autor}{Markl, Michael} 		% bearbeitender Student
+\newcommand{\veranstaltung}{Seminar zur Optimierung und Spieltheorie} 	% Titel des ganzen Seminars
+\newcommand{\matrikelnummer}{1474802}
+\newcommand{\uni}{Institut f\"ur Mathematik der Universit\"at Augsburg} % Universit\"at
+\newcommand{\lehrstuhl}{Diskrete Mathematik, Optimierung und Operations Research} % Lehrstuhl
+\newcommand{\semester}{Wintersemester 2020/21}	% Winter- oder Sommersemester mit Jahr
+\newcommand{\datum}{14.05.2020} 			% Datumsangabe
+\newcommand{\thema}{Berechnung von Walras-Gleichgewichten}  		% Titel der Seminararbeit
+
+\newcommand{\ownline}{\vspace{.7em}\hrule\vspace{.7em}} % horizontale Linie mit Abstand
+
+\newcommand{\seminarkopf}{	% Befehl zum Erzeugen der Titelseite 
+ \textsc{\autor}  \hfill{\datum} \\ 
+\textbf{\veranstaltung} \\ 
+\uni \\ 
+\lehrstuhl \\
+\semester \hfill{Matrikelnummer: \matrikelnummer}
+\ownline 
+
+\begin{center}
+{\LARGE \textbf{\thema}}
+\end{center}
+
+\ownline
+}
