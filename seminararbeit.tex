@@ -6,11 +6,11 @@
 		]{scrartcl}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Zusammenfassung einiger nützlicher Pakete und Befehle
+% Zusammenfassung einiger nÃ¼tzlicher und Befehle
+\input{header/rest}			    % restliche Befehle und Pakete
 \input{header/kopf}			    % Befehle und Pakete f\"ur Titelseite
 \input{header/theorem}			% Mathematische Befehle und Pakete
-\input{header/referenz}			% Befehle und Pakete für Referenzen
-\input{header/rest}			    % restliche Befehle und Pakete
+\input{header/referenz}			% Befehle und Pakete fÃ¼r Referenzen
 
 \newcommand{\todo}[1]{{\color{red} #1}}
 
@@ -19,7 +19,7 @@
 % Start des Dokuments
 \begin{document}		
 
-\ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
+\ownautorefnames		% Ã„nderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
 \parindent0em 			% kein Einzug nach einer Leerzeile
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,7 +28,7 @@
 \begin{titlepage}
 \seminarkopf 			% Titelblatt (wie in kopf.tex definiert)
 \begin{abstract} 
-\todo{Hier sollte der Inhalt der Seminararbeit in ein paar Sätzen zusammengefasst werden. }
+\todo{Hier sollte der Inhalt der Seminararbeit in ein paar SÃ¤tzen zusammengefasst werden. }
 \end{abstract} 
 \end{titlepage}
 
@@ -36,16 +36,18 @@
 % Inhaltsverzeichnis
 \thispagestyle{empty}	
 \tableofcontents		% Inhaltsverzeichnis
-%\listoffigures			% Abbildungsverzeichnis (eventuell einfügen)
-%\listoftables			% Tabellenverzeichnis (eventuell einfügen)
+%\listoffigures			% Abbildungsverzeichnis (eventuell einfÃ¼gen)
+%\listoftables			% Tabellenverzeichnis (eventuell einfÃ¼gen)
 \setcounter{page}{0}% Eigentlicher Inhalt beginnt auf Seite 1
-\clearpage          % neue Seite für eigentlichen Inhalt
+\clearpage          % neue Seite fÃ¼r eigentlichen Inhalt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Eigentlicher Inhalt der Seminararbeit; die einzelnen Teile werden hier (aus Gründen der Übersichtlichkeit) über \input{file} eingebunden
+% Eigentlicher Inhalt der Seminararbeit; die einzelnen Teile werden hier (aus GrÃ¼nden der Ãœbersichtlichkeit) Ã¼ber \input{file} eingebunden
 
- 
 
-\clearpage          % neue Seite für Literaturverzeichnis
+\include{chapters/introduction}
+
+
+\clearpage          % neue Seite fÃ¼r Literaturverzeichnis
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Literaturverzeichnis
