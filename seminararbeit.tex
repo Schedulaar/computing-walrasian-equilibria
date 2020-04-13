@@ -14,6 +14,10 @@
 
 \newcommand{\todo}[1]{{\color{red} #1}}
 
+\DeclareMathOperator{\SW}{SW}
+\DeclareMathOperator{\NB}{D}
+\DeclareMathOperator{\dem}{d}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Start des Dokuments
@@ -29,7 +33,7 @@
 \seminarkopf 			% Titelblatt (wie in kopf.tex definiert)
 \begin{abstract} 
 \todo{Hier sollte der Inhalt der Seminararbeit in ein paar Sätzen zusammengefasst werden. }
-\end{abstract} 
+\end{abstract}
 \end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,8 +48,9 @@
 % Eigentlicher Inhalt der Seminararbeit; die einzelnen Teile werden hier (aus Gründen der Übersichtlichkeit) über \input{file} eingebunden
 
 
-\include{chapters/introduction}
-
+\input{chapters/introduction}
+\input{chapters/walras-equilibria}
+\input{chapters/computing-equilibria}
 
 \clearpage          % neue Seite für Literaturverzeichnis
 

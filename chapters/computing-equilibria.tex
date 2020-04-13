@@ -1,0 +1,110 @@
+\section{Berechnung von Gleichgewichten}
+
+\todo{Blabla}
+
+\subsection{Informationszugang zum Markt}
+
+Bei der Berechnung eines Marktgleichgewichts müssen auf irgendeine Weise Informationen erhoben werden.
+Dieser Informationszugang kann dann von Algorithmen als Schnittstelle zur Berechnung eines Gleichgewichts verwendet werden.
+Die Algorithmen werden also unter der Annahme entwickelt, dass ein Orakel existiert, welches eine solche Schnittstelle zum Markt implementiert.
+
+Da der Detailgrad der erfassbaren Informationen bei vielen Marktsituationen unterschiedlich ist, unterscheiden Leme und Wong in~\cite{PaesLeme2018} drei verschiedene Modelle:
+\begin{itemize}
+	\item \emph{Die Mikroskopische Sicht:} Hier kann der Wert einzelner Bündel für jeden Käufer abgefragt werden.
+	Das sogenannte \emph{Wert-Orakel} bestimmt also anhand eines Käufers $i\in\first{m}$ und eines Bündels $x\in\ffirst{\fs}$ den Wert $v_i(x)$.
+	\item \emph{Die Agenten-Sicht:} In diesem Modell besteht der Zugang zum Markt daraus, von jedem Käufer ein von ihm nachgefragtes Bündel bei gegebenen Preisen abfragen zu können.
+	Sollten mehrere Bündel für den Käufer gleichwertig sein, so wird ein beliebiges dieser Bündel ausgegeben.
+	Das \emph{Nachfrage-Orakel} berechnet also anhand eines Preisvektors $\fp\in\R^n$ und eines Käufers $i\in\first{m}$ ein Bündel $\dem_i(\fp)\in\NB(i, \fp)$.
+	\item \emph{Die Makroskopische Sicht:} Hier können keine Informationen einzelner Käufer abgefragt werden, sondern nur noch auf die aggregierte Nachfrage bei gegebenen Preisen.
+	Das heißt, das sogenannte \emph{Aggregierte-Nachfrage-Orakel} liefert bei Eingabe eines Preisvektors $\fp\in\R^n$ einen Nachfrage-Vektor $\dem(\fp)\in\Z_{\geq0}^n$, für den nachgefragte Bündel $x^{(i)} \in \NB(i,\fp)$ mit $\dem(p)=\sum_{i\in\first{m}} x^{(i)}$ existieren.
+\end{itemize}
+
+Es sei erwähnt, dass man anhand eines Wert-Orakels ein Nachfrage-Orakel konstruieren kann:
+Sind Preise $\fp$ sowie ein Käufer $i$ gegeben, kann für jedes Bündel $x$ der Nutzen $u_i(x; \fp)$ durch je eine Abfrage des Wert-Orakels berechnet werden und ein Bündel ausgegeben werden, welches diesen Wert maximiert.
+Für eine Abfrage des Nachfrage-Orakels entstehen dann $\ffirst{\fs}$ Abfragen des Wert-Orakels.
+
+Genauso lässt sich aus einem Nachfrage-Orakel auch ein Aggregierte-Nachfrage-Orakel gewinnen: So kann man mit $m$ Abfragen des Nachfrage-Orakels für alle $i\in\{m\}$ ein nachgefragtes Bündel erhalten, welche summiert den aggregierten Nachfrage-Vektor ergeben.
+
+\todo{Im Folgenden wird ein Algorithmus diskutiert, der das Aggregierte-Nachfrage-Modell verwendet, um Walras-Gleichgewichte für allgemeine Bewertungsfunktionen zu berechnen.}
+
+\subsection{Darstellung als Lineares Optimierungsproblem}
+
+Man betrachte die Relaxation der Bestimmung von optimalen Allokationen als lineares Programm:
+\begin{align*}
+	\tag{LP}\label{LP}
+	&\max_{z} \sum_{i\in\first{m}, x\in\ffirst{\fs}} v_i(x) \cdot z_{i, x} \\[5pt]
+	\text{udN.} \quad & \sum_{x\in\ffirst{\fs}} z_{i, x} = 1 & \text{für alle $i\in\first{m}$}\\[5pt]
+	& \sum_{i\in\first{m}, x\in\ffirst{\fs}} x_j \cdot z_{i,x} = s_j & \text{für alle $j\in\first{n}$} \\[5pt]
+	& z_{i, x} \geq 0 &\text{für alle $i\in\first{m}, x\in\ffirst{\fs}$}
+\end{align*}
+Führt man für die ersten $m$ Bedingungen die Variablen $(u_i)_{i\in\first{m}}$ und für die nächsten $n$ Bedingungen die Variablen $(p_j)_{j\in\first{n}}$ ein, erhält man folgendes duale Programm:
+\begin{align*}
+\tag{DP}\label{DP}
+&\min_{\fp,\fu} \sum_{i\in\first{m}} u_i + \fp \bcdot \fs \\[5pt]
+\text{udN.} \quad &  u_i \geq v_i(x) - \fp \bcdot x & \text{für alle $i\in\first{m}, x\in\ffirst{\fs}$}
+\end{align*}
+\begin{lemma}
+	Ein Walras-Gleichgewicht existert genau dann, wenn~\eqref{LP} eine ganzzahlige Optimallösung hat.
+	Ist dies der Fall, so ist die Menge der Walras-Preise gerade die Menge der Optimallösungen von~\eqref{DP} projiziert auf die $\fp$-Koordinaten.
+\end{lemma}
+\begin{proof}
+	Zunächst bemerke man, dass die zulässigen ganzzahligen Lösungen von~\eqref{LP} gerade den gültigen Allokationen entsprechen:
+	Ist $z$ ganzzahlig und zulässig, so gibt es für alle $i\in\first{m}$ wegen den ersten Bedingungen genau ein Bündel $x^{(i)}\in\ffirst{\fs}$ mit $z_{i,x^{(i)}} = 1$.
+	Aus den nächsten $n$ Bedingung folgt dann die Gültigkeit der Allokation $(x^{(i)})_{i\in\first{m}}$.
+	Ausgehend von einer Allokation $\fx$ setzt man $z_{i,y} = 1$, falls $y = x^{(i)}$ gilt, und $z_{i,y}=0$ sonst, um zu einer ganzzahligen Lösung von~\eqref{LP} zu gelangen.
+	
+	Angenommen, es existiere ein Walras-Gleichgewicht $(\fx, \fp)$.
+	Transformiert man die Allokation wie oben zu $(z_{i,x})_{i,x}$ und setzt man zusätzlich $u_i = \max_{x\in\ffirst{s}} v_i(x) - \fp \bcdot x$, erhält man eine primal und eine dual zulässige Lösung mit gleichem Zielfunktionswert:
+	Es gilt mit $x^{(i)}\in\NB(i, \fp)$ und der Gültigkeit von $\fx$:
+	\begin{align*}
+		\sum_{i\in\first{m}} u_i + \fp \bcdot \fs
+		&= \sum_{i\in\first{m}} \left( \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x \right) + \fp \bcdot s = \sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp\bcdot x^{(i)} \right) + \fp \bcdot \fs \\
+		&= \sum_{i\in\first{m}} v_i(x^{(i)}) = \sum_{i\in\first{m}, x\in\ffirst{\fs}} v_i(x) \cdot z_{i,x}.
+	\end{align*}
+	Aufgrund schwacher Dualität ist $(z_{i,x})_{i,x}$ eine Optimallösung von~\eqref{LP}.
+	
+	Gibt es umgekehrt eine ganzzahlige Optimallösung, so kann diese wie oben zu einer gültigen Allokation $\fx$ transformiert werden.
+	Aufgrund starker Dualität gibt es auch eine Optimallösung $(\fp, \fu)$ von~\eqref{DP} mit Zielfunktionswert $\sum_{i\in\first{m}} v_i(x^{(i)})$.
+	Die Optimalität von $(\fp, \fu)$ impliziert bereits $u_i = \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$.
+	Subtrahiert man $\fp \bcdot \fs$ vom Zielfunktionswert erhält man 
+	\[
+	\sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp \bcdot x^{(i)} \right) = \sum_{i\in\first{m}} \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x,
+	\]
+	wodurch $x^{(i)}\in\NB(i, \fp)$ für alle $i\in\first{m}$ folgt.
+	Daher ist $\fx$ eine Walras-Allokation induziert durch die Preise $\fp$.
+	
+	Der zweite Teil der Aussage folgt aus dem Beweis des ersten Teils.
+\end{proof}
+
+\todo{Hier der Fehler vom Paper + Gegenbeispiel}
+
+\subsection{Konvexe Darstellung und Subgradienten}
+
+Für die Berechnung von Walras-Preisen genügt es also -- im Falle ihrer Existenz -- einen Minimierer von~\eqref{DP} zu ermitteln.
+Dabei können die Variablen $(u_i)_{i\in\first{m}}$ vermieden werden, indem man zu einem konvexen Minimierungsproblem wechselt:
+\begin{definition}
+	Seien ein Angebot $\fs$ sowie Käufer mit Bewertungen $(v_i)_{i\in\first{m}}$ gegeben. Die \emph{Marktpotenzialfunktion} ist definiert als
+	\[ f:\R^n \rightarrow \R,\quad \fp \mapsto \sum_{i\in\first{m}} \left( \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x \right) + \fp \bcdot \fs. \]
+\end{definition}
+Die Minimierer dieser Marktpotenzialfunktion sind gerade alle Optimallösungen von~\eqref{DP} projiziert auf die $\fp$-Koordinaten.
+Da das Maximum und die Summe konvexer Funktionen wieder konvex sind, ist $f$ ebenfalls konvex.
+
+Eine Möglichkeit, konvexe Funktionen zu optimieren, bildet die sogenannte Subgradienten-Methode.
+Daher wird zunächst der Begriff eines Subgradients eingeführt:
+\begin{definition}[Subgradient]
+	Sei $f:\R^n \rightarrow \R$ eine konvexe Funktion.
+	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $p\in\R^n$}, falls $f(x) \geq f(p) + g\bcdot (x - p)$ für alle $x\in\R^n$ gilt.
+\end{definition}
+
+Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ selbst zu machen, jedoch lassen sich sehr wohl Subgradienten von $f$ damit ermitteln:
+\begin{lemma}
+	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ in $\fp$.
+\end{lemma}
+\begin{proof}
+	Sei $\dem(\fp) = \sum_{i\in[m]} x^{(i)}$ die aggregierte Nachfrage zum Preis $\fp$.
+	Da $f$ eine Summe konvexer Funktionen ist, ist nach~\cite[Theorem~1.12]{Shor1985} jede Summe von Subgradienten der einzelnen Summanden in $\fp$ ein Subgradient von $f$ in $\fp$.
+	Weiter ist nach~\cite[Theorem~1.13]{Shor1985} für das Maximum konvexer Funktionen jeder Subgradient einer Funktion, die in $\fp$ das Maximum annimmt, ein Subgradient der Maximumsfunktion in $\fp$.
+	Des Weiteren ist für eine differenzierbare Funktion der einzige Subgradient der Gradient der Funktion.
+	
+	Dies heißt, da $x^{(i)}\in \arg\max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ gilt, sind $-x^{(i)}$ ein Subgradient von $\fp \mapsto \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ und $\fs - \dem(\fp)$ ein Subgradient von $f$ in $\fp$..
+\end{proof}

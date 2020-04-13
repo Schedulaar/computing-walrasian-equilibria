@@ -1,0 +1,84 @@
+\section{Walras-Gleichgewicht}
+
+\newcommand{\first}[1]{\left[ #1 \right]}
+\newcommand{\ffirst}[1]{\left\llbracket #1 \right\rrbracket}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\fp}{\mathbf{p}}
+\newcommand{\fx}{\mathbf{x}}
+\newcommand{\fy}{\mathbf{y}}
+\newcommand{\fs}{\mathbf{s}}
+\newcommand{\fu}{\mathbf{u}}
+
+
+\makeatletter
+\newcommand*\bcdot{\mathpalette\bcdot@{.5}}
+\newcommand*\bcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+Um Walras-Gleichgewichte formal einführen zu können, werden zunächst einige grundlegende Begriffe und Notationen erklärt.
+
+\begin{notation}
+	Für $k\in\Z_{\geq 0}$ sei $\first{k}\coloneqq \{ 1, 2, \dots, k \}$ die Menge der ersten $k$ natürlichen Zahlen; um die $0$ hinzuzunehmen, schreibt man $\ffirst{k}\coloneqq \{0,1,\dots, k \}$.
+	Für einen Vektor $\fs = (s_1, \dots, s_n)\in\Z_{\geq0}^n$ definiert man $\ffirst{\fs}\coloneqq \Pi_{j\in\first{n}} \ffirst{s_j}$.
+\end{notation}
+
+Das Modell des Marktes besteht hier aus einer Menge $\first{m}$ von \emph{Käufern}, einer Menge $\first{n}$ von \emph{Gütern} sowie aus einem \emph{Angebot} $s_j\in\Z_{\geq 0}$ für jedes Gut $j\in\first{n}$.
+
+Jedem Käufer $i\in\first{m}$ ist eine Bewertungsfunktion $v_i:\Z^n_{\geq 0} \rightarrow \Z$ zugeordnet, die einem $\emph{Bündel}$, also einer Multimenge an Gütern aus $\first{m}$, einen ganzzahligen Wert zuschreibt, wobei $v_i(\zero) = 0$ gilt.
+
+Sind ein \emph{Preisvektor} $\fp\in\R^n$ und ein Bündel $x\in\Z^{m}_{\geq0}$ gegeben, bezeichnet $u_i(x;\fp) \coloneqq v_i(x) - \fp \bcdot x$ den Nutzen von Bündel $x$ bei Preisen $\fp$ für Käufer $i$.
+Hierbei ist $\fp \cdot x$ das Skalarprodukt von $\fp$ und $x$.
+
+\begin{definition}[Allokation]
+	Eine \emph{Allokation} $\fx\coloneqq (x^{(i)})_{i\in\first{m}}$ weist jedem Käufer $i\in\first{m}$ ein Bündel $x^{(i)} \in\Z^n_{\geq0}$ zu.
+	Ist ein Angebotsvektor $\fs\in\Z^m_{\geq0}$ gegeben, nennt man eine Allokation \emph{gültig}, falls sie genau das Angebot verteilt, das heißt, falls $\sum_{i\in\first{m}} x^{(i)} = \fs$ gilt.
+	
+	Das \emph{soziale Wohl} einer gültigen Allokation $\fx$ ist definiert als $\SW(\fx) \coloneqq \sum_{i\in\first{m}} v_i(x^{(i)})$.
+	Eine gültige Allokation mit maximalem sozialen Wohl wird \emph{optimale Allokation} genannt.
+\end{definition}
+
+\begin{definition}[Nachfragebereich]
+	Man nennt die Menge $\NB(v,\fp)$ der Bündel, die den Nutzen unter einer Bewertungsfunktion $v:\Z^n_{\geq 0} \rightarrow \Z$ bei Preisen $\fp$ maximiert, den Nachfragebereich von $v$ bei Preisen $\fp$.
+	Es ist also $ \NB(v, \fp) \coloneqq \arg\max_{x\in\ffirst{\fs}} v(x) - \fp \bcdot x$.
+	Für den Nachfragebereich eines Käufers $i\in\first{m}$ wird abkürzend $\NB(i,p):=\NB(v_i, p)$ geschrieben.
+\end{definition}
+
+\begin{definition}[Walras-Gleichgewicht]
+	Ein Paar $(\fx, \fp)$ bestehend aus einer gültigen Allokation $\fx$ und einem Preisvektor $\fp$ heißt \emph{(Walras-)Gleichgewicht}, falls jedem Käufer ein Bündel aus seinem Nachfragebereich zugewiesen wird, falls also $x^{(i)} \in \NB(i, \fp)$ für alle $i\in \first{m}$ gilt.
+	Dabei nennt man $\fp$ einen \emph{Walras-Preisvektor} und $\fx$ eine von $\fp$ induzierte \emph{Walras-Allokation}.
+\end{definition}
+
+In einem Walras-Gleichgewicht gibt es also für keinen der Käufer eine für ihn bessere Allokation: Das Bündel, das dem Käufer zugeteilt wird, hat bei den gegebenen Preisen einen für ihn maximalen Nutzen.
+Des Weiteren wird durch Gültigkeit der Allokation in einem solchen Gleichgewicht sichergestellt, dass das Angebot und die Nachfrage des gesamten Marktes übereinstimmen: Es bleiben also weder Güter übrig, noch wird die Nachfrage irgendeines Käufers nicht gedeckt.
+
+Darüber hinaus gelten hier die sogenannten Wohlfahrtstheoreme aus der Ökonomik:
+Das erste Wohlfahrtstheorem besagt, dass jedes Gleichgewicht bei vollkommenen Wettbewerb, wie er hier unter den Käufern möglich ist, das soziale Wohl maximiert.
+Das zweite Wohlfahrtstheorem sagt aus, dass jede optimale Allokation bei Walras-Preisen ein Gleichgewicht erzeugt.
+
+\begin{lemma}[Erstes und zweites Wohlfahrtstheorem]
+	Ist $(\fx, \fp)$ ein Gleichgewicht, so ist $\fx$ eine optimale Allokation.
+	Ist $\fy$ eine beliebige optimale Allokation, so bildet auch $(\fy, \fp)$ ein Gleichgewicht.
+\end{lemma}
+\begin{proof}
+	Seien $(\fx, \fp)$ ein Gleichgewicht und $\fy$ eine gültige Allokation.
+	Für alle $i\in\first{m}$ gilt wegen $x^{(i)} \in \NB(i,\fp)$ dann $v_i(x^{(i)}) - \fp \bcdot x^{(i)} \geq v_i(y^{(i)}) - \fp \bcdot y^{(i)}$.
+	Mit der Gültigkeit der Allokationen $\sum_{i\in\first{m}} x^{(i)} = \sum_{i\in\first{m}} y^{(i)} = \fs$ folgere man
+	\[
+		\sum_{i\in\first{m}} v_i(x^{(i)}) \geq
+		\sum_{i\in\first{m}} \left( v_i(y^{(i)}) - \fp \bcdot (y^{(i)} - x^{(i)}) \right)
+		= \sum_{i\in\first{m}} v_i(y^{(i)}) - \fp \bcdot (\fs - \fs) = \sum_{i\in\first{m}} v_i(y^{(i)}).
+	\]
+	Insbesondere ist $\fx$ also eine optimale Allokation.
+	
+	Ist nun $\fy$ ebenfalls optimal, gilt 
+	$ \sum_{i\in\first{m}} v_i(x^{i}) = \sum_{i\in\first{m}} v_i(y^{(i)}) $ und mit der Gültigkeit der Allokationen lässt sich
+	\[
+		\sum_{i\in\first{m}} \left( v_i(x^{i}) - \fp \bcdot x^{(i)} \right)
+		= \sum_{i\in\first{m}} \left( v_i(y^{(i)}) - \fp \bcdot y^{(i)} \right)
+	\]
+	folgern.
+	Da $x^{(i)}\in\NB(i, \fp)$ für die Summanden bereits $v_i(x^{(i)}) - \fp \bcdot  x^{(i)} \geq v_i(y^{(i)}) - \fp \bcdot y^{(i)}$ impliziert, müssen diese bereits exakt übereinstimmen.
+	Dadurch folgt auch $y^{(i)}\in\NB(i, \fp)$ für alle $i\in\first{m}$, sodass $\fy$ ebenfalls eine Walras-Allokation zu Preisen $\fp$ ist.
+\end{proof}
+
