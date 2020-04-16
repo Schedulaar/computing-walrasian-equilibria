@@ -108,3 +108,22 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	
 	Dies heißt, da $x^{(i)}\in \arg\max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ gilt, sind $-x^{(i)}$ ein Subgradient von $\fp \mapsto \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ und $\fs - \dem(\fp)$ ein Subgradient von $f$ in $\fp$.
 \end{proof}
+
+\begin{lemma}\label{prices-bounded}
+	Ist $\fx$ eine Walras-Allokation, so sind für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}}$ alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
+\end{lemma}
+\begin{proof}
+	Seien $\fp$ ein Walras-Preisvektor und $j\in\first{n}$ gegeben.
+	Der Preis $p_j$ übersteigt $2M$ nicht, denn sonst würde kein Käufer $j$ nachfragen:
+	Da $s_j$ positiv ist, gibt es einen Käufer $i$ mit $x^{(i)}_j > 0$, für den $x^{(i)} \in\NB(i, \fp)$ folgende Ungleichung impliziert, wobei $e_j$ der $j$-te Einheitsvektor ist:
+	\[
+	v_i(x^{(i)}) - \fp \bcdot x^{(i)} \geq v_i(x^{(i)} - e_j) - \fp \bcdot ( x^{(i)} - e_j ).
+	 \]
+	 Es folgt also $2M \geq v_i(x^{(i)}) - v_i(x^{(i)} - e_j) \geq p_j$.
+	 Umgekehrt ist $p_j$ mindestens $-2M$, denn sonst würden alle Käufer jeweils das gesamte Angebot von $j$ nachfragen:
+	 Angenommen, es gilt $p_j < -2M$, so folgt $x^{(i)}_j = s_j$ für alle $i\in\first{m}$, denn für $x^{(i)}_j < s_j$ folgt der Widerspruch
+	 \[ 
+	 	v_i(x^{i})  - \fp \bcdot x^{(i)} < v_i(x^{(i)}) - \fp \bcdot (x^{(i)} + e_j) - 2M \leq v_i(x^{(i)} + e_j) - \fp \bcdot (x^{(i)} + e_j).
+	 \]
+	 Da es mindestens zwei Käufer gibt, folgt schließlich $p_j \geq -2M$.
+\end{proof}

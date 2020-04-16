@@ -23,7 +23,7 @@ Um Walras-Gleichgewichte formal einführen zu können, werden zunächst einige g
 	Für einen Vektor $\fs = (s_1, \dots, s_n)\in\Z_{\geq0}^n$ definiert man $\ffirst{\fs}\coloneqq \Pi_{j\in\first{n}} \ffirst{s_j}$.
 \end{notation}
 
-Das Modell des Marktes besteht hier aus einer Menge $\first{m}$ von \emph{Käufern}, einer Menge $\first{n}$ von \emph{Gütern} sowie aus einem \emph{Angebot} $s_j\in\Z_{\geq 0}$ für jedes Gut $j\in\first{n}$.
+Das Modell des Marktes besteht hier aus einer Menge $\first{m}$ von $m\geq 2$ \emph{Käufern}, einer Menge $\first{n}$ von \emph{Gütern} sowie aus einem \emph{Angebot} $s_j\in\Z_{>0}$ für jedes Gut $j\in\first{n}$.
 
 Jedem Käufer $i\in\first{m}$ ist eine Bewertungsfunktion $v_i:\Z^n_{\geq 0} \rightarrow \Z$ zugeordnet, die einem $\emph{Bündel}$, also einer Multimenge an Gütern aus $\first{m}$, einen ganzzahligen Wert zuschreibt, wobei $v_i(\zero) = 0$ gilt.
 
@@ -48,6 +48,11 @@ Hierbei ist $\fp \cdot x$ das Skalarprodukt von $\fp$ und $x$.
 	Ein Paar $(\fx, \fp)$ bestehend aus einer gültigen Allokation $\fx$ und einem Preisvektor $\fp$ heißt \emph{(Walras-)Gleichgewicht}, falls jedem Käufer ein Bündel aus seinem Nachfragebereich zugewiesen wird, falls also $x^{(i)} \in \NB(i, \fp)$ für alle $i\in \first{m}$ gilt.
 	Dabei nennt man $\fp$ einen \emph{Walras-Preisvektor} und $\fx$ eine von $\fp$ induzierte \emph{Walras-Allokation}.
 \end{definition}
+
+\begin{bemerkung}
+	Im Vergleich zu~\cite{PaesLeme2018} wird hier das Angebot $s_j$ positiv statt nicht-negativ gewählt und es werden mindestens zwei Käufer vorausgesetzt, um den Beweis von Lemma~\ref{prices-bounded} bzw. von~\cite[Lemma 4]{PaesLeme2018} zu ermöglichen.
+	Die ausgeschlossenen Fälle sind jedoch uninteressant.
+\end{bemerkung}
 
 In einem Walras-Gleichgewicht gibt es also für keinen der Käufer eine für ihn bessere Allokation: Das Bündel, das dem Käufer zugeteilt wird, hat bei den gegebenen Preisen einen für ihn maximalen Nutzen.
 Des Weiteren wird durch Gültigkeit der Allokation in einem solchen Gleichgewicht sichergestellt, dass das Angebot und die Nachfrage des gesamten Marktes übereinstimmen: Es bleiben also weder Güter übrig, noch wird die Nachfrage irgendeines Käufers nicht gedeckt.
