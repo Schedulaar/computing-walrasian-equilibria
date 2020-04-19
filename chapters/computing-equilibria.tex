@@ -76,7 +76,26 @@ Führt man für die ersten $m$ Bedingungen die Variablen $(u_i)_{i\in\first{m}}$
 	Der zweite Teil der Aussage folgt aus dem Beweis des ersten Teils.
 \end{proof}
 
-\todo{Hier der Fehler vom Paper + Gegenbeispiel}
+\begin{lemma}
+	Das folgende transformierte Programm ist äquivalent zu~\eqref{DP}: \emph{
+	\begin{align*}
+		\tag{TD}\label{TDP}
+		&\min_{\fp, u} u + \fp \bcdot \fs \\[5pt]
+	\text{udN.}\quad& u \geq \sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp \bcdot x^{(i)} \right) & \text{für alle $\fx = (x^{(i)})_{i\in\first{m}}\in\ffirst{\fs}^m$}
+	\end{align*}
+}
+\end{lemma}
+\begin{proof}
+	Für eine zulässige Lösung $(\fp, \fu)$ von~\eqref{DP} ist $(\fp, u)$ mit $u\coloneqq \sum_{i\in\first{m}} u_i$ eine zulässige Lösung von~\eqref{TDP} mit gleichem Zielfunktionswert.
+	Umgekehrt ist für eine zulässige Lösung $(\fp, u)$ von~\eqref{TDP} mit $u_i\coloneqq \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ auch $(\fp, \fu)$ zulässig für~\eqref{DP} mit einem Wert von höchstens $u+\fp\bcdot \fs$, da die folgende Ungleichung erfüllt ist: \[
+		\sum_{i\in\first{m}} u_i = \sum_{i\in\first{m}} \max_{x\in\ffirst{\fs}} \left( v_i(x) - \fp \bcdot x \right) = \max_{\fx\in\ffirst{\fs}^m} \sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp \bcdot x^{(i)} \right) \leq u.
+	\]
+\end{proof}
+\begin{bemerkung} 
+	In~\cite{PaesLeme2018} wird statt der Nebenbedingung in~\eqref{TDP} die Nebenbedingung $u \geq \sum_{i\in\first{m}} v_i(x) - \fp \bcdot x$ für alle $x\in\ffirst{\fs}$ betrachtet.
+	Das entsprechende Problem ist jedoch nicht äquivalent zu~\eqref{DP}:
+	Betrachtet man einen Markt mit nur einem Gut mit Angebot $s=1$ und zwei Käufern, deren Bewertungsfunktionen durch $v_1(0)=v_2(0)=0$ und $v_1(1)=1$ sowie $v_2(1) = -1$ gegeben sind, haben die Probleme unterschiedliche Optimalwerte.
+\end{bemerkung}
 
 \subsection{Konvexe Darstellung und Subgradienten}
 
@@ -101,7 +120,7 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ in $\fp$.
 \end{lemma}
 \begin{proof}
-	Sei $\dem(\fp) = \sum_{i\in[m]} x^{(i)}$ die aggregierte Nachfrage zum Preis $\fp$.
+	Sei $\dem(\fp) = \sum_{i\in\first{m}} x^{(i)}$ die aggregierte Nachfrage zum Preis $\fp$.
 	Da $f$ eine Summe konvexer Funktionen ist, ist nach~\cite[Theorem~1.12]{Shor1985} jede Summe von Subgradienten der einzelnen Summanden in $\fp$ ein Subgradient von $f$ in $\fp$.
 	Weiter ist nach~\cite[Theorem~1.13]{Shor1985} für das Maximum konvexer Funktionen jeder Subgradient einer Funktion, die in $\fp$ das Maximum annimmt, ein Subgradient der Maximumsfunktion in $\fp$.
 	Des Weiteren ist für eine differenzierbare Funktion der einzige Subgradient der Gradient der Funktion.
@@ -130,12 +149,19 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 
 \begin{lemma}
 	Die Menge der Walras-Preise ist ein Polytop, dessen Ecken von der Form $p_j = a_j/b_j$ mit $a_j,b_j\in\Z$ und
-	$\abs{b_j} \leq (Sn)^n$
+	$\abs{b_j} \leq (n+1)!\, (mS)^n$
 	für $S = \max_{j\in\first{n}} s_j$ sind.
 \end{lemma}
 \begin{proof}
-	Ergänzt man~\eqref{DP} um Schlupfvariablen $\fy=(y_{i,x})_{i,x}$, so erhält man Bedingungen der Form $ u_i + \fp \bcdot x + y_{i,x} = v_i(x) $ für alle $i\in\first{m}, x\in\ffirst{\fs}$.
-	Sei $A$ die Matrix, die diese Nebenbedingungen in $A \cdot (\fu, \fp, \fy)^T = (v_i(x))_{i,x}$ zusammenfasst.
+	Ergänzt man~\eqref{TDP} um Schlupfvariablen $\fy=(y_{\fx})_{\fx\in\ffirst{\fs}}$, so erhält man Bedingungen der Form $ u + \fp \bcdot \sum_{i\in\first{m}} x^{(i)} + y_{\fx} = \sum_{i\in\first{m}} v_i(x) $ für alle $i\in\first{m}, x\in\ffirst{\fs}$.
+	Seien $A$ die Matrix und $b$ der Vektor, die diese Nebenbedingungen in $A \cdot (\fp, u, \fy)^T = b$ zusammenfasst.
 	
 	
+	Aus den Grundlagen linearer Optimierung ist bekannt, dass beschränkte Optimierungsprobleme bei nichtleerem Zulässigkeitsbereich immer optimale Ecklösungen, also optimale Basislösungen, besitzen.
+	Die Regel von Cramer besagt, dass optimale Basislösungen $(\fp, u, \fy)$ die Darstellung $p_j = \det(A_B^j) / \det(A_B)$ für $j\in\first{n}\cap B$ besitzen, wobei $A_B$ die Basisspalten von $A$ sind und $A_B^j$ aus $A_B$ durch Ersetzen der $j$-ten Spalte mit $b_B$ entsteht.
+	
+	Der Zähler ist also eine ganze Zahl.
+	Sind Schlupfvariablen in der Basis $B$, so kann man $\det(A_B)$ jeweils nach diesen Spalten entwickeln, in denen $A_B$ nur Einheitsvektoren hat.
+	Es genügt also die Determinante einer $(n+1)\times(n+1)$-Submatrix mit den Spalten von $\fp$ und $u$ zu beschränken:
+ 	Die Einträge der Spalten von $\fp$ sind hier zwischen 0 und $m\cdot S$, sodass mit der Leibniz-Formel $\abs{\det(A_B)} \leq (n+1)!\, (m S)^{n}$ folgt.
 \end{proof}
