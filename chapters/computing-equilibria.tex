@@ -31,7 +31,7 @@ Genauso lässt sich aus einem Nachfrage-Orakel auch ein Aggregierte-Nachfrage-Or
 
 Man betrachte die Relaxation der Bestimmung von optimalen Allokationen als lineares Programm:
 \begin{align*}
-	\tag{LP}\label{LP}
+	\tag{P}\label{LP}
 	&\max_{z} \sum_{i\in\first{m}, x\in\ffirst{\fs}} v_i(x) \cdot z_{i, x} \\[5pt]
 	\text{udN.} \quad & \sum_{x\in\ffirst{\fs}} z_{i, x} = 1 & \text{für alle $i\in\first{m}$}\\[5pt]
 	& \sum_{i\in\first{m}, x\in\ffirst{\fs}} x_j \cdot z_{i,x} = s_j & \text{für alle $j\in\first{n}$} \\[5pt]
@@ -39,7 +39,7 @@ Man betrachte die Relaxation der Bestimmung von optimalen Allokationen als linea
 \end{align*}
 Führt man für die ersten $m$ Bedingungen die Variablen $(u_i)_{i\in\first{m}}$ und für die nächsten $n$ Bedingungen die Variablen $(p_j)_{j\in\first{n}}$ ein, erhält man folgendes duale Programm:
 \begin{align*}
-\tag{DP}\label{DP}
+\tag{D}\label{DP}
 &\min_{\fp,\fu} \sum_{i\in\first{m}} u_i + \fp \bcdot \fs \\[5pt]
 \text{udN.} \quad &  u_i \geq v_i(x) - \fp \bcdot x & \text{für alle $i\in\first{m}, x\in\ffirst{\fs}$}
 \end{align*}
@@ -110,7 +110,7 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 \end{proof}
 
 \begin{lemma}\label{prices-bounded}
-	Ist $\fx$ eine Walras-Allokation, so sind für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}}$ alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
+	Ist $\fx$ eine Walras-Allokation, so sind für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}} \abs{v_i(x)}$ alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
 \end{lemma}
 \begin{proof}
 	Seien $\fp$ ein Walras-Preisvektor und $j\in\first{n}$ gegeben.
@@ -126,4 +126,16 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	 	v_i(x^{i})  - \fp \bcdot x^{(i)} < v_i(x^{(i)}) - \fp \bcdot (x^{(i)} + e_j) - 2M \leq v_i(x^{(i)} + e_j) - \fp \bcdot (x^{(i)} + e_j).
 	 \]
 	 Da es mindestens zwei Käufer gibt, folgt schließlich $p_j \geq -2M$.
+\end{proof}
+
+\begin{lemma}
+	Die Menge der Walras-Preise ist ein Polytop, dessen Ecken von der Form $p_j = a_j/b_j$ mit $a_j,b_j\in\Z$ und
+	$\abs{b_j} \leq (Sn)^n$
+	für $S = \max_{j\in\first{n}} s_j$ sind.
+\end{lemma}
+\begin{proof}
+	Ergänzt man~\eqref{DP} um Schlupfvariablen $\fy=(y_{i,x})_{i,x}$, so erhält man Bedingungen der Form $ u_i + \fp \bcdot x + y_{i,x} = v_i(x) $ für alle $i\in\first{m}, x\in\ffirst{\fs}$.
+	Sei $A$ die Matrix, die diese Nebenbedingungen in $A \cdot (\fu, \fp, \fy)^T = (v_i(x))_{i,x}$ zusammenfasst.
+	
+	
 \end{proof}
