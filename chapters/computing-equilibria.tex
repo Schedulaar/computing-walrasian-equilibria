@@ -158,10 +158,10 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	
 	
 	Aus den Grundlagen linearer Optimierung ist bekannt, dass beschränkte Optimierungsprobleme bei nichtleerem Zulässigkeitsbereich immer optimale Ecklösungen, also optimale Basislösungen, besitzen.
-	Die Regel von Cramer besagt, dass optimale Basislösungen $(\fp, u, \fy)$ die Darstellung $p_j = \det(A_B^j) / \det(A_B)$ für $j\in\first{n}\cap B$ besitzen, wobei $A_B$ die Basisspalten von $A$ sind und $A_B^j$ aus $A_B$ durch Ersetzen der $j$-ten Spalte mit $b_B$ entsteht.
+	Die Regel von Cramer besagt, dass optimale Basislösungen $(\fp, u, \fy)$ die Darstellung $p_j = \det(A_B^j) / \det(A_B)$ für $j\in\first{n}\cap B$ haben, wobei $A_B$ die Basisspalten von $A$ sind und $A_B^j$ aus $A_B$ durch Ersetzen der $j$-ten Spalte mit $b_B$ entsteht.
 	
 	Der Zähler ist also eine ganze Zahl.
-	Sind Schlupfvariablen in der Basis $B$, so kann man $\det(A_B)$ jeweils nach diesen Spalten entwickeln, in denen $A_B$ nur Einheitsvektoren hat.
+	Sind Schlupfvariablen in der Basis $B$, so kann man $\det(A_B)$ jeweils nach diesen Spalten entwickeln, da $A_B$ hier nur aus Einheitsvektoren besteht.
 	Es genügt also die Determinante einer $(n+1)\times(n+1)$-Submatrix mit den Spalten von $\fp$ und $u$ zu beschränken:
  	Die Einträge der Spalten von $\fp$ sind hier zwischen 0 und $m\cdot S$, sodass mit der Leibniz-Formel $\abs{\det(A_B)} \leq (n+1)!\, (m S)^{n}$ folgt.
 \end{proof}
