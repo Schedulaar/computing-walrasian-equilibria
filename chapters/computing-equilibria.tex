@@ -114,6 +114,13 @@ Daher wird zunächst der Begriff eines Subgradients eingeführt:
 	Sei $f:\R^n \rightarrow \R$ eine konvexe Funktion.
 	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $p\in\R^n$}, falls $f(x) \geq f(p) + g\bcdot (x - p)$ für alle $x\in\R^n$ gilt.
 \end{definition}
+\begin{proposition}
+Sei $f$ eine konvexe, bzgl. $\norm{\cdot}$ Lipschitz-stetige Funktion mit Lipschitz-Konstante $L$.
+Dann gilt $\norm{g}\leq L$ für jeden Subgradienten $g$ von $f$ in jedem Punkt $p$.
+\end{proposition}
+\begin{proof}
+Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-1} + p) - f(p) \leq L \cdot \norm{g}\cdot \norm{g}^{-1} = L$.
+\end{proof}
 
 Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ selbst zu machen, jedoch lassen sich sehr wohl Subgradienten von $f$ damit ermitteln:
 \begin{lemma}
@@ -165,3 +172,6 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Es genügt also die Determinante einer $(n+1)\times(n+1)$-Submatrix mit den Spalten von $\fp$ und $u$ zu beschränken:
  	Die Einträge der Spalten von $\fp$ sind hier zwischen 0 und $m\cdot S$, sodass mit der Leibniz-Formel $\abs{\det(A_B)} \leq (n+1)!\, (m S)^{n}$ folgt.
 \end{proof}
+\begin{bemerkung}
+	Im Vergleich zu~\cite[Lemma~5]{PaesLeme2018} ist in der Abschätzung hier aufgrund der unterschiedlichen LP-Darstellung von~\eqref{DP} die Anzahl der Käufer $m$ enthalten.
+\end{bemerkung}
