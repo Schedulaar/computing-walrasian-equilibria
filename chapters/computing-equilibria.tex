@@ -114,9 +114,9 @@ Daher wird zunächst der Begriff eines Subgradients eingeführt:
 	Sei $f:\R^n \rightarrow \R$ eine konvexe Funktion.
 	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $p\in\R^n$}, falls $f(x) \geq f(p) + g\bcdot (x - p)$ für alle $x\in\R^n$ gilt.
 \end{definition}
-\begin{proposition}
-Sei $f$ eine konvexe, bzgl. $\norm{\cdot}$ Lipschitz-stetige Funktion mit Lipschitz-Konstante $L$.
-Dann gilt $\norm{g}\leq L$ für jeden Subgradienten $g$ von $f$ in jedem Punkt $p$.
+\begin{proposition}\label{prop-convex-lipschitz}
+Sei $f: \R^n \rightarrow \R$ eine konvexe und bezüglich $\norm{\cdot}$ Lipschitz-stetige Funktion mit Lipschitz-Konstante $L$.
+Dann gilt $\norm{g}\leq L$ für jeden Subgradienten $g$ von $f$ in jedem Punkt $p\in\R^n$.
 \end{proposition}
 \begin{proof}
 Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-1} + p) - f(p) \leq L \cdot \norm{g}\cdot \norm{g}^{-1} = L$.
@@ -135,7 +135,7 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Dies heißt, da $x^{(i)}\in \arg\max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ gilt, sind $-x^{(i)}$ ein Subgradient von $\fp \mapsto \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ und $\fs - \dem(\fp)$ ein Subgradient von $f$ in $\fp$.
 \end{proof}
 
-\begin{lemma}\label{prices-bounded}
+\begin{lemma}\label{lemma-prices-bounded-M}
 	Ist $\fx$ eine Walras-Allokation, so sind für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}} \abs{v_i(x)}$ alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
 \end{lemma}
 \begin{proof}
@@ -154,9 +154,9 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	 Da es mindestens zwei Käufer gibt, folgt schließlich $p_j \geq -2M$.
 \end{proof}
 
-\begin{lemma}
-	Die Menge der Walras-Preise ist ein Polytop, dessen Ecken von der Form $p_j = a_j/b_j$ mit $a_j,b_j\in\Z$ und
-	$\abs{b_j} \leq (n+1)!\, (mS)^n$
+\begin{lemma}\label{lemma-prices-bounded-S}
+	Die Menge der Walras-Preise ist ein Polytop, dessen Ecken $\fp$ von der Form $p_j = a_j/b$ mit $a_j,b\in\Z$ und
+	$\abs{b} \leq (n+1)!\, (mS)^n$
 	für $S = \max_{j\in\first{n}} s_j$ sind.
 \end{lemma}
 \begin{proof}
@@ -175,3 +175,143 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 \begin{bemerkung}
 	Im Vergleich zu~\cite[Lemma~5]{PaesLeme2018} ist in der Abschätzung hier aufgrund der unterschiedlichen LP-Darstellung von~\eqref{DP} die Anzahl der Käufer $m$ enthalten.
 \end{bemerkung}
+
+\todo{Zitat}
+\begin{theorem}\label{thm-cutting-plane-method}
+	Seien eine konvexe Menge $K\subseteq [-M,M]^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in[-M,M]^n$ in einer Laufzeit von $T$ entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene $H=\{ \fp \in\R^n \mid \fa \bcdot \fp \leq b \}$ mit $K\subseteq H$ ausgibt.
+	
+	Dann lässt sich in $\bigO(nT\log(nM/\delta) + n^3 \log^{\bigO(1)}(nM)\log^2(nM/\delta))$ Zeit entweder ein Punkt $\fp\in K$ oder ein Polytop $P=\{ \fp\in\R^n \mid \fa_i \bcdot \fp \leq b_i, i\in\first{k} \}$ mit $k=\bigO(n)$ und den folgenden Eigenschaften ermitteln:
+	\begin{itemize}
+		\item Jede Bedingung $\fa_i \bcdot \fp \leq b_i$ von $P$ ist entweder von der Form $p_i \leq M$ oder $p_i\geq -M$ oder wurde vom Trennorakel erstellt, wobei $\norm{\fa_i}=1$ gilt.
+		\item Das Polytop $P$ ist schmal, das heißt, es gibt einen Vektor $\fa$ mit $\norm{\fa}=1$ und 
+	\[
+	\max_{\fp\in P} \fa \bcdot \fp - \min_{\fp\in P} \fa \bcdot \fp = \bigO(n\delta \log(nM/\delta)).
+	\]
+		\item Der Algorithmus erstellt ein Zertifikat der Schmalheit, also eine Konvexkombination $t_1,\dots,t_k$ mit $t_i\geq0$ für $i\in\first{k}$ und $\sum_{i\in\first{k}}t_i = 1$, die die folgenden Schranken erfüllt:
+		\[
+		\norm{\, \sum_{i\in\first{k}} t_i \fa_i \, } = \bigO\left( \frac{\delta}{M} \sqrt{n} \log\left( \frac{M}{\delta} \right) \right)
+		\qquad
+		\text{und}
+		\qquad
+		\abs{\sum_{i\in\first{k}} t_i b_i} = \bigO\left(n\delta\log\left(\frac{M}{\delta}\right) \right).
+		\]
+	\end{itemize}
+\end{theorem}
+\todo{blaa}
+
+\begin{proposition}\label{prop-trivial-bound-thm}
+	Für ein Polytop, das aus dem Algorithmus von Theorem~\ref{thm-cutting-plane-method} hervorgeht, gilt für Punkte $\fp^*\in K$:
+	\[
+		\sum_{i\in\first{k}} t_i (b_i - \fa_i \bcdot \fp^*) \leq \bigO\left( n\delta\log\left(\frac{M}{\delta}\right) \right).
+	\]
+\end{proposition}
+\begin{proof}
+	Mit der Dreiecksungleichung, der Cauchy-Schwarzschen Ungleichung sowie den Beschränkungen aus Theorem~\ref{thm-cutting-plane-method} gilt:
+	\begin{align*}
+	\sum_{i\in\first{k}}  t_i (b_i - \fa_i \bcdot \fp^*)
+	&= \sum_{i\in\first{k}} t_i b_i
+	- \left( \sum_{i\in\first{k}} t_i \fa_i \right)\bcdot \fp^*
+	\leq
+	\abs{\sum_{i\in\first{k}} t_i b_i}
+	+ \norm{\sum_{i\in\first{k}} t_i \fa_i} \cdot \norm{p^*}
+	\\[5pt]
+	&\leq \bigO\left( 
+	n\delta \log\left(\frac{M}{\delta}\right)
+	+ \frac{\delta}{M}\sqrt{n}\log\left( \frac{M}{\delta} \right)
+	\cdot M \sqrt{n}
+	\right)
+	= \bigO\left(
+	n\delta\log\left( \frac{M}{\delta} \right)
+	\right)
+	\end{align*}
+\end{proof}
+
+\begin{theorem}\label{thm-approximate-solution}
+	Seien eine konvexe, $L$-Lipschitz-stetige Funktion $f:\R^n\rightarrow \R$ sowie ein Subgradienten-Orakel, welches für einen Punkt $\fp$ mit Laufzeit $T$ einen Subgradienten von $f$ in $p$ ausgibt, gegeben.
+	Existiert ein Minimierer von $f$ in $[-M, M]^n$, kann ein Punkt $\bar{\fp}$ mit $f(\bar{\fp}) - \min_{\fp\in\R^n} f(p)\leq \varepsilon$ in $\bigO(n T \log(n M L / \varepsilon) + n^3 \log^{\bigO(1)} (nML) \log^2(nML/\varepsilon) )$ Zeit gefunden werden.
+\end{theorem}
+\begin{proof}
+	Seien zunächst $M'\coloneqq n^{\bigO(1)}$ und $K\coloneqq \arg\min_{\fp\in\R^n} f(\fp)\cap [-M', M']^n$ die konvexe, nichtleere Menge der Minimierer von $f$ in $[-M',M']^n$.
+	Theorem~\ref{thm-cutting-plane-method} wird mit dem erweiterten Quader $[-M', M']^n$ und dem Subgradienten-Orakel angewandt:
+	Dieses gibt für einen Punkt $\fp_0$ die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ aus, wobei $g$ ein Subgradient von $f$ in $\fp$ ist.
+	Für alle $\fp^*\in K$ gilt dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp) + g \bcdot \fp \leq g \bcdot \fp$, was $K\subseteq H$ impliziert.
+	
+	Gibt der Algorithmus einen Punkt in $K$ aus, ist dieser ein Minimierer von $f$ und erfüllt die geforderte Schranke.
+	Sonst erhält man ein Polytop $P= \{ \fp\in\R^n \mid \fa_i \bcdot \fp \leq b_i, i\in\first{k} \}$ mit den Eigenschaften aus Theorem~\ref{thm-cutting-plane-method}.
+	
+	Entstammen alle Ungleichungen des Polytops dem Orakel, so gelten $\fa_i = g_i\cdot \norm{g_i}^{-1}$ und $b_i = g_i\bcdot \fp_i \cdot \norm{g_i}^{-1}$ mit Punkten $\fp_i\in\R^n$ und Subgradienten $g_i$ von $f$ in $\fp_i$ für $i\in\first{k}$.
+	Sei $\fp^*\in K$ ein Minimierer von $f$.
+	Mit der gegebenen Konvexkombination $(t_i)_{i\in\first{k}}$ erhält man nun einen gesuchten Punkt durch $\bar{\fp} \coloneqq \sum_{i\in\first{k}} t_i \fp_i$:
+	\begin{align*}
+		f(\bar{\fp}) - f(\fp^*)
+		&\leq \sum_{i\in\first{k}} t_i f(\fp_i) - f(\fp^*)
+		= \sum_{i\in\first{k}} t_i (f(\fp_i) - f(\fp^*))
+		\leq \sum_{i\in\first{k}} t_i g_i \bcdot (\fp_i - \fp^*) \\
+		&= L\cdot \sum_{i\in\first{k}}  t_i \fa_i \bcdot (\fp_i - \fp^*)
+		\leq \bigO\left(
+			Ln\delta\log\left( \frac{M'}{\delta} \right)
+		\right)
+	\end{align*}
+	Die erste Ungleichung folgt aufgrund der Konvexität; die zweite gilt nach Definition von Subgradienten.
+	Die dritte gilt nach Proposition~\ref{prop-trivial-bound-thm}
+	
+	Man kann nun $\delta$ so klein wählen, dass $\varepsilon\leq\bigO(Ln\delta\log(M/\delta))$ gilt.
+	\todo{Wie soll ich damit die Laufzeit erklären? Also auf was soll ich delta denn tatsächlich setzen damit das gewünschte raus kommt? Auf das s.u.?!}
+	
+	Sei nun $B$, die Menge der Indizes der Bedingungen des Polytops $P$ von der Form $p_i \leq M'$ oder $-p_i \leq M'$, nicht leer.
+	Für alle $i\in B$ gilt dann wegen $\fa_i\in\{e_i, -e_i \}$ und $b_i=M'$ bereits $b_i - \fa_i\bcdot p^* \geq M' - \abs{p^*_i} \geq M' - M = \Omega(n^{\bigO(1)}M)$.
+	Proposition~\ref{prop-trivial-bound-thm} impliziert nun
+\[ 
+	t_i \Omega(n^{\bigO(1)} M)
+	\leq t_i (b_i - \fa_i \bcdot \fp^*)
+	\leq \sum_{j\in\first{k}} t_j (b_j - \fa_j \bcdot \fp^*)
+	\leq \bigO\left(  n\delta\log\left( \frac{M'}{\delta}  \right) \right),
+\]
+	wodurch man $t_i\leq \bigO(\delta / (n^{\bigO(1)} M)  \log(M'/\delta))$ folgern kann.
+	Wählt man $\delta$ sehr klein, also $\delta=\bigO(\varepsilon/(Ln^{\bigO(1)} M^{\bigO(1)} ))$, \todo{ erhält man $\sum_{i\in B} t_i \leq \bigO(\varepsilon/(n^{\bigO(1)}) M^{\bigO(1)}) \leq 1/2$ und $\sum_{i\in\first{k}} t_i(b_i - \fa_i \bcdot \fp^*) \leq \bigO(\varepsilon / (Ln^{\bigO(1)}M^{\bigO(1)})) $  (?????)}.
+	Entfernt man nun die Skalare aus $B$ und skaliert man die restliche Konvexkombination zu $t_i'\coloneqq t_i / (1 - \sum_{j\in B} t_j)$ für alle $i\in\first{k}\setminus B$, ergibt sich:
+	\begin{align*}
+		\sum_{i\in \first{k}\setminus B} t_i'(b_i - \fa_i \bcdot \fp^*)
+		&\leq 2 \left( 1-\sum_{i\in B}t_i  \right) \left( \sum_{i\in \first{k}\setminus B} t_i' (b_i - \fa_i \bcdot \fp^*) \right)
+		= 2 \sum_{i\in \first{k}\setminus B} t_i (b_i - \fa_i \bcdot \fp^*)\\
+		&\leq 2\sum_{i\in\first{k}} t_i(b_i - \fa_i\bcdot \fp^*)
+		\leq \bigO\left(\frac{\varepsilon}{Ln^{\bigO(1)}M^{\bigO(1)}}\right)
+		\todo{\leq \frac{\varepsilon}{L}}
+	\end{align*}
+	Wendet man nun das Argument für den Fall, in dem ausschließlich Orakel-Bedingungen vorkommen, mit der obigen Ungleichung statt Proposition~\ref{prop-trivial-bound-thm} an, so erhält man das gewünschte Ergebnis.
+	\todo{Aber in welcher Laufzeit?}
+\end{proof}
+
+Diese Methode der Optimierung konvexer Funktionen wird nun genutzt, um das vorgestellte Probleme sogar exakt zu lösen.
+\todo{bla bei konvexen allgemein gehts nicht, bei linearen schon}
+Dazu werden zunächst Störungen bei der Zielfunktion zugelassen, anschließend eine angenäherte Lösung mittels Theorem~\ref{thm-approximate-solution} berechnet und schließlich durch gezieltes Runden eine exakte Lösung ermittelt.
+
+Die Störung erfolgt, indem das transformierte duale Problem~\eqref{TDP} durch einen Störungs\-vektor $\fr\in\R^n$ ergänzt wird:
+\begin{align*}
+	\label{PDP}\tag{PD}
+	&\min_{\fp, u} u + \fp \bcdot (\fs + \fr)\\[5pt]
+	\text{udN.}\quad
+	& u\geq \sum_{i\in\first{m}} \left( v_i(x^{(i)}) -\fp \bcdot x^{(i)} \right)
+	& \text{für alle $\fx=(x^{(i)})_{i\in\first{m}}\in\ffirst{\fs}^m$}
+\end{align*}
+
+\begin{lemma}
+	Gilt \todo{ $r_i < (nS)^{-(2n+1)}$ } für alle $i\in\first{n}$, so ist eine optimale Lösung von~\eqref{PDP} auch optimal für~\eqref{TDP}.
+\end{lemma}
+\begin{proof}
+	Es sei $\mathcal{C}$ die Menge der Ecken des Zulässigkeitsbereichs von~\eqref{TDP}.
+	Die Einträge solcher Ecken sind nach Lemma~\ref{lemma-prices-bounded-S} von der Form $a_j / b$ mit $a,b\in\Z$ und \[
+	\abs{b} \leq (n+1)!\, (mS)^n \leq ((n+1)mS)^{n+1} \eqqcolon q.
+	\]
+	Da die lineare Zielfunktion von~\eqref{TDP} nur ganzzahlige Koeffizienten hat, ist auch der Zielfunktionswert ein Bruch, dessen Nenner durch $q$ beschränkt ist.
+	Der Zielfunktionswert $a/b$ einer optimalen Ecklösung unterscheidet sich also vom Wert $a'/b'$ einer nicht-optimalen Ecklösung mindestens um $\abs{a / b - a' / b'} = \abs{ (ab' - a'b) / (b b') } \geq 1/q^2$.
+	
+	\todo{Da $r_i < (nS^{-2n-2})$ für alle $i\in\first{n}$ gilt, beläuft sich die durch die Störung verursachte Differenz des Zielfunktionswerts auf weniger als $nS\cdot (nS)^{-2n-2} = (nS)^{-2n}$.
+	Daher ist eine Optimalecklösung von~\eqref{PDP} immer auch eine Optimalecklösung von~\eqref{TDP}.
+	
+	VORSCHLAG:
+	
+	Da $r_i < (2qM)^{-1}$ für alle $i\in\first{n}$ gilt, beläuft sich die durch die Störung verursachte Differenz des Zielfunktionswerts nach Lemma~\ref{lemma-prices-bounded-M} auf weniger als $n \cdot (2M)\cdot (2qM)^{-1} \leq n/q \leq 1/q^2$.
+	Daher ist eine Optimalecklösung von~\eqref{PDP} immer auch eine Optimalecklösung von~\eqref{TDP}.
+}
+\end{proof}

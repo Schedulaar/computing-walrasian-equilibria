@@ -14,11 +14,42 @@
 
 \newcommand{\todo}[1]{{\color{red} #1}}
 
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}	        % Betrag
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert_2}		        % Norm
+\providecommand*{\Lfloor}{\left\lfloor}                 % gro\ss{}es Abrunden
+\providecommand*{\Rfloor}{\right\rfloor}                % gro\ss{}es Abrunden
+\providecommand*{\Floor}[1]{\Lfloor #1 \Rfloor}         % gro\ss{}es ganzes Abrunden
+\providecommand*{\Ceil}[1]{\left\lceil #1 \right\rceil} % gro\ss{}es ganzes Aufrunden
+
+\newcommand{\R}{\mathbb{R}} 
+\newcommand{\N}{\mathbb{N}} 
+
+\DeclareMathOperator{\e}{ex}
+\DeclareMathOperator{\ma}{mate}
+\DeclareMathOperator{\Ex}{Ex}
 \DeclareMathOperator{\SW}{SW}
 \DeclareMathOperator{\NB}{D}
 \DeclareMathOperator{\dem}{d}
-\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 \DeclareMathOperator{\FA}{\mathcal{A}}
+\newcommand{\bigO}{\mathcal{O}}
+
+\newcommand{\first}[1]{\left[ #1 \right]}
+\newcommand{\ffirst}[1]{\left\llbracket #1 \right\rrbracket}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\fp}{\mathbf{p}}
+\newcommand{\fx}{\mathbf{x}}
+\newcommand{\fy}{\mathbf{y}}
+\newcommand{\fs}{\mathbf{s}}
+\newcommand{\fu}{\mathbf{u}}
+\newcommand{\fa}{\mathbf{a}}
+\newcommand{\fr}{\mathbf{r}}
+
+
+\makeatletter
+\newcommand*\bcdot{\mathpalette\bcdot@{.5}}
+\newcommand*\bcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
