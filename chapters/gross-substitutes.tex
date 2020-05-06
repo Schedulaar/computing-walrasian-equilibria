@@ -1,0 +1,112 @@
+\section{Brutto-Substituts-Bewertungen}
+
+\todo{Kelso and Crawford's definition of gross substitutes}
+
+\iffalse
+\begin{definition}[Diskret-Konkave Funktion]
+	Eine Funktion $v: \ffirst{\fs}^n \rightarrow \Z$ heißt \emph{diskret-konkav}, falls lokale Minima auch global minimal sind, also falls für alle Preise $\fp\in\R^n$ und Bündel $x\in\ffirst{\fs}^n$ mit \begin{align*}
+	&v(x) \geq \max_{i : x_i>0} v(x - e_i) + p_i, \qquad
+	&v(x) \geq \max_{j:x_j < s_j} v(x + e_j) - p_j, \\
+	&v(x) \geq \max_{\substack{i: x_i>0 \\ j: x_j < s_j}} v(x + e_i - e_j) - p_i + p-j
+	\end{align*}
+	bereits $x\in\NB(v, \fp)$ gilt.
+\end{definition}
+\fi
+
+\begin{definition}[Brutto-Substituts-Bewertung]
+Eine Bewertungsfunktion $v: \ffirst{s} \rightarrow \Z$ heißt \emph{Brutto-Substituts-Bewertung} (engl. gross substitutes valuation), falls es für Preise $\fp,\fp' \in\R^n$ mit $\fp' \geq \fp$ und für ein nachgefragtes Bündel $x\in\NB(v, \fp)$ zu Preisen $\fp$ ein nachgefragtes Bündel $y\in\NB(v,\fp')$ zu Preisen $\fp'$ existiert, welches $y_j \geq x_j$ für alle $j\in\first{n}$ mit $p_j = p_j'$ erfüllt.
+\end{definition}
+
+Einige wichtige Resultate über Brutto-Substituts-Bewertungen wurden nur für den Fall gezeigt, dass jedes jedes Gut genau einmal angeboten wird, also für $s_j = 1$ für alle $j\in\first{n}$.
+Man kann den Fall mehrfachen Angebots einzelner Güter darauf herunterbrechen, indem man jedes Vorkommen eines Guts unabhängig bepreisen lässt:
+\newcommand{\tild}[1]{\widetilde{#1}}
+\begin{definition}[Unabhängige Brutto-Substituts-Bewertung]
+	Eine Bewertungsfunktion $v: \ffirst{s} \rightarrow \Z$ heißt \emph{unabhängige Brutto-Substituts-Bewertung}, falls \[
+	\tild{v}: \ffirst{1}^{\sum_{i\in\first{n}}s_i} \rightarrow \Z,
+	\quad (x_{i,j})_{i\in\first{n}, j\in\first{s_i}} \mapsto v\left( \left( \sum_{j\in\first{s_i}} x_{i,j} \right)_{i\in\first{n}} \right)
+	\]
+	eine Brutto-Substituts-Bewertung ist.
+\end{definition}
+\begin{proposition}
+	Jede unabhängige Brutto-Substituts-Funktion ist eine Brutto-Substituts-Funktion.
+	Es gibt aber Brutto-Substituts-Funktionen, die nicht unabhängig sind.
+\end{proposition}
+\begin{proof}
+	Für Preise $\fp,\fp'\in\R^n$ mit $\fp' \geq \fp$ definiere man $\tild{\fp}\coloneqq (p_i)_{i\in\first{n},j\in\first{s_i}}$ und analog $\tild{\fp'}\coloneqq (p_i')_{i\in\first{n},j\in\first{s_i}}$.
+	Für ein Bündel $x\in\NB(v,\fp)$ ist $\tild{x}$ mit $\tild{x}_{i,j} = 1$ für $i\in\first{n}$ und $j\leq x_i$ in $\NB(\tild{v}, \tild{\fp})$ enthalten.
+	Es existiert ein Bündel $\tild{y}$ mit $\tild{y}_{i,j} \geq \tild{x}_{i,j}$ für alle $i,j$ mit $p_i \geq p_i'$ und $j\in\first{s_i}$ in $\NB(\tild{v}, \tild{\fp'})$.
+	Dementsprechend ist $y\coloneqq(\sum_{j\in\first{s_i}} \tild{y}_{i,j})_{i\in\first{n}}$ in $\NB(v, \fp')$ und es gilt $y_i \geq x_i$ für alle $i\in\first{n}$, sodass $v$ die Brutto-Substituts-Eigenschaft erfüllt.
+	
+	Nun ein Beispiel einer nicht unabhängigen Brutto-Substituts-Funktion: Wir betrachten einen Markt mit nur einem Gut mit $s=2$ und der Bewertungsfunktion $v(k)\coloneqq k^2$, welche automatisch eine Brutto-Substituts-Funktion ist.
+	Setzt man Preise $\tild{p}_j \coloneqq 2$ für $j\in\first{2}$ fest,
+	so ist der Nutzen beim Kauf beider Einheiten maximal; es gilt $(1,1)\in \NB(\tild{v}, \tild{\fp})$.
+	Erhöht man den Preis der ersten Einheit auf $\tild{p}'_1 \coloneqq 3$ und behält den Preis der zweiten Einheit bei, so ist $(0,0)$ das einzige nachgefragte Bündel.
+	Daher ist $\tilde{v}$ keine Brutto-Substituts-Funktion.
+\end{proof}
+
+\subsection{$\mnath$-Konkave Funktion}
+
+\todo{Nach Murato Charakterisierung Theorem 6.2}
+
+\begin{definition}[$\mnath$-Konkave Funktion]
+	Eine Funktion $v:\Z^n \rightarrow \R \cup \{-\infty\}$, welche $\dom(v) \coloneqq \{ z\in\Z^n \mid v(z) \in \R \}\neq \emptyset$ erfüllt, heißt \emph{$\mnath$-konkav} (\glqq M-natürlich konkav\grqq), falls \[
+	v(x) + v(y) \leq
+	\max \left\{
+		v(x - e_i) + v(y + e_i),
+		\max_{j: x_j < y_j} v(x - e_i + e_j) + v(y + e_i - e_j)
+	\right\}
+	\] für alle $x,y\in\dom(f)$ und $i\in\first{n}$ mit $x_i > y_i$ gilt.
+	Hier gelte $\max(\emptyset)=-\infty$.
+	
+	Eine Funktion $v:D \rightarrow \Z^n$ mit $D\subseteq \Z^n$ heißt \emph{$\mnath$-konkav}, falls ihre Erweiterung mit $v(x)\coloneqq-\infty$ für $x\in\Z^n\setminus D$ bereits $\mnath$-konkav ist.
+\end{definition}
+
+\todo{Nach Murato Charakterisierung Theorem 6.24 bzw. Abschnitt 11.3}
+
+\begin{theorem}[\cite{}]\label{thm-char-m-concave}
+	Eine Funktion $v:\Z^n \rightarrow \R \cup \{ -\infty \}$ ist genau dann \emph{M}$^\natural$-konkav, wenn für alle $\fp\in\R^n$ und $x,y\in\dom(v)\neq\emptyset$ die Ungleichung $v(x) - \fp\bcdot x < v(y) - \fp \bcdot y$ bereits \[ 
+		v(x) - \fp\bcdot x < 
+			\max_{i:\, x_i > y_i \,  \vee \, i = 0} \,\,
+				\max_{j:\, x_j < y_j \, \vee \, j=0} \,\,
+					v(x - e_i + e_j) - \fp \bcdot (x - e_i + e_j)
+	\]
+	impliziert. Dabei ist $e_0$ der Nullvektor.
+\end{theorem}
+\begin{korollar}\label{cor-concave-local-global}
+	Es ist $v: \Z^n \rightarrow \R \cup \{ -\infty \}$ genau dann \emph{M}$^\natural$-konkav, wenn für alle $\fp\in\R^n$ lokale Maxima von $x \mapsto v(x) - \fp \bcdot x$ bereits global maximal sind, also 
+	falls für alle $\fp\in\R^n$ und $x\in\dom(v)$ mit $
+	v(x)\geq \max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j
+	$
+	bereits $v(x) - \fp \bcdot x \geq v(y) - \fp \bcdot y$ für alle $y\in\dom(v)$ gilt.
+\end{korollar}
+\begin{proof}
+	Es gelte $v(x) \geq max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j$ und man nehme zusätzlich $v(x) - \fp\bcdot x < v(y) - \fp \bcdot y$ an.
+	Es ist $y\in\dom(v)$ und nach Theorem~\ref{thm-char-m-concave} gibt es $i,j\in\ffirst{n}$ mit $v(x) - \fp \bcdot x < v(x - e_i + e_j) - \fp\bcdot (x - e_i + e_j)$, was der lokalen Maximalität widerspricht.
+\end{proof}
+
+Ein wichtiges Resultat, das die Brutto-Substituts-Eigenschaft mit $\mnath$-Konkavität in Beziehung stellt, liefert~\cite[Theorem 2.1]{Fujishige2003}:
+
+\begin{theorem}\label{thm-fujishige-gs-iff-concave}
+	Eine Bewertungsfunktion $\tild{v}:\ffirst{1}^n\rightarrow \Z$ erfüllt genau dann die Brutto-Substituts-Eigenschaft, wenn sie $\mnath$-konkav ist.
+\end{theorem}
+\begin{korollar}
+	Jede unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$ ist $\mnath$-konkav.
+\end{korollar}
+\todo{Domäne erklären}
+\begin{proof}
+	Nach Theorem~\ref{thm-fujishige-gs-iff-concave} ist $\tild{v}$ schon $\mnath$-konkav.
+	Man zeige die notwendigen Voraussetzungen in~\ref{cor-concave-local-global} für $v$:
+	Seien $x\in\ffirst{\fs}$ und $p\in\R^n$ mit $v(x)\geq \max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j$ gegeben.
+	Man definiere das Bündel $\tild{x}\in\ffirst{1}^{\sum_{i\in\first{n}} s_i}$ mit $\tild{x}_{i,j} \coloneqq 1$ für $j\in\first{x_i}$ und $\tild{x}_{i,j} \coloneqq 0$ für $x_i < j \leq s_i$ sowie die Preise $\tild{p}_{i,j}\coloneqq p_i$ für alle $i\in\first{n},j\in\first{s_i}$.
+	Dann
+	gilt \[
+	\tild{v}(\tild{x} - e_k + e_l) + \tild{p}_k - \tild{p}_l \leq \tild{v}(\tild{x})
+	\] für alle $k, l \in \{ (i,j) \mid i\in\first{n}, j\in\first{s_i} \}\cup\{ 0 \}$, da diese Ungleichung nur von Gütern $i\in\first{n}$ und nicht von $j\in\first{s_i}$ abhängt und sich dadurch die Voraussetzungen an $x$ ausnutzen lassen.
+	Aufgrund der $\mnath$-Konkavität von $\tild{v}$ gilt $\tild{x}\in\NB(\tild{v}, \tild{\fp})$ nach Korollar~\ref{cor-concave-local-global}. Daraus folgt auch $x\in\NB(v,\fp)$.
+\end{proof}
+\begin{bemerkung}
+	Nach~\cite[Theorem~11.4]{Murota2003} erfüllt jede $\mnath$-konkave Funktion die Brutto-Substituts-Eigenschaft.
+	Ob diese auch unabhängig ist, bleibt an dieser Stelle offen.
+\end{bemerkung}
+
+\subsection{Auswirkung auf Walras-Preise}
