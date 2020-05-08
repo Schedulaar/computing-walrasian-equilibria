@@ -173,7 +173,13 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
  	Die Einträge der Spalten von $\fp$ sind hier zwischen 0 und $m\cdot S$, sodass mit der Leibniz-Formel $\abs{\det(A_B)} \leq (n+1)!\, (m S)^{n}$ folgt.
 \end{proof}
 \begin{bemerkung}
-	Im Vergleich zu~\cite[Lemma~5]{PaesLeme2018} ist in der Abschätzung hier aufgrund der unterschiedlichen LP-Darstellung von~\eqref{DP} die Anzahl der Käufer $m$ enthalten.
+	Im Vergleich zu~\cite[Lemma~5]{PaesLeme2018} ist in der Abschätzung hier die Anzahl der Käufer $m$ enthalten.
+	Die Begründung der Schranke $n!\,(nS)^n$ im Beweis von~\cite[Lemma~5]{PaesLeme2018} nutzt ebenfalls die Cramersche Regel von Basislösungen des LPs mit dem Hinweis, die zugehörige Matrix enthalte nur Koeffizienten in $\{0, 1,\dots, S\}$.
+	Tatsächlich enthält sie aber Koeffizienten in $\{0, 1, \dots, mS \}$.
+	Es kann $\det(A_B)$ sogar den Wert $mS$ annehmen: Dazu betrachte man den Markt mit einem Gut mit $s=1$ und zwei Käufern.
+	Besteht $B$ aus den durch $\fx_1 = (0,0)$ und $\fx_2= (1,1)$ induzierten Zeilen, gilt $\det(A_B) = 1\cdot 2 - 0 \cdot 1 = 2$.
+	Dies ist zwar kein Gegenbeispiel, da dies nur für Bewertungen mit $v_1(1) = v_2(1)$ eine zulässige Basislösung ist und in diesem Fall $p = \det({A_B^p}) / 2 = (v_1(1) + v_2(2)) / 2$ ganzzahlig wäre.
+	Jedoch lässt es Zweifel ob der Korrektheit von~\cite[Lemma~5]{PaesLeme2018} zu.
 \end{bemerkung}
 
 \todo{Zitat}
@@ -231,7 +237,7 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Existiert ein Minimierer von $f$ in $[-M, M]^n$, kann ein Punkt $\bar{\fp}$ mit $f(\bar{\fp}) - \min_{\fp\in\R^n} f(p)\leq \varepsilon$ in $\bigO(n T \log(n M L / \varepsilon) + n^3 \log^{\bigO(1)} (nML) \log^2(nML/\varepsilon) )$ Zeit gefunden werden.
 \end{theorem}
 \begin{proof}
-	Seien zunächst $M'\coloneqq n^{\bigO(1)}$ und $K\coloneqq \arg\min_{\fp\in\R^n} f(\fp)\cap [-M', M']^n$ die konvexe, nichtleere Menge der Minimierer von $f$ in $[-M',M']^n$.
+	Seien zunächst $M'\coloneqq n^{\bigO(1)}M$ und $K\coloneqq \arg\min_{\fp\in\R^n} f(\fp)\cap [-M', M']^n$ die konvexe, nichtleere Menge der Minimierer von $f$ in $[-M',M']^n$.
 	Theorem~\ref{thm-cutting-plane-method} wird mit dem erweiterten Quader $[-M', M']^n$ und dem Subgradienten-Orakel angewandt:
 	Dieses gibt für einen Punkt $\fp_0$ die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ aus, wobei $g$ ein Subgradient von $f$ in $\fp$ ist.
 	Für alle $\fp^*\in K$ gilt dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp) + g \bcdot \fp \leq g \bcdot \fp$, was $K\subseteq H$ impliziert.
