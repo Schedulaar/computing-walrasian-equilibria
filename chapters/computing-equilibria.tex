@@ -25,7 +25,7 @@ Für eine Abfrage des Nachfrage-Orakels entstehen dann $\ffirst{\fs}$ Abfragen d
 
 Genauso lässt sich aus einem Nachfrage-Orakel auch ein Aggregierte-Nachfrage-Orakel gewinnen: So kann man mit $m$ Abfragen des Nachfrage-Orakels für alle $i\in\{m\}$ ein nachgefragtes Bündel erhalten, welche summiert den aggregierten Nachfrage-Vektor ergeben.
 
-\todo{Im Folgenden wird ein Algorithmus diskutiert, der das Aggregierte-Nachfrage-Modell verwendet, um Walras-Preise für allgemeine Bewertungsfunktionen zu berechnen.}
+Im Folgenden wird ein Verfahren diskutiert, der das Aggregierte-Nachfrage-Modell verwendet, um Walras-Preise für allgemeine Bewertungsfunktionen zu berechnen.
 
 \subsection{Darstellung als Lineares Optimierungsproblem}
 
@@ -125,7 +125,7 @@ Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-
 
 Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ selbst zu machen, jedoch lassen sich sehr wohl Subgradienten von $f$ damit ermitteln:
 \begin{lemma}\label{lemma-subgradient}
-	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ an $\fp$.
+	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von der Marktpotenzialfunktion $f$ an $\fp$.
 \end{lemma}
 \begin{proof}
 	Sei $\dem(\fp) = \sum_{i\in\first{m}} x^{(i)}$ die aggregierte Nachfrage zum Preis $\fp$.
@@ -183,18 +183,23 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Jedoch lässt es Zweifel ob der Korrektheit von~\cite[Lemma~5]{PaesLeme2018} zu.
 \end{bemerkung}
 
-
+Für einen Spezialfall hilft nun die Ellipsoid-Methode bei der Berechnung von Walras-Preisen.
+Diese wird beispielsweise in~\cite[Abschnitt~2]{ellipsoid} diskutiert und es lässt sich folgendes Theorem daraus ableiten:
 
 \begin{theorem}[Ellipsoid-Methode]
-Seien eine konvexe Menge $K\subseteq B_r(\zero)\subseteq \R^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in B_r(\zero)$ in einer Lauf\-zeit von $T$ entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene $H=\{ \fp \in\R^n \mid \fa \bcdot \fp \leq b \}$ mit $K\subseteq H$ ausgibt.
+Seien eine konvexe Menge $K\subseteq B_r(\zero)\subseteq \R^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in B_r(\zero)$  entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene $H=\{ \fp \in\R^n \mid \fa \bcdot \fp \leq b \}$ mit $K\subseteq H$ ausgibt.
 
 Dann lässt sich mit $t$ Abfragen des Orakels entweder ein Punkt $\fp\in K$ oder eine Ellipse mit Maximalvolumen $\exp({-t / ({2n + 1}})) \cdot \vol(B_r(\zero))$, welche die Menge $K$ enthält, ermitteln.
 \end{theorem}
+
+Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachfrage-Orakel, mit dem sich Subgradienten der Marktpotenzialfunktion berechnen lassen.
+
 \begin{theorem}
 	Gilt $\interior(K) \neq \emptyset$ für die Menge $K$ der Walras-Preise im $\R^n$, so kann man mit $\bigO(n\log(Mn) + n^2 \log(n m S))$ Abfragen des Aggregierte-Nachfrage-Orakels und Iterationen der Ellipsoidmethode ein Walras-Preisvektor bestimmen.
 \end{theorem}
 \begin{proof}
 	Nach Lemma~\ref{lemma-prices-bounded-M} sind alle Walras-Preise in der Menge $[-2M, 2M]^n\subseteq B_{r}(\zero)$ mit $r = 2M\sqrt{n}$ enthalten.
+	Außerdem gilt $K = \arg\min f(\fp)$ wobei $f$ die Marktpotenzialfunktion ist.
 	Als Trennorakel dient hier das Aggregierte-Nachfrage-Orakel, welches mit $g \coloneqq s - \dem(\fp_0)$ für $\fp_0\in\R^n$ nach Lemma~\ref{lemma-subgradient} einen Subgradienten von $f$ an $\fp_0$ ermitteln kann.
 	Ist $g = \zero$, so kann \glqq$\fp_0 \in K$\grqq\ gemeldet werden.
 	Sonst gilt für die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp_0) + g \bcdot \fp_0 \leq g \bcdot \fp_0$ für alle $\fp^*\in K$, was $K\subseteq H$ impliziert.
@@ -206,9 +211,9 @@ Dann lässt sich mit $t$ Abfragen des Orakels entweder ein Punkt $\fp\in K$ oder
 		\fp_0 & \fp_1 & \cdots & \fp_n
 	\end{array}  \right)}  \eqqcolon \abs{ \frac{1}{n!} \det(A) } \]
 	berechnet werden.
-	Nach Lemma~\ref{lemma-prices-bounded-S} kann der Nenner der Einträge eines jeden Walras-Preisvektors durch $R = (n+1)!\ (mS)^n$ abgeschätzt werden.
+	Nach Lemma~\ref{lemma-prices-bounded-S} kann der Nenner der Einträge eines jeden Walras-Preisvektors durch $R \coloneqq (n+1)!\ (mS)^n$ abgeschätzt werden.
 	Multipliziert man jede Spalte mit seinem Nenner,
-	erhält man eine ganzzahlige Matrix $\tilde{A}$ mit $\lvert \det(\tilde{A}) \rvert \neq 0$,
+	erhält man eine ganzzahlige Matrix $\tilde{A}$ mit $\lvert \det(\tilde{A}) \rvert > 0$,
 	welche die Ungleichung $\abs{ \det(A) } \geq R^{-(n+1)} \lvert \det(\tilde{A}) \rvert \geq R^{-(n+1)}$ erfüllt.
 	Entsprechend gilt also $\vol(K) \geq \vol(S) \geq R^{-(n+1)} / n! \geq (nR)^{-(n+1)}$.
 	
