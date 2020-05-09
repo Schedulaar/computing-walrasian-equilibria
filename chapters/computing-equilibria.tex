@@ -25,7 +25,7 @@ Für eine Abfrage des Nachfrage-Orakels entstehen dann $\ffirst{\fs}$ Abfragen d
 
 Genauso lässt sich aus einem Nachfrage-Orakel auch ein Aggregierte-Nachfrage-Orakel gewinnen: So kann man mit $m$ Abfragen des Nachfrage-Orakels für alle $i\in\{m\}$ ein nachgefragtes Bündel erhalten, welche summiert den aggregierten Nachfrage-Vektor ergeben.
 
-\todo{Im Folgenden wird ein Algorithmus diskutiert, der das Aggregierte-Nachfrage-Modell verwendet, um Walras-Gleichgewichte für allgemeine Bewertungsfunktionen zu berechnen.}
+\todo{Im Folgenden wird ein Algorithmus diskutiert, der das Aggregierte-Nachfrage-Modell verwendet, um Walras-Preise für allgemeine Bewertungsfunktionen zu berechnen.}
 
 \subsection{Darstellung als Lineares Optimierungsproblem}
 
@@ -114,9 +114,10 @@ Daher wird zunächst der Begriff eines Subgradients eingeführt:
 	Sei $f:\R^n \rightarrow \R$ eine konvexe Funktion.
 	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $p\in\R^n$}, falls $f(x) \geq f(p) + g\bcdot (x - p)$ für alle $x\in\R^n$ gilt.
 \end{definition}
+Man bemerke, dass $\fp$ eine konvexe Funktion $f$ genau dann minimiert, wenn der Nullvektor ein Subgradient von $f$ an $\fp$ ist.
 \begin{proposition}\label{prop-convex-lipschitz}
 Sei $f: \R^n \rightarrow \R$ eine konvexe und bezüglich $\norm{\cdot}$ Lipschitz-stetige Funktion mit Lipschitz-Konstante $L$.
-Dann gilt $\norm{g}\leq L$ für jeden Subgradienten $g$ von $f$ in jedem Punkt $p\in\R^n$.
+Dann gilt $\norm{g}\leq L$ für jeden Subgradienten $g$ von $f$ an jedem Punkt $p\in\R^n$.
 \end{proposition}
 \begin{proof}
 Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-1} + p) - f(p) \leq L \cdot \norm{g}\cdot \norm{g}^{-1} = L$.
@@ -124,7 +125,7 @@ Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-
 
 Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ selbst zu machen, jedoch lassen sich sehr wohl Subgradienten von $f$ damit ermitteln:
 \begin{lemma}
-	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ in $\fp$.
+	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ an $\fp$.
 \end{lemma}
 \begin{proof}
 	Sei $\dem(\fp) = \sum_{i\in\first{m}} x^{(i)}$ die aggregierte Nachfrage zum Preis $\fp$.
@@ -132,7 +133,7 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Weiter ist nach~\cite[Theorem~1.13]{Shor1985} für das Maximum konvexer Funktionen jeder Subgradient einer Funktion, die in $\fp$ das Maximum annimmt, ein Subgradient der Maximumsfunktion in $\fp$.
 	Des Weiteren ist für eine differenzierbare Funktion der einzige Subgradient der Gradient der Funktion.
 	
-	Dies heißt, da $x^{(i)}\in \arg\max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ gilt, sind $-x^{(i)}$ ein Subgradient von $\fp \mapsto \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ und $\fs - \dem(\fp)$ ein Subgradient von $f$ in $\fp$.
+	Dies heißt, da $x^{(i)}\in \arg\max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ gilt, sind $-x^{(i)}$ ein Subgradient von $\fp \mapsto \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ und $\fs - \dem(\fp)$ ein Subgradient von $f$ an~$\fp$.
 \end{proof}
 
 \begin{lemma}\label{lemma-prices-bounded-M}
