@@ -124,7 +124,7 @@ Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-
 \end{proof}
 
 Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ selbst zu machen, jedoch lassen sich sehr wohl Subgradienten von $f$ damit ermitteln:
-\begin{lemma}
+\begin{lemma}\label{lemma-subgradient}
 	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ an $\fp$.
 \end{lemma}
 \begin{proof}
@@ -137,12 +137,12 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 \end{proof}
 
 \begin{lemma}\label{lemma-prices-bounded-M}
-	Ist $\fx$ eine Walras-Allokation, so sind für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}} \abs{v_i(x)}$ alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
+	Existiert eine Walras-Allokation $\fx$, so sind für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}} \abs{v_i(x)}$ alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
 \end{lemma}
 \begin{proof}
 	Seien $\fp$ ein Walras-Preisvektor und $j\in\first{n}$ gegeben.
 	Der Preis $p_j$ übersteigt $2M$ nicht, denn sonst würde kein Käufer $j$ nachfragen:
-	Da $s_j$ positiv ist, gibt es einen Käufer $i$ mit $x^{(i)}_j > 0$, für den $x^{(i)} \in\NB(i, \fp)$ folgende Ungleichung impliziert, wobei $e_j$ der $j$-te Einheitsvektor ist:
+	Da $s_j$ positiv ist, gibt es einen Käufer $i$ mit $x^{(i)}_j > 0$, für den $x^{(i)} \in\NB(i, \fp)$ folgende Ungleichung impliziert:
 	\[
 	v_i(x^{(i)}) - \fp \bcdot x^{(i)} \geq v_i(x^{(i)} - e_j) - \fp \bcdot ( x^{(i)} - e_j ).
 	 \]
@@ -182,6 +182,42 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Dies ist zwar kein Gegenbeispiel, da dies nur für Bewertungen mit $v_1(1) = v_2(1)$ eine zulässige Basislösung ist und in diesem Fall $p = \det({A_B^p}) / 2 = (v_1(1) + v_2(2)) / 2$ ganzzahlig wäre.
 	Jedoch lässt es Zweifel ob der Korrektheit von~\cite[Lemma~5]{PaesLeme2018} zu.
 \end{bemerkung}
+
+
+
+\begin{theorem}[Ellipsoid-Methode]
+Seien eine konvexe Menge $K\subseteq B_r(\zero)\subseteq \R^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in B_r(\zero)$ in einer Lauf\-zeit von $T$ entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene $H=\{ \fp \in\R^n \mid \fa \bcdot \fp \leq b \}$ mit $K\subseteq H$ ausgibt.
+
+Dann lässt sich mit $t$ Abfragen des Orakels entweder ein Punkt $\fp\in K$ oder eine Ellipse mit Maximalvolumen $\exp({-t / ({2n + 1}})) \cdot \vol(B_r(\zero))$, welche die Menge $K$ enthält, ermitteln.
+\end{theorem}
+\begin{theorem}
+	Gilt $\interior(K) \neq \emptyset$ für die Menge $K$ der Walras-Preise im $\R^n$, so kann man mit $\bigO(n\log(Mn) + n^2 \log(n m S))$ Abfragen des Aggregierte-Nachfrage-Orakels und Iterationen der Ellipsoidmethode ein Walras-Preisvektor bestimmen.
+\end{theorem}
+\begin{proof}
+	Nach Lemma~\ref{lemma-prices-bounded-M} sind alle Walras-Preise in der Menge $[-2M, 2M]^n\subseteq B_{r}(\zero)$ mit $r = 2M\sqrt{n}$ enthalten.
+	Als Trennorakel dient hier das Aggregierte-Nachfrage-Orakel, welches mit $g \coloneqq s - \dem(\fp_0)$ für $\fp_0\in\R^n$ nach Lemma~\ref{lemma-subgradient} einen Subgradienten von $f$ an $\fp_0$ ermitteln kann.
+	Ist $g = \zero$, so kann \glqq$\fp_0 \in K$\grqq\ gemeldet werden.
+	Sonst gilt für die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp_0) + g \bcdot \fp_0 \leq g \bcdot \fp_0$ für alle $\fp^*\in K$, was $K\subseteq H$ impliziert.
+	
+	Da $\interior(K)$ nichtleer ist, existieren Ecken $\fp_0, \dots, \fp_n$ von $K$, sodass der Simplex $S$, welcher durch diese Ecken aufgespannt wird, positives Volumen hat.
+	Dieses Volumen kann mit
+	\[ \vol(S) = \abs{ \frac{1}{n!} \det\left(  \begin{array}{ccccc}
+		1 & 1 & \cdots & 1 \\	
+		\fp_0 & \fp_1 & \cdots & \fp_n
+	\end{array}  \right)}  \eqqcolon \abs{ \frac{1}{n!} \det(A) } \]
+	berechnet werden.
+	Nach Lemma~\ref{lemma-prices-bounded-S} kann der Nenner der Einträge eines jeden Walras-Preisvektors durch $R = (n+1)!\ (mS)^n$ abgeschätzt werden.
+	Multipliziert man jede Spalte mit seinem Nenner,
+	erhält man eine ganzzahlige Matrix $\tilde{A}$ mit $\lvert \det(\tilde{A}) \rvert \neq 0$,
+	welche die Ungleichung $\abs{ \det(A) } \geq R^{-(n+1)} \lvert \det(\tilde{A}) \rvert \geq R^{-(n+1)}$ erfüllt.
+	Entsprechend gilt also $\vol(K) \geq \vol(S) \geq R^{-(n+1)} / n! \geq (nR)^{-(n+1)}$.
+	
+	Gibt die Ellipsoidmethode nach $t$ Iterationen eine Ellipse $E$ aus, welche die Bedingungen $\vol(E) \leq \exp(-t / ({2n + 1}))\cdot (4M \sqrt{n})^n$ und $K\subseteq E$ erfüllt, gilt mit $\vol(E) \geq \vol(K)$:
+	\[ \exp(-t / ({2n + 1}))\cdot (4M\sqrt{n})^n \geq (nR)^{-(n+1)}
+	~ \Leftrightarrow ~ \exp(t) \leq (4M\sqrt{n})^n \exp(2n+1) (nR)^{n+1} \]
+	Insbesondere gilt also $t\in\bigO(n\log(Mn) + n\log(nR)) = \bigO(n\log(Mn) + n^2 \log(n m S))$.
+	Daher ist die Ellipsoidmethode dazu gezwungen nach so vielen Iterationen einen Punkt $\fp\in K$ auszugeben.
+\end{proof}
 
 \todo{Zitat}
 \begin{theorem}\label{thm-cutting-plane-method}
