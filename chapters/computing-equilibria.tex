@@ -116,6 +116,8 @@ Daher wird zunächst der Begriff eines Subgradients eingeführt:
 	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $p\in\R^n$}, falls $f(x) \geq f(p) + g\bcdot (x - p)$ für alle $x\in\R^n$ gilt.
 \end{definition}
 Man bemerke, dass $\fp$ eine konvexe Funktion $f$ genau dann minimiert, wenn der Nullvektor ein Subgradient von $f$ an $\fp$ ist.
+
+\iffalse
 \begin{proposition}\label{prop-convex-lipschitz}
 Sei $f: \R^n \rightarrow \R$ eine konvexe und bezüglich $\norm{\cdot}$ Lipschitz-stetige Funktion mit Lipschitz-Konstante $L$.
 Dann gilt $\norm{g}\leq L$ für jeden Subgradienten $g$ von $f$ an jedem Punkt $p\in\R^n$.
@@ -123,6 +125,7 @@ Dann gilt $\norm{g}\leq L$ für jeden Subgradienten $g$ von $f$ an jedem Punkt $
 \begin{proof}
 Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-1} + p) - f(p) \leq L \cdot \norm{g}\cdot \norm{g}^{-1} = L$.
 \end{proof}
+\fi
 
 Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ selbst zu machen, jedoch lassen sich sehr wohl Subgradienten von $f$ damit ermitteln:
 \begin{lemma}\label{lemma-subgradient}
@@ -225,6 +228,7 @@ Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachf
 	Daher ist die Ellipsoidmethode dazu gezwungen nach so vielen Iterationen einen Punkt $\fp\in K$ auszugeben.
 \end{proof}
 
+\iffalse
 \todo{Zitat}
 \begin{theorem}\label{thm-cutting-plane-method}
 	Seien eine konvexe Menge $K\subseteq [-M,M]^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in[-M,M]^n$ in einer Laufzeit von $T$ entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene $H=\{ \fp \in\R^n \mid \fa \bcdot \fp \leq b \}$ mit $K\subseteq H$ ausgibt.
@@ -364,3 +368,5 @@ Die Störung erfolgt, indem das transformierte duale Problem~\eqref{TDP} durch e
 	Daher ist eine Optimalecklösung von~\eqref{PDP} immer auch eine Optimalecklösung von~\eqref{TDP}.
 }
 \end{proof}
+
+\fi
