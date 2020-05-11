@@ -53,16 +53,19 @@ Man kann den Fall mehrfachen Angebots einzelner Güter darauf herunterbrechen, i
 	In~\cite{AkiyoshiShioura2015} wird diese stärkere Version als \glqq strong gross-substitute-condition $(SS)$\grqq\ bezeichnet.
 \end{bemerkung}
 
-\subsection{$\mnath$-Konkave Funktion}\label{section-m-concavity}
+\subsection{$\mnath$-Konkave und Matroidale Funktionen}\label{section-m-concavity}
+
+Eine elementare Charakterisierung von Brutto-Substituts-Bewertungen findet sich in der diskreten Analysis.
+So entspricht das Konzept der $\mnath$-Konkavität, also einer diskreten Version von Konkavität, in gewisser Weise der Brutto-Substituts-Eigenschaft.
+
+Dazu wird hier die Beschreibung der Eigenschaft von Murota aus~\cite[Theorem~6.2 bzw.~Abschnitt~11.3]{Murota2003} eingeführt.
 
 \begin{definition}
-	Es bezeichne $\dom(v)\coloneqq \{ z \mid v(z)\in\R \}$ die \emph{Domäne} einer Funktion $v:\Z^n \rightarrow \R \cup \{ -\infty\}$.
+	Es bezeichne $\dom(v)\coloneqq \{ z \mid v(z)\in\R \}$ die \emph{Domäne}, also den reellwertigen Bereich, einer Funktion $v:\Z^n \rightarrow \R \cup \{ -\infty\}$.
 \end{definition}
 
-\todo{Nach Murato Charakterisierung Theorem 6.2}
-
-\begin{definition}[$\mnath$-Konkave Funktion]
-	Eine Funktion $v:\Z^n \rightarrow \R \cup \{-\infty\}$, welche $\dom(v) \coloneqq \{ z\in\Z^n \mid v(z) \in \R \}\neq \emptyset$ erfüllt, heißt \emph{$\mnath$-konkav} (\glqq M-natürlich konkav\grqq), falls \[
+\begin{definition}[$\mnath$-Konkavität]
+	Eine Funktion $v:\Z^n \rightarrow \R \cup \{-\infty\}$ mit $\dom(v) \neq \emptyset$ heißt \emph{$\mnath$-konkav} (\glqq M-natürlich konkav\grqq), falls \[
 	v(x) + v(y) \leq
 	\max \left\{
 		v(x - e_i) + v(y + e_i),
@@ -77,9 +80,9 @@ In diesem Abschnitt werden meist Funktionen $v: D\rightarrow \R$ mit $D\subseteq
 Um die Definition oben anwenden zu können, werden solche Funktionen $v$ hier als Funktionen $v: \Z^n\rightarrow \R \cup \{ -\infty\}$ interpretiert, wobei $v(x) = -\infty$ für $x\notin D$ gilt.
 Hier gilt $D = \dom(v)$.
 
-\todo{Nach Murato Charakterisierung Theorem 6.24 bzw. Abschnitt 11.3}
+Murota gibt in~\cite[Theorem~6.24 bzw. Abschnitt~11.3]{Murota2003} eine äquivalente Beschreibung von $\mnath$-konkaven Funktionen, die für die Anwendung hier sehr nützlich erscheint:
 
-\begin{theorem}[\cite{}]\label{thm-char-m-concave}
+\begin{theorem}\label{thm-char-m-concave}
 	Eine Funktion $v:\Z^n \rightarrow \R \cup \{ -\infty \}$ ist genau dann \emph{M}$^\natural$-konkav, wenn für alle $\fp\in\R^n$ und $x,y\in\dom(v)\neq\emptyset$ die Ungleichung $v(x) - \fp\bcdot x < v(y) - \fp \bcdot y$ bereits \[ 
 		v(x) - \fp\bcdot x < 
 			\max_{i:\, x_i > y_i \,  \vee \, i = 0} \,\,
@@ -97,7 +100,7 @@ Hier gilt $D = \dom(v)$.
 \end{korollar}
 \begin{proof}
 	Es gelte $v(x) \geq max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j$ und man nehme zusätzlich $v(x) - \fp\bcdot x < v(y) - \fp \bcdot y$ an.
-	Es ist $y\in\dom(v)$ und nach Theorem~\ref{thm-char-m-concave} gibt es $i,j\in\ffirst{n}$ mit $v(x) - \fp \bcdot x < v(x - e_i + e_j) - \fp\bcdot (x - e_i + e_j)$, was der lokalen Maximalität widerspricht.
+	Es ist $y\in\dom(v)$ und nach Theorem~\ref{thm-char-m-concave} gibt es $i,j\in\ffirst{n}$ mit $v(x) - \fp \bcdot x < v(x - e_i + e_j) - \fp\bcdot (x - e_i + e_j)$, was der lokalen Maximalität widerspricht.	
 \end{proof}
 
 Ein wichtiges Resultat, das die Brutto-Substituts-Eigenschaft mit $\mnath$-Konkavität in Beziehung stellt, liefert~\cite[Theorem 2.1]{Fujishige2003}:
@@ -105,6 +108,9 @@ Ein wichtiges Resultat, das die Brutto-Substituts-Eigenschaft mit $\mnath$-Konka
 \begin{theorem}\label{thm-fujishige-gs-iff-concave}
 	Eine Bewertungsfunktion $\tild{v}:\ffirst{1}^n\rightarrow \Z$ erfüllt genau dann die Brutto-Substituts-Eigenschaft, wenn sie $\mnath$-konkav ist.
 \end{theorem}
+
+Damit lässt sich auch die $\mnath$-Konkavität unabhängiger Brutto-Substituts-Bewertungen zeigen.
+
 \begin{korollar}\label{cor-indep-gs-m-concave}
 	Jede unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$ ist $\mnath$-konkav.
 \end{korollar}
@@ -123,6 +129,40 @@ Ein wichtiges Resultat, das die Brutto-Substituts-Eigenschaft mit $\mnath$-Konka
 	Nach~\cite[Theorem~11.4]{Murota2003} erfüllt jede $\mnath$-konkave Funktion die Brutto-Substituts-Eigenschaft.
 	Ob diese auch unabhängig ist, bleibt an dieser Stelle offen.
 \end{bemerkung}
+
+Wie sich zeigt, ist $\mnath$-Konkavität nicht die einzige interessante Charakterisierung von Brutto-Substituts-Funktionen.
+So lässt sich auch das Konzept von sogeannten matroidalen Funktionen wiederfinden:
+\begin{definition}[Matroidale Funktion]
+	Eine Funktion $v:\ffirst{\fs}^n\rightarrow \Z$ heißt \emph{matroidal}, falls
+	der Greedy-Algorithmus für alle Preise $\fp\in\R^n$ ein Bündel aus $\NB(v, \fp)$ berechnet.
+	\begin{description}
+		\item[Greedy-Algorithmus:] Initialisiere das Bündel $x$ mit $x\leftarrow \zero$.
+		Solange ein $i\in\first{n}$ existiert, das $x_i < s_i$ und $v(x + e_i) - p_i - v(x) > 0$ erfüllt,
+		aktualisiere $x$ mit $x\leftarrow x + e_{i^*}$, wobei $i^*$ ein Index mit $x_{i^*}=0$ sei, der $v(x + e_{i^*}) - p_{i^*}$ mit $x_{i^*} = 0$ maximiert.
+	\end{description}
+\end{definition}
+
+In~\cite{PaesLeme2017} wird nun folgende Äquivalenz bewiesen:
+\begin{theorem}\label{thm-matroidal-iff-single-unit-gs}
+	Eine Funktion $\tild{v}:\ffirst{1}^n \rightarrow \Z$ ist genau dann matroidal, wenn sie eine Brutto-Substituts-Bewertung ist.
+\end{theorem}
+Dieses Ergebnis lässt sich auf unabhängige Brutto-Substituts-Bewertungen erweitern.
+Außerdem kann man in diesem Fall die Simulation eines Aggregierte-Nachfrage-Orakels durch ein Wert-Orakel deutlich beschleunigen:
+Für allgemeine Bewertungen benötigt man für eine Abfrage des Aggregierte-Nachfrage-Orakels nach Abschnitt~\ref{section-market-access} $m\cdot\abs{\ffirst{\fs}}$ Abfragen des Wert-Orakels.
+\begin{korollar}\label{cor-indep-gs-matroidal}
+	Eine unabhängige Brutto-Substituts-Bewertung ist matroidal.
+	Insbesondere kann man mit $mnS$ Abfragen eines Wert-Orakels einen aggregierten  Nachfrage-Vektor berechnen, falls alle Käufer eine unabhängige Brutto-Substituts-Bewertung haben.
+\end{korollar}
+\begin{proof}
+	Für eine unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$ ist $\tild{v}$ nach Theorem~\ref{thm-matroidal-iff-single-unit-gs} matroidal.
+	Zu Preisen $\fp$ kann also mit dem Greedy-Algorithmus ein Vektor $\tild{x}\in\NB(\tild{v}, \tild{\fp})$ mit $\tild{\fp} \coloneqq (p_i)_{i\in\first{n}, j\in\first{s_i}}$ berechnet werden.
+	Dieser kann mit $x=(\sum_{j\in\first{s_i}} x_j)_{i\in\first{n}}$ in ein Nachfragebündel aus $\NB(v, \fp)$ transformiert werden.
+	Es ist leicht zu sehen, dass der Greedy-Algorithmus -- führt man ihn auf der Eingabe $(v,\fp)$ aus -- diese Aggregation bereits während der Berechnung durchführt und das gleiche Ergebnis ausgibt.
+	
+	Um also ein nachgefragtes Bündel $\dem_i(\fp)$ zu berechnen, benötigt der Greedy-Algorithmus auf der Eingabe $(v, \fp)$ bis zu $\sum_{i\in\first{n}} s_i \leq nS$ Durchläufe der Schleife, welche selbst jeweils bis zu $n$ Auswertungen von $v$, also bis zu $n$ Abfragen des Wert-Orakels, tätigt.
+	Für einen aggregierten Nachfrage-Vektor $d(\fp) = \sum_{i\in\first{m}} d_i(\fp)$ werden also maximal $mnS$ Abfragen benötigt.
+\end{proof}
+
 
 \subsection{Auswirkung auf Walras-Preise}
 
@@ -187,4 +227,17 @@ Diese Aussagen lassen nun den folgenden Beweis zu:
 	Diese Ungleichung bleibt bei Rundung von $\fp$ zu $\hat{\fp}$ erhalten, weil $\hat{\fp}\bcdot (e_j - e_k)$ nach Proposition~\ref{prop-integral-polytop-helper} in $\{ \floor{\fp\bcdot(e_j - e_k)}, \ceil{\fp\bcdot(e_j - e_k)} \}$ liegt und die rest\-lichen Terme der Ungleichung ganzzahlig sind.
 	Daher ist $x^{(i)}$ ein lokales Maximum und nach den Korollaren~\ref{cor-concave-local-global} und~\ref{cor-indep-gs-m-concave} aufgrund der unabhängigen Brutto-Substituts-Eigenschaft von $v_i$ auch globales Maximum von $x\mapsto v(x) - \hat{\fp} \bcdot x$ auf dem Definitionsbereich $\ffirst{\fs}$.
 	Somit gilt $x^{(i)}\in\NB(v_i, \hat{\fp})$.
+\end{proof}
+\begin{theorem}
+	Sei ein Markt mit unabhängigen Brutto-Substituts-Bewertungen und $\interior(K)\neq \emptyset$ für die Menge $K$ der Walras-Preise gegeben.
+	Dann kann man entweder mit $\bigO(n\log(Mn))$ Abfragen des Aggregierte-Nachfrage-Orakels einen Walras-Preisvektor oder mit $\bigO(n^2 m S\log(Mn))$ Abfragen eines Wert-Orakels einen Walras-Gleichgewicht bestimmen.
+\end{theorem}
+\begin{proof}
+	Hier kann man den gleichen Beweis wie in Theorem~\ref{thm-compute-walras-with-ellipsoid} führen; jedoch kann hier statt der Abschätzung der Nenner durch Lemma~\ref{lemma-prices-bounded-S} die Ganzzahligkeit der Ecken von $K$ nach Theorem~\ref{thm-walras-prices-integral-polytope} genutzt werden.
+	Daher kann $R=1$ gewählt werden.
+	
+	Nutzt man statt des Aggregierte-Nachfrage-Orakels ein Wert-Orakel, so kann man nach Korollar~\ref{cor-indep-gs-matroidal} das gleiche bei $mnS$ so vielen Abfragen erreichen.
+	Allerdings hat dies den Vorteil, dass aus folgendem Grund sogar eine Walras-Allokation berechnet wird:
+	Das Trennorakels liefert bei der Ellipsoid-Methode schließlich die Meldung \glqq$\fp\in K$\grqq für Preise $\fp\in\R^n$, was nach dem Beweis von Theorem~\ref{thm-compute-walras-with-ellipsoid} nur erfolgt, wenn $\dem(\fp) - \fs = 0$ gilt.
+	Da der Nachfrage-Vektor als Summe $\sum_{i\in\first{m}} \dem_i(\fp)$ berechnet wurde, bildet $(\dem_i(\fp))_{i\in\first{m}}$ eine Walras-Allokation.
 \end{proof}

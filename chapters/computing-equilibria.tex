@@ -1,8 +1,9 @@
 \section{Berechnung von Gleichgewichten}
 
-\todo{Blabla}
+Zunächst werden die verschiedenen Informationszugänge, die für die Bestimmung  der Nachfrage eines Marktes zur Verfügung stehen können, beleuchtet.
+Anschließend wird darauf aufbauend ein Vorgehen und die dafür nötige Theorie eingeführt, mit dem Gleichge\-wichts-Preise berechnet werden können.
 
-\subsection{Informationszugang zum Markt}
+\subsection{Informationszugang zum Markt}\label{section-market-access}
 
 Bei der Berechnung eines Marktgleichgewichts müssen auf irgendeine Weise Informationen erhoben werden.
 Dieser Informationszugang kann dann von Algorithmen als Schnittstelle zur Berechnung eines Gleichgewichts verwendet werden.
@@ -194,12 +195,12 @@ Dann lässt sich mit $t$ Abfragen des Orakels entweder ein Punkt $\fp\in K$ oder
 
 Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachfrage-Orakel, mit dem sich Subgradienten der Marktpotenzialfunktion berechnen lassen.
 
-\begin{theorem}
-	Gilt $\interior(K) \neq \emptyset$ für die Menge $K$ der Walras-Preise im $\R^n$, so kann man mit $\bigO(n\log(Mn) + n^2 \log(n m S))$ Abfragen des Aggregierte-Nachfrage-Orakels und Iterationen der Ellipsoidmethode ein Walras-Preisvektor bestimmen.
+\begin{theorem}\label{thm-compute-walras-with-ellipsoid}
+	Gilt $\interior(K) \neq \emptyset$ für die Menge $K$ der Walras-Preise im $\R^n$, so kann man mit $\bigO(n\log(Mn) + n^2 \log(n m S))$ Abfragen des Aggregierte-Nachfrage-Orakels und Iterationen der Ellipsoidmethode einen Walras-Preisvektor bestimmen.
 \end{theorem}
 \begin{proof}
 	Nach Lemma~\ref{lemma-prices-bounded-M} sind alle Walras-Preise in der Menge $[-2M, 2M]^n\subseteq B_{r}(\zero)$ mit $r = 2M\sqrt{n}$ enthalten.
-	Außerdem gilt $K = \arg\min f(\fp)$ wobei $f$ die Marktpotenzialfunktion ist.
+	Außerdem gilt $K = \arg\min_\fp f(\fp)$ wobei $f$ die Marktpotenzialfunktion ist.
 	Als Trennorakel dient hier das Aggregierte-Nachfrage-Orakel, welches mit $g \coloneqq s - \dem(\fp_0)$ für $\fp_0\in\R^n$ nach Lemma~\ref{lemma-subgradient} einen Subgradienten von $f$ an $\fp_0$ ermitteln kann.
 	Ist $g = \zero$, so kann \glqq$\fp_0 \in K$\grqq\ gemeldet werden.
 	Sonst gilt für die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp_0) + g \bcdot \fp_0 \leq g \bcdot \fp_0$ für alle $\fp^*\in K$, was $K\subseteq H$ impliziert.
