@@ -228,7 +228,51 @@ Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachf
 	Daher ist die Ellipsoidmethode dazu gezwungen nach so vielen Iterationen einen Punkt $\fp\in K$ auszugeben.
 \end{proof}
 
+Leme und Wong zeigen in~\cite[Theorem~7]{PaesLeme2018}, dass man im Falle der Existenz von Walras-Preisen auch im allgemeinen Fall in $\bigO(n^2 T \log(SMn) + n^5\log^{\bigO(1)}(SMn))$ Zeit einen exakten Walras-Preisvektor bestimmen kann.
+Dabei ist $T$ die Laufzeit einer Abfrage des Aggregierte-Nachfrage-Orakels.
+
+Um dieses Ergebnis zu erzielen, wird eine neue Variante der Schnittebenenverfahren von Lee u.a. aus~\cite[Theorem~31]{Lee} genutzt,
+womit $L$-Lipschitz-stetig konvexe Funktionen effizient approximativ minimiert werden können.
+Um exakte Walras-Preise zu berechnen, wird die Darstellung als lineares Optimierungsproblem genutzt.
+Es werden kleine Störungen an der Zielfunktion zugelassen, anschließend eine angenäherte Lösung des gestörten Problems berechnet und durch geschicktes Runden
+auf eine exakte Optimallösung des Ursprungsproblems geschlossen.
+
+Leider konnten einige Beweise auf dem Weg zu diesem Ziel im Rahmen der Seminararbeit nicht nachvollzogen werden.
+Im Folgenden werden einige Hindernisse aufgezeigt:
+
+In \cite[Theorem~5]{PaesLeme2018} wird die neue Methode der Schnittebenenverfahren aus~\cite[Theorem~31]{Lee} sinngemäß zitiert.
+Hier ist unklar, wie das Zitat aus dem ursprünglichen Theorem folgt, jedoch haben sich wohl zumindest kleinere Fehler eingeschlichen:
+So ist einerseits nicht klar, wie Leme und Wong auf die Abschätzung $\bigO(n\delta \log(Mn/\delta))$ für die Breite von $P$ kommen, da man nach Lee u.a. eher $\bigO(n\delta \log(M/\delta))$ erwarten würde.
+Weiterhin sind die Folgerungen über die Konvexkombination jeweils unterschiedlich formuliert:
+So betrifft diese bei Lee u.a. nur die Vektoren $a_2,\dots, a_{\bigO(n)}$ und $a_1$ spielt hier eine gesonderte Rolle.
+Bei Paes und Leme ist diese gesonderte Rolle nicht mehr vorhanden und es wird über eine Konvexkombination $\sum_{i\in[\bigO(1)]} t_i$ geredet.
+Außerdem fehlen wohl in den Abschätzungen der Konvexkombinationen bei Paes und Leme jeweils die Vorfaktoren $t_i$, sodass diese wohl die folgenden Abschätzungen meinen:
+\[
+\norm{\, \sum_{i\in\first{k}} t_i \fa_i \, } = \bigO\left( \frac{\delta}{M} \sqrt{n} \log\left( \frac{M}{\delta} \right) \right)
+\qquad
+\text{und}
+\qquad
+\abs{\sum_{i\in\first{k}} t_i b_i} = \bigO\left(n\delta\log\left(\frac{M}{\delta}\right) \right).
+\]
+Des Weiteren nutzen Paes und Leme in \cite[Theorem~6]{PaesLeme2018} das obige Ergebnis, um konvexe Funktionen mit einem Subgradienten-Orakel zu minimieren.
+Im einfacheren Fall, in dem alle Restriktionen des Polytops dem Orakel entspringen, wählt man $\delta$ so klein, dass bereits $\varepsilon=\bigO(n\delta L \log(M'/ \delta))$ gilt.
+Wegen $\lim_{\delta \rightarrow 0}\delta \cdot \log(\delta)= 0$ ist dies möglich, jedoch gehen Paes und Leme nicht darauf ein, wieso dadurch keine negativen Auswirkungen auf die Laufzeit entstehen: Je kleiner $\delta$ gewählt wird, desto länger ist auch die Laufzeit nach~\cite[Theorem~5]{PaesLeme2018}.
+Da auch im allgemeinen Fall des Beweises einige Ungleichungen sowie die Laufzeit unklar sind, wurde hier darauf verzichtet, genauer auf die restlichen Ergebnisse, die zu~\cite[Theorem~7]{PaesLeme2018} führen, einzugehen.
+
 \iffalse
+\todo{
+Die Störung erfolgt, indem das transformierte duale Problem~\eqref{TDP} durch einen Störungs\-vektor $\fr\in\R^n$ ergänzt wird:
+\begin{align*}
+\label{PDP}\tag{PD}
+&\min_{\fp, u} u + \fp \bcdot (\fs + \fr)\\[5pt]
+\text{udN.}\quad
+& u\geq \sum_{i\in\first{m}} \left( v_i(x^{(i)}) -\fp \bcdot x^{(i)} \right)
+& \text{für alle $\fx=(x^{(i)})_{i\in\first{m}}\in\ffirst{\fs}^m$}
+\end{align*}
+}
+
+
+
 \todo{Zitat}
 \begin{theorem}\label{thm-cutting-plane-method}
 	Seien eine konvexe Menge $K\subseteq [-M,M]^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in[-M,M]^n$ in einer Laufzeit von $T$ entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene $H=\{ \fp \in\R^n \mid \fa \bcdot \fp \leq b \}$ mit $K\subseteq H$ ausgibt.
@@ -368,5 +412,4 @@ Die Störung erfolgt, indem das transformierte duale Problem~\eqref{TDP} durch e
 	Daher ist eine Optimalecklösung von~\eqref{PDP} immer auch eine Optimalecklösung von~\eqref{TDP}.
 }
 \end{proof}
-
 \fi
