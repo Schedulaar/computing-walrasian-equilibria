@@ -91,17 +91,6 @@ Murota gibt in~\cite[Theorem~6.24 bzw. Abschnitt~11.3]{Murota2003} eine äquival
 	\]
 	impliziert.
 \end{theorem}
-\begin{korollar}\label{cor-concave-local-global}
-	Es ist $v: \Z^n \rightarrow \R \cup \{ -\infty \}$ genau dann \emph{M}$^\natural$-konkav, wenn für alle $\fp\in\R^n$ lokale Maxima von $x \mapsto v(x) - \fp \bcdot x$ bereits global maximal sind, also 
-	falls für alle $\fp\in\R^n$ und $x\in\dom(v)$ mit $
-	v(x)\geq \max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j
-	$
-	bereits $v(x) - \fp \bcdot x \geq v(y) - \fp \bcdot y$ für alle $y\in\dom(v)$ gilt.
-\end{korollar}
-\begin{proof}
-	Es gelte $v(x) \geq max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j$ und man nehme zusätzlich $v(x) - \fp\bcdot x < v(y) - \fp \bcdot y$ an.
-	Es ist $y\in\dom(v)$ und nach Theorem~\ref{thm-char-m-concave} gibt es $i,j\in\ffirst{n}$ mit $v(x) - \fp \bcdot x < v(x - e_i + e_j) - \fp\bcdot (x - e_i + e_j)$, was der lokalen Maximalität widerspricht.	
-\end{proof}
 
 Ein wichtiges Resultat, das die Brutto-Substituts-Eigenschaft mit $\mnath$-Konkavität in Beziehung stellt, liefert~\cite[Theorem 2.1]{Fujishige2003}:
 
@@ -109,25 +98,26 @@ Ein wichtiges Resultat, das die Brutto-Substituts-Eigenschaft mit $\mnath$-Konka
 	Eine Bewertungsfunktion $\tild{v}:\ffirst{1}^n\rightarrow \Z$ erfüllt genau dann die Brutto-Substituts-Eigenschaft, wenn sie $\mnath$-konkav ist.
 \end{theorem}
 
-Damit lässt sich die $\mnath$-Konkavität unabhängiger Brutto-Substituts-Bewertungen zeigen.
+Dies impliziert eine wichtige Eigenschaft unabhängiger Brutto-Substituts-Bewertungen:
 
-\begin{korollar}\label{cor-indep-gs-m-concave}
-	Jede unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$ ist $\mnath$-konkav.
+\begin{korollar}\label{cor-independent-local-global}
+	Ist $v$ eine unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$, so sind für alle Preise $\fp$ lokale Maxima von $x\mapsto v(x) - \fp \bcdot x$ bereits global maximal.
+	Dabei heißt ein Bündel $x$ lokales Maximum von $f$, falls $f(x)\geq \max_{i,j\in\ffirst{n}} f(x - e_i + e_j)$ gilt.
 \end{korollar}
 \begin{proof}
-	Nach Theorem~\ref{thm-fujishige-gs-iff-concave} ist $\tild{v}$ schon $\mnath$-konkav.
-	Man zeige die notwendigen Voraussetzungen in~\ref{cor-concave-local-global} für $v$:
-	Seien $x\in\ffirst{\fs}$ und $\fp\in\R^n$ mit $v(x)\geq \max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j$ gegeben.
-	Man definiere das Bündel $\tild{x}\in\ffirst{1}^{N_\fs}$ mit $\tild{x}_{i,j} \coloneqq 1$ für $j\in\first{x_i}$ und $\tild{x}_{i,j} \coloneqq 0$ für $x_i < j \leq s_i$ sowie die Preise $\tild{p}_{i,j}\coloneqq p_i$ für alle $i\in\first{n}$ und $j\in\first{s_i}$.
-	Dann
-	gilt \[
-	\tild{v}(\tild{x}) \geq \tild{v}(\tild{x} - e_k + e_l) + \tild{p}_k - \tild{p}_l
-	\] für alle $k, l \in N_\fs \cup\{ 0 \}$, da diese Ungleichung nur von Gütern $i\in\first{n}$ und nicht von $j\in\first{s_i}$ abhängt und sich dadurch die Voraussetzungen an $x$ ausnutzen lassen.
-	Aufgrund der $\mnath$-Konkavität von $\tild{v}$ gilt $\tild{x}\in\NB(\tild{v}, \tild{\fp})$ nach Korollar~\ref{cor-concave-local-global}. Daraus folgt auch $x\in\NB(v,\fp)$.
+	Nach Theorem~\ref{thm-fujishige-gs-iff-concave} ist $\tild{v}$ $\mnath$-konkav.
+	Seien Bündel $x,y\in\ffirst{\fs}$ und Preise $\fp\in\R^n$ mit $v(x)\geq \max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + \fp \bcdot(-e_i + e_j)$ gegeben und man nehme an, es gelte $v(x) - \fp \bcdot x < v(y) - \fp\bcdot y$.
+	Man definiere das Bündel $\tild{x}\in\ffirst{1}^{N_\fs}$ mit $\tild{x}_{i,j} \coloneqq 1$ für $j\in\first{x_i}$ und $\tild{x}_{i,j} \coloneqq 0$ für $x_i < j \leq s_i$ sowie analog das Bündel $\tild{y}$ und die Preise $\tild{p}_{i,j}\coloneqq p_i$ für alle $i\in\first{n}$ und $j\in\first{s_i}$.
+	Nach Theorem~\ref{thm-char-m-concave} existieren $i,j\in N_\fs \cup \{ 0 \}$ mit \[
+	v(\tild{x}) - \tild{\fp} \bcdot \tild{x} < \tild{v}(\tild{x} - e_i + e_j) - \tild{\fp}\bcdot (\tild{x} - e_i + e_j) .\]
+	Entsprechend existieren $k,l\in\first{n}\cup\{ 0 \}$ mit $ v(x) - \fp\bcdot x < v(x - e_k + e_l) - \fp \bcdot (x - e_k + e_l)$, was der lokalen Maximalität von $x$ widerspricht.
 \end{proof}
 \begin{bemerkung}
-	Nach~\cite[Theorem~11.4]{Murota2003} erfüllt jede $\mnath$-konkave Funktion die Brutto-Substituts-Eigenschaft.
-	Ob diese auch unabhängig ist, bleibt an dieser Stelle offen.
+	Nach~\cite[Theorem~11.5]{Murota2003} erfüllt jede $\mnath$-konkave Funktion die Brutto-Substituts-Eigenschaft.
+	Die umgekehrte Aussage gilt nur, falls die Funktion konkav-er\-weiter\-bar ist.
+	Ist die Domäne $\dom(v)\subseteq \Z^n_+$ einer konkav-erweiterbaren Funktion $v$ beschränkt, so ist $v$ nach~\cite[Theorem~4.1]{AkiyoshiShioura2015} sogar genau dann unabhängige Brutto-Substituts-Bewertung, wenn sie $\mnath$-konkav ist.
+	Falls unabhängige Brutto-Substituts-Bewer\-tungen mit Domäne $\ffirst{\fs}$ bereits automatisch konkav-erweiter\-bar wären, so würde im Szenario dieser Arbeit bereits Äquivalenz gelten.
+	Dies bleibt an dieser Stelle jedoch offen.
 \end{bemerkung}
 
 Wie sich zeigt, ist $\mnath$-Konkavität nicht die einzige interessante Charakterisierung von Brutto-Substituts-Funktionen.
@@ -137,8 +127,8 @@ So lässt sich auch das Konzept von sogeannten matroidalen Funktionen wiederfind
 	der Greedy-Algorithmus für alle Preise $\fp\in\R^n$ ein Bündel aus $\NB(v, \fp)$ berechnet.
 	\begin{description}
 		\item[Greedy-Algorithmus:] Initialisiere das Bündel $x$ mit $x\leftarrow \zero$.
-		Solange ein $i\in\first{n}$ existiert, das $x_i < s_i$ und $v(x + e_i) - p_i - v(x) > 0$ erfüllt,
-		aktualisiere $x$ mit $x\leftarrow x + e_{i^*}$, wobei $i^*$ ein Index mit $x_{i^*}=0$ sei, der $v(x + e_{i^*}) - p_{i^*}$ mit $x_{i^*} = 0$ maximiert.
+		Solange ein $i\in\first{n}$ existiert, das $x_i < s_i$ und $v(x + e_i) - p_i > v(x)$ erfüllt,
+		aktualisiere $x$ mit $x\leftarrow x + e_{i^*}$, wobei $i^*$ ein Index mit $x_{i^*}<s_{i^*}$ sei, der $v(x + e_{i^*}) - p_{i^*}$ maximiert.
 	\end{description}
 \end{definition}
 
@@ -151,7 +141,7 @@ Außerdem kann man in diesem Fall die Simulation eines Aggregierte-Nachfrage-Ora
 Allgemein benötigt man für eine Abfrage des Aggregierte-Nachfrage-Orakels nach Abschnitt~\ref{section-market-access} $m\cdot\abs{\ffirst{\fs}}$ Abfragen des Wert-Orakels.
 \begin{korollar}\label{cor-indep-gs-matroidal}
 	Eine unabhängige Brutto-Substituts-Bewertung ist matroidal.
-	Insbesondere kann man mit $mnS$ Abfragen eines Wert-Orakels einen aggregierten  Nachfrage-Vektor berechnen, falls alle Käufer eine unabhängige Brutto-Substituts-Bewertung haben.
+	Insbesondere kann man mit $mn^2S$ Abfragen eines Wert-Orakels einen aggregierten  Nachfrage-Vektor berechnen, falls alle Käufer eine unabhängige Brutto-Substituts-Bewertung haben.
 \end{korollar}
 \begin{proof}
 	Für eine unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$ ist $\tild{v}$ nach Theorem~\ref{thm-matroidal-iff-single-unit-gs} matroidal.
@@ -160,7 +150,7 @@ Allgemein benötigt man für eine Abfrage des Aggregierte-Nachfrage-Orakels nach
 	Es ist leicht zu sehen, dass der Greedy-Algorithmus -- führt man ihn auf der Eingabe $(v,\fp)$ aus -- diese Aggregation bereits während der Berechnung durchführt und das gleiche Ergebnis ausgibt.
 	
 	Um also ein nachgefragtes Bündel $\dem_i(\fp)$ zu berechnen, benötigt der Greedy-Algorithmus auf der Eingabe $(v, \fp)$ bis zu $\sum_{i\in\first{n}} s_i \leq nS$ Durchläufe der Schleife, welche selbst jeweils bis zu $n$ Auswertungen von $v$, also bis zu $n$ Abfragen des Wert-Orakels, tätigt.
-	Für einen aggregierten Nachfrage-Vektor $d(\fp) = \sum_{i\in\first{m}} d_i(\fp)$ werden also maximal $mnS$ Abfragen benötigt.
+	Für einen aggregierten Nachfrage-Vektor $d(\fp) = \sum_{i\in\first{m}} d_i(\fp)$ werden also maximal $mn^2S$ Abfragen benötigt.
 \end{proof}
 
 
@@ -179,7 +169,8 @@ Dafür sind folgende Notation und Proposition hilfreich:
 \end{notation}
 \begin{proposition}\label{prop-integral-polytop-helper}
 	Seien $p_1,p_2\in\R$ gegeben und sei $\theta$ zufällig aus dem Intervall $[0,1]$ gewählt.
-	Setzt man $\hat{p_i}\coloneqq \ceil{p_i}$ für $\fraction(p_i)> \theta$ und $\hat{p_i}\coloneqq \floor{p_i}$ für $\fraction(p_i) \leq \theta$, so erfüllt der Erwartungswert $\E[\hat{p}_i] = p_i$ für $i\in\first{2}$. Weiter gilt $\hat{p}_1 - \hat{p}_2 \in \{ \floor{p_1 - p_2}, \ceil{p_1 - p_2} \}$.
+	Setzt man $\hat{p_i}\coloneqq \ceil{p_i}$ für $\fraction(p_i)> \theta$ und $\hat{p_i}\coloneqq \floor{p_i}$ für $\fraction(p_i) \leq \theta$, so erfüllt der Erwartungswert $\E[\hat{p}_i] = p_i$ für $i\in\first{2}$.
+	Außerdem gilt $\hat{p}_1 - \hat{p}_2 \in \{ \floor{p_1 - p_2}, \ceil{p_1 - p_2} \}$.
 \end{proposition}
 \begin{proof}
 	Ist $p_i$ ganzzahlig, so gilt $\hat{p_i} = p_i$.
@@ -197,7 +188,7 @@ Dafür sind folgende Notation und Proposition hilfreich:
 		\item[1. Fall:] Die Zahlen $p_1$ und $p_2$ werden beide auf- oder beide abgerundet.
 		Bei Aufrundung gilt $\hat{p_1} - \hat{p_2} = \ceil{p_1 - p_2}$ für $\fraction(p_1) \geq \fraction(p_2)$ und $\hat{p_1} - \hat{p_2} = \floor{p_1 - p_2}$ sonst.
 		Bei Abrundung ist dies umgekehrt.
-		\item[2. Fall]: Es gilt $\fraction(p_1) \leq \theta < \fraction(p_2)$.
+		\item[2. Fall:] Es gilt $\fraction(p_1) \leq \theta < \fraction(p_2)$.
 		Dann ist $p_2$ nicht ganzzahlig und es gilt die Gleichung $\hat{p_1} - \hat{p_2} = \floor{p_1} - \ceil{p_2} = \floor{p_1} - \floor{p_2} - 1 = \floor{p_1 - p_2}$.
 		\item[3. Fall:] Es gilt $\fraction(p_2) \leq \theta < \fraction(p_1)$. Analog gilt $\hat{p_1} - \hat{p_2} = \floor{p_1} + 1 - \floor{p_2} = \ceil{p_1 - p_2}$.
 	\end{description}
@@ -208,13 +199,13 @@ Dafür sind folgende Notation und Proposition hilfreich:
 	Sei $(u, \fp)$ ein zulässiger Punkt von~\eqref{TDP}.
 	Das heißt es gilt $u \geq \sum_{i\in\first{m}} ( v(x^{(i)}) - \fp \bcdot x^{(i)})$ für alle $\fx = (x^{(i)})_{i\in\first{m}}\in\ffirst{\fs}^m$.
 	Sei nun $\fx = (x^{(i)})_{i\in\first{m}}$ eine Allokation aus $\arg\max_{\fx\in\ffirst{\fs}^m} \sum_{i\in\first{m}} (v(x^{(i)}) - \fp \bcdot x^{(i)})$ und man definiere die Differenz $w \coloneqq u - \sum_{i\in\first{m}} (v_i(x^{(i)}) - \fp \bcdot x^{(i)})$.
-	Man beachte, dass $w \geq 0$ gilt.
+	Man beachte, dass $w$ nicht negativ ist.
 	
 	Nun wird die folgende Zufallsverteilung definiert:
 	Es wird ein Wert $\theta$ zufällig aus dem Intervall $[0,1]$ entnommen.
 	Wie in Proposition~\ref{prop-integral-polytop-helper} wird $\hat{p_i}$ auf $\ceil{p_i}$ gesetzt, falls $\fraction(p_i)$ größer als $\theta$ ist, und sonst auf $\floor{p_i}$ für alle $i\in\first{m}$.
 	Analog wird $\hat{w}$ definiert.
-	Schließlich wird $\hat{u}\coloneqq\hat{w}+ \sum_{i\in\first{m}} (v_i(x^{(i)}) - \hat{\fp} \bcdot x^{(i)})$ definiert.
+	Schließlich wird $\hat{u}\coloneqq\hat{w}+ \sum_{i\in\first{m}} (v_i(x^{(i)}) - \hat{\fp} \bcdot x^{(i)})$ gesetzt.
 	Nach Proposition~\ref{prop-integral-polytop-helper} gilt mit der Linearität des Erwartungswerts auch $\E[(\hat{u},\hat{\fp})] = (u, \fp)$.
 	Dabei ist der Erwartungswert tatsächlich eine Konvexkombination endlich vieler, genauer maximal $\abs{ \{ \fraction(w) \} \cup \{ \fraction(p_i) \mid i\in\first{n} \} } + 1$ vieler ganzzahliger Vektoren.
 	Es genügt also zu zeigen, dass jeder dieser Vektoren für~\eqref{TDP} zulässig ist.
@@ -225,19 +216,19 @@ Dafür sind folgende Notation und Proposition hilfreich:
 	
 	Sei ein $i\in\first{m}$ gegeben. Wegen $x^{(i)}\in\NB(v_i, \fp)$ gilt $v_i(x^{(i)}) \geq v_i(x^{(i)} + e_j - e_k) - \fp \bcdot (e_j - e_k)$ für alle $j,k\in\ffirst{n}$.
 	Diese Ungleichung bleibt bei Rundung von $\fp$ zu $\hat{\fp}$ erhalten, weil $\hat{\fp}\bcdot (e_j - e_k)$ nach Proposition~\ref{prop-integral-polytop-helper} in $\{ \floor{\fp\bcdot(e_j - e_k)}, \ceil{\fp\bcdot(e_j - e_k)} \}$ liegt und die rest\-lichen Terme der Ungleichung ganzzahlig sind.
-	Daher ist $x^{(i)}$ ein lokales Maximum und nach den Korollaren~\ref{cor-concave-local-global} und~\ref{cor-indep-gs-m-concave} aufgrund der unabhängigen Brutto-Substituts-Eigenschaft von $v_i$ auch globales Maximum von $x\mapsto v(x) - \hat{\fp} \bcdot x$ auf dem Definitionsbereich $\ffirst{\fs}$.
+	Daher ist $x^{(i)}$ ein lokales Maximum und nach Korollar~\ref{cor-independent-local-global} aufgrund der unabhängigen Brutto-Substituts-Eigenschaft von $v_i$ auch globales Maximum von $x\mapsto v(x) - \hat{\fp} \bcdot x$.
 	Somit gilt $x^{(i)}\in\NB(v_i, \hat{\fp})$.
 \end{proof}
 \begin{theorem}
 	Sei ein Markt mit unabhängigen Brutto-Substituts-Bewertungen und $\interior(K)\neq \emptyset$ für die Menge $K$ der Walras-Preise gegeben.
-	Dann kann man entweder mit $\bigO(n^2\log(M))$ Abfragen des Aggregierte-Nachfrage-Orakels einen Walras-Preisvektor oder mit $\bigO(n^3 m S\log(M))$ Abfragen eines Wert-Orakels ein Walras-Gleichgewicht bestimmen.
+	Dann kann man entweder mit $\bigO(n^2\log(M))$ Abfragen des Aggregierte-Nachfrage-Orakels einen Walras-Preisvektor oder mit $\bigO(n^4 m S\log(M))$ Abfragen des Wert-Orakels ein Walras-Gleichgewicht bestimmen.
 \end{theorem}
 \begin{proof}
 	Hier kann man den gleichen Beweis wie in Theorem~\ref{thm-compute-walras-with-ellipsoid} führen; jedoch kann hier statt der Abschätzung der Nenner durch Lemma~\ref{lemma-prices-bounded-S} die Ganzzahligkeit der Ecken von $K$ nach Theorem~\ref{thm-walras-prices-integral-polytope} genutzt werden.
 	Daher kann $R=1$ gewählt werden.
 	
-	Nutzt man statt des Aggregierte-Nachfrage-Orakels ein Wert-Orakel, so kann man nach Korollar~\ref{cor-indep-gs-matroidal} das gleiche bei $mnS$ so vielen Abfragen erreichen.
+	Nutzt man statt des Aggregierte-Nachfrage-Orakels ein Wert-Orakel, so kann man nach Korollar~\ref{cor-indep-gs-matroidal} das gleiche bei $mn^2S$ so vielen Abfragen erreichen.
 	Allerdings hat dies den Vorteil, dass aus folgendem Grund sogar eine Walras-Allokation berechnet wird:
-	Das Trennorakels liefert bei der Ellipsoid-Methode schließlich die Meldung \glqq$\fp\in K$\grqq\ für Preise $\fp\in\R^n$, was nach dem Beweis von Theorem~\ref{thm-compute-walras-with-ellipsoid} nur erfolgt, wenn $\dem(\fp) - \fs = 0$ gilt.
+	Das Trennorakel liefert bei der Ellipsoid-Methode schließlich die Meldung \glqq$\fp\in K$\grqq\ für Preise $\fp\in\R^n$, was nach dem Beweis von Theorem~\ref{thm-compute-walras-with-ellipsoid} nur erfolgt, wenn $\dem(\fp) - \fs = 0$ gilt.
 	Da der Nachfrage-Vektor als Summe $\sum_{i\in\first{m}} \dem_i(\fp)$ berechnet wurde, bildet $(\dem_i(\fp))_{i\in\first{m}}$ eine Walras-Allokation.
 \end{proof}
