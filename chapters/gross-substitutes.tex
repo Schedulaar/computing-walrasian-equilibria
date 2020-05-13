@@ -1,4 +1,4 @@
-\section{Brutto-Substituts-Bewertungen}
+\section{Brutto-Substituts-Bewertungen}\label{sec-gross-substitutes}
 
 In diesem Abschnitt werden die Bewertungsfunktionen der Käufer eingeschränkt.
 In vielen Marktmodellen werden nur \glqq ähnliche\grqq\ Güter betrachtet.
@@ -26,10 +26,10 @@ Man kann den Fall mehrfachen Angebots einzelner Güter darauf herunterbrechen, i
 \newcommand{\tild}[1]{\widetilde{#1}}
 \begin{definition}[Unabhängige Brutto-Substituts-Bewertung]
 	Eine Bewertungsfunktion $v: \ffirst{s} \rightarrow \Z$ heißt \emph{unabhängige Brutto-Substituts-Bewertung}, falls \[
-	\tild{v}: \ffirst{1}^{\sum_{i\in\first{n}}s_i} \rightarrow \Z,
-	\quad (x_{i,j})_{i\in\first{n}, j\in\first{s_i}} \mapsto v\left( \left( \sum_{j\in\first{s_i}} x_{i,j} \right)_{i\in\first{n}} \right)
+	\tild{v}: \ffirst{1}^{N_\fs} \rightarrow \Z,
+	\quad (x_{i,j})_{(i,j)\in N_\fs} \mapsto v\left( \left( \sum_{j\in\first{s_i}} x_{i,j} \right)_{i\in\first{n}} \right)
 	\]
-	eine Brutto-Substituts-Bewertung ist.
+	eine Brutto-Substituts-Bewertung ist, wobei $N_\fs \coloneqq \{ (i,j) \mid i\in\first{n}, j\in\first{s_i} \}$ gilt.
 \end{definition}
 \begin{proposition}
 	Jede unabhängige Brutto-Substituts-Funktion ist eine Brutto-Substituts-Funktion.
@@ -37,15 +37,15 @@ Man kann den Fall mehrfachen Angebots einzelner Güter darauf herunterbrechen, i
 \end{proposition}
 \begin{proof}
 	Für Preise $\fp,\fp'\in\R^n$ mit $\fp' \geq \fp$ definiere man $\tild{\fp}\coloneqq (p_i)_{i\in\first{n},j\in\first{s_i}}$ und analog $\tild{\fp'}\coloneqq (p_i')_{i\in\first{n},j\in\first{s_i}}$.
-	Für ein Bündel $x\in\NB(v,\fp)$ ist $\tild{x}$ mit $\tild{x}_{i,j} = 1$ für $i\in\first{n}$ und $j\leq x_i$ in $\NB(\tild{v}, \tild{\fp})$ enthalten.
-	Es existiert ein Bündel $\tild{y}$ mit $\tild{y}_{i,j} \geq \tild{x}_{i,j}$ für alle $i,j$ mit $p_i \geq p_i'$ und $j\in\first{s_i}$ in $\NB(\tild{v}, \tild{\fp'})$.
+	Für ein Bündel $x\in\NB(v,\fp)$ ist $\tild{x}$ mit $\tild{x}_{i,j} = 1$ für $j\in\first{x_i}$ und $\tild{x}_{i,j}= 0$ für $j > x_i$ in $\NB(\tild{v}, \tild{\fp})$ enthalten.
+	Da $\tild{v}$ eine Brutto-Substituts-Bewertung ist, existiert ein Bündel $\tild{y}$ in $\NB(\tild{v}, \tild{\fp'})$ mit $\tild{y}_{i,j} \geq \tild{x}_{i,j}$ für alle $(i,j)\in N_\fs$ mit $p_i = p_i'$.
 	Dementsprechend ist $y\coloneqq(\sum_{j\in\first{s_i}} \tild{y}_{i,j})_{i\in\first{n}}$ in $\NB(v, \fp')$ und es gilt $y_i \geq x_i$ für alle $i\in\first{n}$, sodass $v$ die Brutto-Substituts-Eigenschaft erfüllt.
 	
 	Nun ein Beispiel einer nicht unabhängigen Brutto-Substituts-Funktion: Wir betrachten einen Markt mit nur einem Gut mit $s=2$ und der Bewertungsfunktion $v(k)\coloneqq k^2$, welche automatisch eine Brutto-Substituts-Funktion ist.
 	Setzt man Preise $\tild{p}_j \coloneqq 2$ für $j\in\first{2}$ fest,
 	so ist der Nutzen beim Kauf beider Einheiten maximal; es gilt $(1,1)\in \NB(\tild{v}, \tild{\fp})$.
 	Erhöht man den Preis der ersten Einheit auf $\tild{p}'_1 \coloneqq 3$ und behält den Preis der zweiten Einheit bei, so ist $(0,0)$ das einzige nachgefragte Bündel.
-	Daher ist $\tilde{v}$ keine Brutto-Substituts-Funktion.
+	Daher ist $\tild{v}$ keine Brutto-Substituts-Funktion.
 \end{proof}
 
 \begin{bemerkung}
@@ -64,6 +64,10 @@ Dazu wird hier die Beschreibung der Eigenschaft von Murota aus~\cite[Theorem~6.2
 	Es bezeichne $\dom(v)\coloneqq \{ z \mid v(z)\in\R \}$ die \emph{Domäne}, also den reellwertigen Bereich, einer Funktion $v:\Z^n \rightarrow \R \cup \{ -\infty\}$.
 \end{definition}
 
+In dieser Arbeit werden meist Funktionen $v: D\rightarrow \R$ mit $D\subseteq \Z^n$ betrachtet.
+Um die folgende Definition anwenden zu können, werden solche Funktionen $v$ hier als Funktionen $v: \Z^n\rightarrow \R \cup \{ -\infty\}$ interpretiert, wobei $v(x) = -\infty$ für $x\notin D$ gilt.
+Hier gilt $D = \dom(v)$.
+
 \begin{definition}[$\mnath$-Konkavität]
 	Eine Funktion $v:\Z^n \rightarrow \R \cup \{-\infty\}$ mit $\dom(v) \neq \emptyset$ heißt \emph{$\mnath$-konkav} (\glqq M-natürlich konkav\grqq), falls \[
 	v(x) + v(y) \leq
@@ -75,10 +79,6 @@ Dazu wird hier die Beschreibung der Eigenschaft von Murota aus~\cite[Theorem~6.2
 	Hier gelte $\max(\emptyset)=-\infty$.
 \end{definition}
 
-
-In diesem Abschnitt werden meist Funktionen $v: D\rightarrow \R$ mit $D\subseteq \Z^n$ betrachtet.
-Um die Definition oben anwenden zu können, werden solche Funktionen $v$ hier als Funktionen $v: \Z^n\rightarrow \R \cup \{ -\infty\}$ interpretiert, wobei $v(x) = -\infty$ für $x\notin D$ gilt.
-Hier gilt $D = \dom(v)$.
 
 Murota gibt in~\cite[Theorem~6.24 bzw. Abschnitt~11.3]{Murota2003} eine äquivalente Beschreibung von $\mnath$-konkaven Funktionen, die für die Anwendung hier sehr nützlich erscheint:
 
@@ -109,7 +109,7 @@ Ein wichtiges Resultat, das die Brutto-Substituts-Eigenschaft mit $\mnath$-Konka
 	Eine Bewertungsfunktion $\tild{v}:\ffirst{1}^n\rightarrow \Z$ erfüllt genau dann die Brutto-Substituts-Eigenschaft, wenn sie $\mnath$-konkav ist.
 \end{theorem}
 
-Damit lässt sich auch die $\mnath$-Konkavität unabhängiger Brutto-Substituts-Bewertungen zeigen.
+Damit lässt sich die $\mnath$-Konkavität unabhängiger Brutto-Substituts-Bewertungen zeigen.
 
 \begin{korollar}\label{cor-indep-gs-m-concave}
 	Jede unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$ ist $\mnath$-konkav.
@@ -118,11 +118,11 @@ Damit lässt sich auch die $\mnath$-Konkavität unabhängiger Brutto-Substituts-
 	Nach Theorem~\ref{thm-fujishige-gs-iff-concave} ist $\tild{v}$ schon $\mnath$-konkav.
 	Man zeige die notwendigen Voraussetzungen in~\ref{cor-concave-local-global} für $v$:
 	Seien $x\in\ffirst{\fs}$ und $\fp\in\R^n$ mit $v(x)\geq \max_{i,j\in\ffirst{n}} v(x - e_i + e_j) + p_i - p_j$ gegeben.
-	Man definiere das Bündel $\tild{x}\in\ffirst{1}^{\sum_{i\in\first{n}} s_i}$ mit $\tild{x}_{i,j} \coloneqq 1$ für $j\in\first{x_i}$ und $\tild{x}_{i,j} \coloneqq 0$ für $x_i < j \leq s_i$ sowie die Preise $\tild{p}_{i,j}\coloneqq p_i$ für alle $i\in\first{n}$ und $j\in\first{s_i}$.
+	Man definiere das Bündel $\tild{x}\in\ffirst{1}^{N_\fs}$ mit $\tild{x}_{i,j} \coloneqq 1$ für $j\in\first{x_i}$ und $\tild{x}_{i,j} \coloneqq 0$ für $x_i < j \leq s_i$ sowie die Preise $\tild{p}_{i,j}\coloneqq p_i$ für alle $i\in\first{n}$ und $j\in\first{s_i}$.
 	Dann
 	gilt \[
 	\tild{v}(\tild{x}) \geq \tild{v}(\tild{x} - e_k + e_l) + \tild{p}_k - \tild{p}_l
-	\] für alle $k, l \in \{ (i,j) \mid i\in\first{n}, j\in\first{s_i} \}\cup\{ 0 \}$, da diese Ungleichung nur von Gütern $i\in\first{n}$ und nicht von $j\in\first{s_i}$ abhängt und sich dadurch die Voraussetzungen an $x$ ausnutzen lassen.
+	\] für alle $k, l \in N_\fs \cup\{ 0 \}$, da diese Ungleichung nur von Gütern $i\in\first{n}$ und nicht von $j\in\first{s_i}$ abhängt und sich dadurch die Voraussetzungen an $x$ ausnutzen lassen.
 	Aufgrund der $\mnath$-Konkavität von $\tild{v}$ gilt $\tild{x}\in\NB(\tild{v}, \tild{\fp})$ nach Korollar~\ref{cor-concave-local-global}. Daraus folgt auch $x\in\NB(v,\fp)$.
 \end{proof}
 \begin{bemerkung}
@@ -142,20 +142,20 @@ So lässt sich auch das Konzept von sogeannten matroidalen Funktionen wiederfind
 	\end{description}
 \end{definition}
 
-In~\cite{PaesLeme2017} wird nun folgende Äquivalenz bewiesen:
+In~\cite[Theorem~3.2]{PaesLeme2017} wird nun folgende Äquivalenz bewiesen:
 \begin{theorem}\label{thm-matroidal-iff-single-unit-gs}
 	Eine Funktion $\tild{v}:\ffirst{1}^n \rightarrow \Z$ ist genau dann matroidal, wenn sie eine Brutto-Substituts-Bewertung ist.
 \end{theorem}
 Dieses Ergebnis lässt sich auf unabhängige Brutto-Substituts-Bewertungen erweitern.
 Außerdem kann man in diesem Fall die Simulation eines Aggregierte-Nachfrage-Orakels durch ein Wert-Orakel deutlich beschleunigen:
-Für allgemeine Bewertungen benötigt man für eine Abfrage des Aggregierte-Nachfrage-Orakels nach Abschnitt~\ref{section-market-access} $m\cdot\abs{\ffirst{\fs}}$ Abfragen des Wert-Orakels.
+Allgemein benötigt man für eine Abfrage des Aggregierte-Nachfrage-Orakels nach Abschnitt~\ref{section-market-access} $m\cdot\abs{\ffirst{\fs}}$ Abfragen des Wert-Orakels.
 \begin{korollar}\label{cor-indep-gs-matroidal}
 	Eine unabhängige Brutto-Substituts-Bewertung ist matroidal.
 	Insbesondere kann man mit $mnS$ Abfragen eines Wert-Orakels einen aggregierten  Nachfrage-Vektor berechnen, falls alle Käufer eine unabhängige Brutto-Substituts-Bewertung haben.
 \end{korollar}
 \begin{proof}
 	Für eine unabhängige Brutto-Substituts-Funktion $v:\ffirst{\fs} \rightarrow \Z$ ist $\tild{v}$ nach Theorem~\ref{thm-matroidal-iff-single-unit-gs} matroidal.
-	Zu Preisen $\fp$ kann also mit dem Greedy-Algorithmus ein Vektor $\tild{x}\in\NB(\tild{v}, \tild{\fp})$ mit $\tild{\fp} \coloneqq (p_i)_{i\in\first{n}, j\in\first{s_i}}$ berechnet werden.
+	Zu Preisen $\fp$ kann also mit dem Greedy-Algorithmus ein Vektor $\tild{x}\in\NB(\tild{v}, \tild{\fp})$ mit $\tild{\fp} \coloneqq (p_i)_{(i,j)\in N_\fs}$ berechnet werden.
 	Dieser kann mit $x=(\sum_{j\in\first{s_i}} x_j)_{i\in\first{n}}$ in ein Nachfragebündel aus $\NB(v, \fp)$ transformiert werden.
 	Es ist leicht zu sehen, dass der Greedy-Algorithmus -- führt man ihn auf der Eingabe $(v,\fp)$ aus -- diese Aggregation bereits während der Berechnung durchführt und das gleiche Ergebnis ausgibt.
 	
@@ -203,7 +203,7 @@ Dafür sind folgende Notation und Proposition hilfreich:
 	\end{description}
 	\vspace{-0.5em}
 \end{proof}
-Diese Aussagen lassen nun den folgenden Beweis zu:
+%Diese Aussagen lassen nun den folgenden Beweis zu:
 \begin{proof}[Beweis von Theorem~\ref{thm-walras-prices-integral-polytope}]
 	Sei $(u, \fp)$ ein zulässiger Punkt von~\eqref{TDP}.
 	Das heißt es gilt $u \geq \sum_{i\in\first{m}} ( v(x^{(i)}) - \fp \bcdot x^{(i)})$ für alle $\fx = (x^{(i)})_{i\in\first{m}}\in\ffirst{\fs}^m$.
@@ -230,7 +230,7 @@ Diese Aussagen lassen nun den folgenden Beweis zu:
 \end{proof}
 \begin{theorem}
 	Sei ein Markt mit unabhängigen Brutto-Substituts-Bewertungen und $\interior(K)\neq \emptyset$ für die Menge $K$ der Walras-Preise gegeben.
-	Dann kann man entweder mit $\bigO(n\log(Mn))$ Abfragen des Aggregierte-Nachfrage-Orakels einen Walras-Preisvektor oder mit $\bigO(n^2 m S\log(Mn))$ Abfragen eines Wert-Orakels ein Walras-Gleichgewicht bestimmen.
+	Dann kann man entweder mit $\bigO(n^2\log(M))$ Abfragen des Aggregierte-Nachfrage-Orakels einen Walras-Preisvektor oder mit $\bigO(n^3 m S\log(M))$ Abfragen eines Wert-Orakels ein Walras-Gleichgewicht bestimmen.
 \end{theorem}
 \begin{proof}
 	Hier kann man den gleichen Beweis wie in Theorem~\ref{thm-compute-walras-with-ellipsoid} führen; jedoch kann hier statt der Abschätzung der Nenner durch Lemma~\ref{lemma-prices-bounded-S} die Ganzzahligkeit der Ecken von $K$ nach Theorem~\ref{thm-walras-prices-integral-polytope} genutzt werden.
@@ -238,6 +238,6 @@ Diese Aussagen lassen nun den folgenden Beweis zu:
 	
 	Nutzt man statt des Aggregierte-Nachfrage-Orakels ein Wert-Orakel, so kann man nach Korollar~\ref{cor-indep-gs-matroidal} das gleiche bei $mnS$ so vielen Abfragen erreichen.
 	Allerdings hat dies den Vorteil, dass aus folgendem Grund sogar eine Walras-Allokation berechnet wird:
-	Das Trennorakels liefert bei der Ellipsoid-Methode schließlich die Meldung \glqq$\fp\in K$\grqq für Preise $\fp\in\R^n$, was nach dem Beweis von Theorem~\ref{thm-compute-walras-with-ellipsoid} nur erfolgt, wenn $\dem(\fp) - \fs = 0$ gilt.
+	Das Trennorakels liefert bei der Ellipsoid-Methode schließlich die Meldung \glqq$\fp\in K$\grqq\ für Preise $\fp\in\R^n$, was nach dem Beweis von Theorem~\ref{thm-compute-walras-with-ellipsoid} nur erfolgt, wenn $\dem(\fp) - \fs = 0$ gilt.
 	Da der Nachfrage-Vektor als Summe $\sum_{i\in\first{m}} \dem_i(\fp)$ berechnet wurde, bildet $(\dem_i(\fp))_{i\in\first{m}}$ eine Walras-Allokation.
 \end{proof}

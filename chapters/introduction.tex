@@ -1,3 +1,11 @@
 \section{Einführung}
 
-\todo{Walras-Gleichgewichte rocken.}
+Bei der Untersuchung von Markt-Modellen spielen Markt-Gleichgewichte eine zentrale Rolle.
+In der Arbeit \glqq Computing Walrasian equilibria: fast algorithms and structural properties\grqq\ (\cite{PaesLeme2018}), welche die Grundlage dieser Seminararbeit bildet, untersuchen Leme und Wong verschiedene Ansätze zur Berechnung solcher Gleichgewichte.
+Dabei werden Märkte mit unteilbaren Gütern untersucht, bei denen Güter mehrfach angeboten werden können.
+Dabei ist jeder Käufer durch eine eigene Bewertungsfunktion modelliert, die den Wert eines Bündels für einen Käufer bestimmt.
+Ein Walras-Gleichgewicht besteht hier aus Preisen für jedes Gut sowie einer Allokation der Güter an die Käufer, bei der jeder Käufer ein für ihn bei diesen Preise bestmögliches Bündel erhält und jedes Vorkommen eines Guts an einen Käufer verteilt wird; es bleiben also keine Güter unverkauft übrig.
+
+In Abschnitt~\ref{sec-walras-equilibria} werden Walras-Gleichgewichte formal eingeführt und das erste- und zweite Wohlfahrtstheorem gezeigt.
+Daraufhin wird in Abschnitt~\ref{sec-computation} ein Vorgehen besprochen, mit dem Walras-Preise exakt berechnet werden können.
+Abschließend werden in Abschnitt~\ref{sec-gross-substitutes} die Bewertungsfunktionen der Käufer auf Brutto-Substituts-Bewertungen eingeschränkt und Auswirkungen davon auf die Berechnung von Gleichgewichten erarbeitet.

@@ -1,13 +1,12 @@
-\section{Berechnung von Gleichgewichten}
+\section{Berechnung von Walras-Preisen}\label{sec-computation}
 
 Zunächst werden die verschiedenen Informationszugänge, die für die Bestimmung  der Nachfrage eines Marktes zur Verfügung stehen können, beleuchtet.
 Anschließend wird darauf aufbauend ein Vorgehen und die dafür nötige Theorie eingeführt, mit dem Gleichge\-wichts-Preise berechnet werden können.
 
 \subsection{Informationszugang zum Markt}\label{section-market-access}
 
-Bei der Berechnung eines Marktgleichgewichts müssen auf irgendeine Weise Informationen erhoben werden.
-Dieser Informationszugang kann dann von Algorithmen als Schnittstelle zur Berechnung eines Gleichgewichts verwendet werden.
-Die Algorithmen werden also unter der Annahme entwickelt, dass ein Orakel existiert, welches eine solche Schnittstelle zum Markt implementiert.
+Bei der Berechnung eines Marktgleichgewichts müssen auf irgendeine Weise Informationen vom Markt erhoben werden.
+Dieser Informationszugang wird dann von Algorithmen als Schnittstelle zur Berechnung eines Gleichgewichts verwendet werden.
 
 Da der Detailgrad der erfassbaren Informationen bei vielen Marktsituationen unterschiedlich ist, unterscheiden Leme und Wong in~\cite{PaesLeme2018} drei verschiedene Modelle:
 \begin{itemize}
@@ -17,16 +16,16 @@ Da der Detailgrad der erfassbaren Informationen bei vielen Marktsituationen unte
 	Sollten mehrere Bündel für den Käufer gleichwertig sein, so wird ein beliebiges dieser Bündel ausgegeben.
 	Das \emph{Nachfrage-Orakel} berechnet also anhand eines Preisvektors $\fp\in\R^n$ und eines Käufers $i\in\first{m}$ ein Bündel $\dem_i(\fp)\in\NB(i, \fp)$.
 	\item \emph{Die Makroskopische Sicht:} Hier können keine Informationen einzelner Käufer abgefragt werden, sondern nur noch auf die aggregierte Nachfrage bei gegebenen Preisen.
-	Das heißt, das sogenannte \emph{Aggregierte-Nachfrage-Orakel} liefert bei Eingabe eines Preisvektors $\fp\in\R^n$ einen Nachfrage-Vektor $\dem(\fp)\in\Z_{\geq0}^n$, für den nachgefragte Bündel $x^{(i)} \in \NB(i,\fp)$ mit $\dem(p)=\sum_{i\in\first{m}} x^{(i)}$ existieren.
+	Das heißt, das sogenannte \emph{Aggregierte-Nachfrage-Orakel} liefert bei Eingabe eines Preisvektors $\fp\in\R^n$ einen Nachfrage-Vektor $\dem(\fp)\in\Z_{\geq0}^n$, für den nachgefragte Bündel $x^{(i)} \in \NB(i,\fp)$ mit $\dem(\fp)=\sum_{i\in\first{m}} x^{(i)}$ existieren.
 \end{itemize}
 
 Es sei erwähnt, dass man anhand eines Wert-Orakels ein Nachfrage-Orakel konstruieren kann:
 Sind Preise $\fp$ sowie ein Käufer $i$ gegeben, kann für jedes Bündel $x$ der Nutzen $u_i(x; \fp)$ durch je eine Abfrage des Wert-Orakels berechnet werden und ein Bündel ausgegeben werden, welches diesen Wert maximiert.
-Für eine Abfrage des Nachfrage-Orakels entstehen dann $\ffirst{\fs}$ Abfragen des Wert-Orakels.
+Für eine Abfrage des Nachfrage-Orakels entstehen dann $\abs{\ffirst{\fs}} = \prod_{i\in\first{n}} (s_i + 1)$ Abfragen des Wert-Orakels.
 
-Genauso lässt sich aus einem Nachfrage-Orakel auch ein Aggregierte-Nachfrage-Orakel gewinnen: So kann man mit $m$ Abfragen des Nachfrage-Orakels für alle $i\in\{m\}$ ein nachgefragtes Bündel erhalten, welche summiert den aggregierten Nachfrage-Vektor ergeben.
+Genauso lässt sich aus einem Nachfrage-Orakel auch ein Aggregierte-Nachfrage-Orakel gewinnen: So kann man mit $m$ Abfragen des Nachfrage-Orakels für alle $i\in\first{m}$ ein nachgefragtes Bündel erhalten, welche summiert den aggregierten Nachfrage-Vektor ergeben.
 
-Im Folgenden wird ein Verfahren diskutiert, der das Aggregierte-Nachfrage-Modell verwendet, um Walras-Preise für allgemeine Bewertungsfunktionen zu berechnen.
+Im Folgenden wird ein Verfahren diskutiert, der das Aggregierte-Nachfrage-Orakel verwendet, um Walras-Preise für allgemeine Bewertungsfunktionen zu berechnen.
 
 \subsection{Darstellung als Lineares Optimierungsproblem}
 
@@ -50,8 +49,8 @@ Führt man für die ersten $m$ Bedingungen die Variablen $(u_i)_{i\in\first{m}}$
 \end{lemma}
 \begin{proof}
 	Zunächst bemerke man, dass die zulässigen ganzzahligen Lösungen von~\eqref{LP} gerade den gültigen Allokationen entsprechen:
-	Ist $z$ ganzzahlig und zulässig, so gibt es für alle $i\in\first{m}$ wegen den ersten Bedingungen genau ein Bündel $x^{(i)}\in\ffirst{\fs}$ mit $z_{i,x^{(i)}} = 1$.
-	Aus den nächsten $n$ Bedingung folgt dann die Gültigkeit der Allokation $(x^{(i)})_{i\in\first{m}}$.
+	Ist $z$ ganzzahlig und zulässig, so gibt es für alle $i\in\first{m}$ wegen den ersten $m$ Bedingungen und der Nichtnegativität von $z$ genau ein Bündel $x^{(i)}\in\ffirst{\fs}$ mit $z_{i,x^{(i)}} = 1$.
+	Aus den weiteren $n$ Bedingungen folgt dann die Gültigkeit der Allokation $(x^{(i)})_{i\in\first{m}}$.
 	Ausgehend von einer Allokation $\fx$ setzt man $z_{i,y} = 1$, falls $y = x^{(i)}$ gilt, und $z_{i,y}=0$ sonst, um zu einer ganzzahligen Lösung von~\eqref{LP} zu gelangen.
 	
 	Angenommen, es existiere ein Walras-Gleichgewicht $(\fx, \fp)$.
@@ -69,7 +68,7 @@ Führt man für die ersten $m$ Bedingungen die Variablen $(u_i)_{i\in\first{m}}$
 	Die Optimalität von $(\fp, \fu)$ impliziert bereits $u_i = \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$.
 	Subtrahiert man $\fp \bcdot \fs$ vom Zielfunktionswert erhält man 
 	\[
-	\sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp \bcdot x^{(i)} \right) = \sum_{i\in\first{m}} \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x,
+	\sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp \bcdot x^{(i)} \right) = \sum_{i\in\first{m}} \max_{x\in\ffirst{\fs}} \left( v_i(x) - \fp \bcdot x\right),
 	\]
 	wodurch $x^{(i)}\in\NB(i, \fp)$ für alle $i\in\first{m}$ folgt.
 	Daher ist $\fx$ eine Walras-Allokation induziert durch die Preise $\fp$.
@@ -90,6 +89,7 @@ Führt man für die ersten $m$ Bedingungen die Variablen $(u_i)_{i\in\first{m}}$
 	Für eine zulässige Lösung $(\fp, \fu)$ von~\eqref{DP} ist $(\fp, u)$ mit $u\coloneqq \sum_{i\in\first{m}} u_i$ eine zulässige Lösung von~\eqref{TDP} mit gleichem Zielfunktionswert.
 	Umgekehrt ist für eine zulässige Lösung $(\fp, u)$ von~\eqref{TDP} mit $u_i\coloneqq \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ auch $(\fp, \fu)$ zulässig für~\eqref{DP} mit einem Wert von höchstens $u+\fp\bcdot \fs$, da die folgende Ungleichung erfüllt ist: \[
 		\sum_{i\in\first{m}} u_i = \sum_{i\in\first{m}} \max_{x\in\ffirst{\fs}} \left( v_i(x) - \fp \bcdot x \right) = \max_{\fx\in\ffirst{\fs}^m} \sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp \bcdot x^{(i)} \right) \leq u.
+		\vspace{-15pt}
 	\]
 \end{proof}
 \begin{bemerkung} 
@@ -133,18 +133,18 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 \end{lemma}
 \begin{proof}
 	Sei $\dem(\fp) = \sum_{i\in\first{m}} x^{(i)}$ die aggregierte Nachfrage zum Preis $\fp$.
-	Da $f$ eine Summe konvexer Funktionen ist, ist nach~\cite[Theorem~1.12]{Shor1985} jede Summe von Subgradienten der einzelnen Summanden in $\fp$ ein Subgradient von $f$ in $\fp$.
-	Weiter ist nach~\cite[Theorem~1.13]{Shor1985} für das Maximum konvexer Funktionen jeder Subgradient einer Funktion, die in $\fp$ das Maximum annimmt, ein Subgradient der Maximumsfunktion in $\fp$.
+	Da $f$ eine Summe konvexer Funktionen ist, ist nach~\cite[Theorem~1.12]{Shor1985} jede Summe von Subgradienten der einzelnen Summanden an $\fp$ ein Subgradient von $f$ an $\fp$.
+	Weiter ist nach~\cite[Theorem~1.13]{Shor1985} für das Maximum konvexer Funktionen jeder Subgradient einer Funktion, die in $\fp$ das Maximum annimmt, ein Subgradient der Maximumsfunktion an $\fp$.
 	Des Weiteren ist für eine differenzierbare Funktion der einzige Subgradient der Gradient der Funktion.
 	
-	Dies heißt, da $x^{(i)}\in \arg\max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ gilt, sind $-x^{(i)}$ ein Subgradient von $\fp \mapsto \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ und $\fs - \dem(\fp)$ ein Subgradient von $f$ an~$\fp$.
+	Da $x^{(i)}\in \arg\max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ gilt, sind $-x^{(i)}$ ein Subgradient von $\fp \mapsto \max_{x\in\ffirst{\fs}} v_i(x) - \fp \bcdot x$ für alle $i\in\first{m}$ und $\fs - \dem(\fp)$ ein Subgradient von $f$ an~$\fp$.
 \end{proof}
 
 \begin{lemma}\label{lemma-prices-bounded-M}
-	Existiert eine Walras-Allokation $\fx$, so sind für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}} \abs{v_i(x)}$ alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
+	Für $M\coloneqq \max_{i\in\first{m}, x\in\ffirst{\fs}} \abs{v_i(x)}$ sind alle Walras-Preise in $[-2M, 2M]^n$ enthalten.
 \end{lemma}
 \begin{proof}
-	Seien $\fp$ ein Walras-Preisvektor und $j\in\first{n}$ gegeben.
+	Seien ein Walras-Gleichgewicht $(\fx, \fp)$ und $j\in\first{n}$ gegeben.
 	Der Preis $p_j$ übersteigt $2M$ nicht, denn sonst würde kein Käufer $j$ nachfragen:
 	Da $s_j$ positiv ist, gibt es einen Käufer $i$ mit $x^{(i)}_j > 0$, für den $x^{(i)} \in\NB(i, \fp)$ folgende Ungleichung impliziert:
 	\[
@@ -165,7 +165,7 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	für $S = \max_{j\in\first{n}} s_j$ sind.
 \end{lemma}
 \begin{proof}
-	Ergänzt man~\eqref{TDP} um Schlupfvariablen $\fy=(y_{\fx})_{\fx\in\ffirst{\fs}}$, so erhält man Bedingungen der Form $ u + \fp \bcdot \sum_{i\in\first{m}} x^{(i)} + y_{\fx} = \sum_{i\in\first{m}} v_i(x) $ für alle $i\in\first{m}, x\in\ffirst{\fs}$.
+	Ergänzt man~\eqref{TDP} um Schlupfvariablen $\fy=(y_{\fx})_{\fx\in\ffirst{\fs}^m}$, so erhält man Bedingungen der Form $ u + \fp \bcdot \sum_{i\in\first{m}} x^{(i)} + y_{\fx} = \sum_{i\in\first{m}} v_i(x^{(i)}) $ für alle $i\in\first{m}, \fx\in\ffirst{\fs}^m$.
 	Seien $A$ die Matrix und $b$ der Vektor, die diese Nebenbedingungen in $A \cdot (\fp, u, \fy)^T = b$ zusammenfasst.
 	
 	
@@ -175,11 +175,11 @@ Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ 
 	Der Zähler ist also eine ganze Zahl.
 	Sind Schlupfvariablen in der Basis $B$, so kann man $\det(A_B)$ jeweils nach diesen Spalten entwickeln, da $A_B$ hier nur aus Einheitsvektoren besteht.
 	Es genügt also die Determinante einer $(n+1)\times(n+1)$-Submatrix mit den Spalten von $\fp$ und $u$ zu beschränken:
- 	Die Einträge der Spalten von $\fp$ sind hier zwischen 0 und $m\cdot S$, sodass mit der Leibniz-Formel $\abs{\det(A_B)} \leq (n+1)!\, (m S)^{n}$ folgt.
+ 	Die Einträge dieser Spalten sind hier zwischen 0 und $m\cdot S$, sodass mit der Leibniz-Formel $\abs{\det(A_B)} \leq (n+1)!\, (m S)^{n}$ folgt.
 \end{proof}
 \begin{bemerkung}
 	Im Vergleich zu~\cite[Lemma~5]{PaesLeme2018} ist in der Abschätzung hier die Anzahl der Käufer $m$ enthalten.
-	Die Begründung der Schranke $n!\,(nS)^n$ im Beweis von~\cite[Lemma~5]{PaesLeme2018} nutzt ebenfalls die Cramersche Regel von Basislösungen des LPs mit dem Hinweis, die zugehörige Matrix enthalte nur Koeffizienten in $\{0, 1,\dots, S\}$.
+	Die Begründung der Schranke $n!\,S^n$ im Beweis von~\cite[Lemma~5]{PaesLeme2018} nutzt ebenfalls die Cramersche Regel von Basislösungen des LPs mit dem Hinweis, die zugehörige Matrix enthalte nur Koeffizienten in $\{0, 1,\dots, S\}$.
 	Tatsächlich enthält sie aber Koeffizienten in $\{0, 1, \dots, mS \}$.
 	Es kann $\det(A_B)$ sogar den Wert $mS$ annehmen: Dazu betrachte man den Markt mit einem Gut mit $s=1$ und zwei Käufern.
 	Besteht $B$ aus den durch $\fx_1 = (0,0)$ und $\fx_2= (1,1)$ induzierten Zeilen, gilt $\det(A_B) = 1\cdot 2 - 0 \cdot 1 = 2$.
@@ -199,12 +199,12 @@ Dann lässt sich mit $t$ Abfragen des Orakels entweder ein Punkt $\fp\in K$ oder
 Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachfrage-Orakel, mit dem sich Subgradienten der Marktpotenzialfunktion berechnen lassen.
 
 \begin{theorem}\label{thm-compute-walras-with-ellipsoid}
-	Gilt $\interior(K) \neq \emptyset$ für die Menge $K$ der Walras-Preise im $\R^n$, so kann man mit $\bigO(n\log(Mn) + n^2 \log(n m S))$ Abfragen des Aggregierte-Nachfrage-Orakels und Iterationen der Ellipsoidmethode einen Walras-Preisvektor bestimmen.
+	Gilt $\interior(K) \neq \emptyset$ für die Menge $K$ der Walras-Preise im $\R^n$, so kann man mit $\bigO(n^3 \log(n m S) + n^2\log(M))$ Abfragen des Aggregierte-Nachfrage-Orakels und Iterationen der Ellipsoidmethode einen Walras-Preisvektor bestimmen.
 \end{theorem}
 \begin{proof}
 	Nach Lemma~\ref{lemma-prices-bounded-M} sind alle Walras-Preise in der Menge $[-2M, 2M]^n\subseteq B_{r}(\zero)$ mit $r = 2M\sqrt{n}$ enthalten.
 	Außerdem gilt $K = \arg\min_\fp f(\fp)$ wobei $f$ die Marktpotenzialfunktion ist.
-	Als Trennorakel dient hier das Aggregierte-Nachfrage-Orakel, welches mit $g \coloneqq s - \dem(\fp_0)$ für $\fp_0\in\R^n$ nach Lemma~\ref{lemma-subgradient} einen Subgradienten von $f$ an $\fp_0$ ermitteln kann.
+	Als Trennorakel dient hier das Aggregierte-Nachfrage-Orakel, welches mit $g \coloneqq \fs - \dem(\fp_0)$ für $\fp_0\in\R^n$ nach Lemma~\ref{lemma-subgradient} einen Subgradienten von $f$ an $\fp_0$ ermitteln kann.
 	Ist $g = \zero$, so kann \glqq$\fp_0 \in K$\grqq\ gemeldet werden.
 	Sonst gilt für die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp_0) + g \bcdot \fp_0 \leq g \bcdot \fp_0$ für alle $\fp^*\in K$, was $K\subseteq H$ impliziert.
 	
@@ -219,12 +219,16 @@ Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachf
 	Multipliziert man jede Spalte mit seinem Nenner,
 	erhält man eine ganzzahlige Matrix $\tilde{A}$ mit $\lvert \det(\tilde{A}) \rvert > 0$,
 	welche die Ungleichung $\abs{ \det(A) } \geq R^{-(n+1)} \lvert \det(\tilde{A}) \rvert \geq R^{-(n+1)}$ erfüllt.
-	Entsprechend gilt also $\vol(K) \geq \vol(S) \geq R^{-(n+1)} / n! \geq (nR)^{-(n+1)}$.
+	Entsprechend kann man also $\vol(K) \geq \vol(S) \geq R^{-(n+1)} / n! \geq (nR)^{-(n+1)}$ folgern.
+	
+	Die $n$-dimensionale euklidische Einheitskugel ist in der $n$-dimensionalen Kugel mit Radius $\sqrt{n}$ bzgl. der $\lVert \bcdot \rVert_1$-Norm enthalten.
+	Diese ist die disjunkte Vereinigung von $2^n$ Simplizes, welche je ein Volumen von $n^{n/2}/n!$ haben.
+	Die Stirling-Formel impliziert die Konvergenz $(2^n n^{n/2}/n!\,)/(2e/\sqrt{n})^{n} = n^n/(n!\, e^n) \rightarrow_{n\rightarrow 0}0$. Daher wird $\vol(B_1(\zero))$ durch $\bigO(n^{-n/2})$ beschränkt und es folgt $\vol(B_r(\zero))\in\bigO(M^n)$.	
 	
 	Gibt die Ellipsoidmethode nach $t$ Iterationen eine Ellipse $E$ aus, welche die Bedingungen $\vol(E) \leq \exp(-t / ({2n + 1}))\cdot (4M \sqrt{n})^n$ und $K\subseteq E$ erfüllt, gilt mit $\vol(E) \geq \vol(K)$:
-	\[ \exp(-t / ({2n + 1}))\cdot (4M\sqrt{n})^n \geq (nR)^{-(n+1)}
-	~ \Leftrightarrow ~ \exp(t) \leq (4M\sqrt{n})^n \exp(2n+1) (nR)^{n+1} \]
-	Insbesondere gilt also $t\in\bigO(n\log(Mn) + n\log(nR)) = \bigO(n\log(Mn) + n^2 \log(n m S))$.
+	\[ \exp(-t / ({2n + 1}))\cdot \vol(B_r(\zero)) \geq (nR)^{-(n+1)}
+	~ \Leftrightarrow ~ \exp(t) \leq \left( \vol(B_r(\zero))  (nR)^{n+1} \right)^{(2n+1)} \]
+	Insbesondere gilt also $t\in\bigO(n^2\log(M) + n^2\log(nR)) = \bigO(n^2\log(M) + n^3 \log(n m S))$.
 	Daher ist die Ellipsoidmethode dazu gezwungen nach so vielen Iterationen einen Punkt $\fp\in K$ auszugeben.
 \end{proof}
 
@@ -241,22 +245,17 @@ Leider konnten einige Beweise auf dem Weg zu diesem Ziel im Rahmen der Seminarar
 Im Folgenden werden einige Hindernisse aufgezeigt:
 
 In \cite[Theorem~5]{PaesLeme2018} wird die neue Methode der Schnittebenenverfahren aus~\cite[Theorem~31]{Lee} sinngemäß zitiert.
-Hier ist unklar, wie das Zitat aus dem ursprünglichen Theorem folgt, jedoch haben sich wohl zumindest kleinere Fehler eingeschlichen:
-So ist einerseits nicht klar, wie Leme und Wong auf die Abschätzung $\bigO(n\delta \log(Mn/\delta))$ für die Breite von $P$ kommen, da man nach Lee u.a. eher $\bigO(n\delta \log(M/\delta))$ erwarten würde.
+Hier ist unklar, wie das Zitat aus dem ursprünglichen Theorem folgt.
+Jedoch haben sich wohl zumindest kleinere Fehler eingeschlichen:
+So ist einerseits nicht klar, wie Leme und Wong auf die Abschätzung $\bigO(n\delta \log(Mn/\delta))$ für die Breite von $P$ kommen, da man nach Lee u.a. die Abschätzung $\bigO(n\delta \log(M/\delta))$ erwarten würde.
 Weiterhin sind die Folgerungen über die Konvexkombination jeweils unterschiedlich formuliert:
-So betrifft diese bei Lee u.a. nur die Vektoren $a_2,\dots, a_{\bigO(n)}$ und $a_1$ spielt hier eine gesonderte Rolle.
-Bei Paes und Leme ist diese gesonderte Rolle nicht mehr vorhanden und es wird über eine Konvexkombination $\sum_{i\in[\bigO(1)]} t_i$ geredet.
-Außerdem fehlen wohl in den Abschätzungen der Konvexkombinationen bei Paes und Leme jeweils die Vorfaktoren $t_i$, sodass diese wohl die folgenden Abschätzungen meinen:
-\[
-\norm{\, \sum_{i\in\first{k}} t_i \fa_i \, } = \bigO\left( \frac{\delta}{M} \sqrt{n} \log\left( \frac{M}{\delta} \right) \right)
-\qquad
-\text{und}
-\qquad
-\abs{\sum_{i\in\first{k}} t_i b_i} = \bigO\left(n\delta\log\left(\frac{M}{\delta}\right) \right).
-\]
-Des Weiteren nutzen Paes und Leme in \cite[Theorem~6]{PaesLeme2018} das obige Ergebnis, um konvexe Funktionen mit einem Subgradienten-Orakel zu minimieren.
-Im einfacheren Fall, in dem alle Restriktionen des Polytops dem Orakel entspringen, wählt man $\delta$ so klein, dass bereits $\varepsilon=\bigO(n\delta L \log(M'/ \delta))$ gilt.
-Wegen $\lim_{\delta \rightarrow 0}\delta \cdot \log(\delta)= 0$ ist dies möglich, jedoch gehen Paes und Leme nicht darauf ein, wieso dadurch keine negativen Auswirkungen auf die Laufzeit entstehen: Je kleiner $\delta$ gewählt wird, desto länger ist auch die Laufzeit nach~\cite[Theorem~5]{PaesLeme2018}.
+So betrifft diese bei Lee u.a. nur die Vektoren $a_2,\dots, a_{\bigO(n)}$ und $a_1$ spielt eine gesonderte Rolle.
+Bei Leme und Wong ist diese gesonderte Rolle nicht vorhanden und es wird über eine Konvexkombination $\sum_{i\in[\bigO(1)]} t_i$ geredet.
+Außerdem fehlen in den Abschätzungen der Terme $\norm{\sum_{i\in\first{k}} t_i\fa_i}$ und $\abs{\sum_{i\in\first{k}} t_i b_i}$ bei Leme und Wong wohl jeweils die Vorfaktoren~$t_i$.
+
+Des Weiteren nutzen Leme und Wong in \cite[Theorem~6]{PaesLeme2018} das obige Ergebnis, um konvexe Funktionen mit einem Subgradienten-Orakel zu minimieren.
+Im einfacheren Fall des Beweises, in dem alle Restriktionen des Polytops dem Orakel entspringen, wählt man $\delta$ so klein, dass bereits $\varepsilon=\bigO(n\delta L \log(M'/ \delta))$ gilt.
+Wegen $\lim_{\delta \rightarrow 0}\delta \cdot \log(\delta)= 0$ ist dies möglich, jedoch gehen Leme und Wong nicht darauf ein, wieso dadurch keine negativen Auswirkungen auf die Laufzeit entstehen: Je kleiner $\delta$ gewählt wird, desto länger ist auch die Laufzeit nach~\cite[Theorem~5]{PaesLeme2018}.
 Da auch im allgemeinen Fall des Beweises einige Ungleichungen sowie die Laufzeit unklar sind, wurde hier darauf verzichtet, genauer auf die restlichen Ergebnisse, die zu~\cite[Theorem~7]{PaesLeme2018} führen, einzugehen.
 
 \iffalse
