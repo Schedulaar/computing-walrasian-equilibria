@@ -4,17 +4,19 @@
 \begin{frame}{Informationszugang zum Markt}
 	Man unterscheidet die drei Sichtweisen:
 	\begin{itemize}[label=\color{darkblue}$\bullet$]
-		\item \emph{Die Mikroskopische Sicht:} Ein \emph{Wert-Orakel} bestimmt anhand eines Käufers $i\in\first{m}$ und eines Bündels $x\in\ffirst{\fs}$ den Wert $v_i(x)$.
-		\item \emph{Die Agenten-Sicht:} Ein \emph{Nachfrage-Orakel} bestimmt anhand eines Käufers $i\in\first{m}$ und eines Preisvektors $\fp\in\R^n$ ein Bündel $x\in\NB(v_i, \fp)$.
-		\item \emph{Die Makroskopische Sicht:} Ein \emph{Aggregierte-Nachfrage-Orakel} bestimmt anhand eines Preisvektors $\fp\in\R^n$ eine aggregierte Nachfrage $\dem(\fp)$, für den $x^{(i)}\in\NB(v_i, \fp)$ für alle $i\in\first{m}$ existieren mit $\dem(\fp) = \sum_{i\in\first{m}} x^{(i)}$.
+		\pause\item \emph{Die Mikroskopische Sicht:} Ein \emph{Wert-Orakel} bestimmt anhand eines Käufers $i\in\first{m}$ und eines Bündels $x\in\ffirst{\fs}$ den Wert $v_i(x)$.
+		\pause\item \emph{Die Agenten-Sicht:} Ein \emph{Nachfrage-Orakel} bestimmt anhand eines Käufers $i\in\first{m}$ und eines Preisvektors $\fp\in\R^n$ ein Bündel $x\in\NB(v_i, \fp)$.
+		\pause\item \emph{Die Makroskopische Sicht:} Ein \emph{Aggregierte-Nachfrage-Orakel} bestimmt anhand eines Preisvektors $\fp\in\R^n$ eine aggregierte Nachfrage $\dem(\fp)$, für den $x^{(i)}\in\NB(v_i, \fp)$ für alle $i\in\first{m}$ existieren mit $\dem(\fp) = \sum_{i\in\first{m}} x^{(i)}$.
 	\end{itemize}
 
 \vspace{1em}
 
+\pause
 	\parbox{\textwidth}{\emph{Ziel:} Berechnung von Walras-Preisen mit dem Aggregierte-Nachfrage-Orakel.}
 	
 \vspace{1em}
 
+\pause
 	\parbox{\textwidth}{
 		\emph{Vorgehen:} Berechnung mittels Ellipsoidmethode. Voraussetzungen:
 		\begin{itemize}[label=\color{darkblue}$\bullet$]
@@ -33,7 +35,7 @@
 \end{frame}
 
 \begin{frame}[t]{Konstruktion eines Trennorakels}
-\begin{definition}[Subgradient]
+\pause\begin{definition}[Subgradient]
 	Seien $f:\R^n \rightarrow \R$ eine konvexe Funktion.
 	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $x_0$}, falls $f(x)\geq f(x_0) + g \bcdot (x - x_0)$ für alle $x\in\R^n$ gilt.
 \end{definition}
@@ -56,16 +58,17 @@ Die \emph{Marktpotenzialfunktion} ist definiert als
 \right) + \fp\bcdot \fs \]
 \end{definition}
 \vspace{-0.4em}
-\begin{lemma}
+\pause \begin{lemma}
 Für alle $\fp\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ an $\fp$.
 \end{lemma}
 \vspace{-0.4em}
-\begin{definition}[Trennorakel]
+\pause \begin{definition}[Trennorakel]
 	Ein Trennorakel für eine konvexe Menge $K$ gibt gegeben eines Punktes $\fp\in\R^n$ entweder die Meldung \glqq $\fp\in K$\grqq\ oder eine Halbebene aus, die $\fp$ von $K$ trennt, also einen Zeilenvektor $g\in\R^n$ mit $g\bcdot \fp \leq g \bcdot \fp^*$ für alle $\fp^*\in K$.
 \end{definition}
 \end{frame}
 
 \begin{frame}{Abschätzungen zur Analyse der Laufzeit}
+	\pause
 	\vspace{-1em}
 	\begin{align*}
 		\tag{D}
@@ -82,7 +85,7 @@ Für alle $\fp\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ an $\fp$.
 		\text{udN.}\quad& u \geq \sum_{i\in\first{m}} \left( v_i(x^{(i)}) - \fp \bcdot x^{(i)} \right) & \text{für alle $\fx = (x^{(i)})_{i\in\first{m}}\in\ffirst{\fs}^m$}
 		\end{align*}
 	\end{lemma}
-	\begin{lemma}
+	\pause \begin{lemma}
 		Die Walras-Preise bilden ein Polytop, dessen Ecken $\fp$ von der Form $p_j=a_j/b$ mit $a_j,b\in\Z$ und $\abs{b}\leq (n+1)!\, (mS)^n$ für $S\coloneqq\max_{j\in\first{n}} s_j$.
 	\end{lemma}
 \end{frame}
@@ -93,7 +96,7 @@ Für alle $\fp\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ an $\fp$.
 		
 		Mit $t$ Abfragen des Orakels lässt sich entweder ein Punkt $\fp\in K$ oder eine Ellipse $E$ mit $\vol(E) \leq \exp(-t/(2n+1)) \cdot \vol(B_r(\zero))$ und $K\subseteq E$ ermitteln.
 	\end{theorem}
-	\begin{theorem}[Berechnung von Walras-Preisen]
+	\pause \begin{theorem}[Berechnung von Walras-Preisen]
 		Gilt $\interior(K)\neq \emptyset$ für die Menge $K$ der Walras-Preise, kann man mit $\bigO(n^3\log(nmS) + n^2\log(M))$ Abfragen des Aggregierte-Nachfrage-Orakel einen Walras-Preisvektor bestimmen.
 	\end{theorem}
 \end{frame}
