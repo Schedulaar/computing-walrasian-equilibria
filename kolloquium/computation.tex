@@ -35,17 +35,26 @@
 \end{frame}
 
 \begin{frame}[t]{Konstruktion eines Trennorakels}
+\pause \begin{definition}[Trennorakel]
+	Ein Trennorakel für eine konvexe Menge $K$ gibt gegeben eines Punktes $\fp\in\R^n$ entweder die Meldung \glqq $\fp\in K$\grqq\ oder eine Halbebene aus, die $\fp$ von $K$ trennt, also einen Vektor $g\in\R^n$ mit $g\bcdot \fp \leq g \bcdot \fp^*$ für alle $\fp^*\in K$.
+\end{definition}
+\vspace{-0.4em}
 \pause\begin{definition}[Subgradient]
 	Seien $f:\R^n \rightarrow \R$ eine konvexe Funktion.
 	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $x_0$}, falls $f(x)\geq f(x_0) + g \bcdot (x - x_0)$ für alle $x\in\R^n$ gilt.
 \end{definition}
-\def\svgwidth{\columnwidth}
+\vspace{-0.4em}
+\centering
+\def\svgwidth{0.8\columnwidth}
 	\import{kolloquium/}{subgradient.pdf_tex}
 \end{frame}
 
 \begin{frame}[t]{Konstruktion eines Trennorakels}
-\addtocounter{theorem}{-1}
-\vspace{0.2em}
+\addtocounter{theorem}{-2}
+\begin{definition}[Trennorakel]
+	Ein Trennorakel für eine konvexe Menge $K$ gibt gegeben eines Punktes $\fp\in\R^n$ entweder die Meldung \glqq $\fp\in K$\grqq\ oder eine Halbebene aus, die $\fp$ von $K$ trennt, also einen Vektor $g\in\R^n$ mit $g\bcdot \fp \leq g \bcdot \fp^*$ für alle $\fp^*\in K$.
+\end{definition}
+\vspace{-0.4em}
 \begin{definition}[Subgradient]
 	Seien $f:\R^n \rightarrow \R$ eine konvexe Funktion.
 	Man nennt $g\in\R^n$ einen \emph{Subgradient von $f$ an $x_0$}, falls $f(x)\geq f(x_0) + g \bcdot (x - x_0)$ für alle $x\in\R^n$ gilt.
@@ -61,10 +70,6 @@ Die \emph{Marktpotenzialfunktion} ist definiert als
 \pause \begin{lemma}
 Für alle $\fp\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von $f$ an $\fp$.
 \end{lemma}
-\vspace{-0.4em}
-\pause \begin{definition}[Trennorakel]
-	Ein Trennorakel für eine konvexe Menge $K$ gibt gegeben eines Punktes $\fp\in\R^n$ entweder die Meldung \glqq $\fp\in K$\grqq\ oder eine Halbebene aus, die $\fp$ von $K$ trennt, also einen Vektor $g\in\R^n$ mit $g\bcdot \fp \leq g \bcdot \fp^*$ für alle $\fp^*\in K$.
-\end{definition}
 \end{frame}
 
 \begin{frame}{Abschätzungen zur Analyse der Laufzeit}

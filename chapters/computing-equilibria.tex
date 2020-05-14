@@ -225,7 +225,7 @@ Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachf
 	Diese ist die disjunkte Vereinigung von $2^n$ Simplizes, welche je ein Volumen von $n^{n/2}/n!$ haben.
 	Die Stirling-Formel impliziert die Konvergenz $(2^n n^{n/2}/n!\,)/(2e/\sqrt{n})^{n} = n^n/(n!\, e^n) \rightarrow_{n\rightarrow 0}0$. Daher wird $\vol(B_1(\zero))$ durch $\bigO(n^{-n/2})$ beschränkt und es folgt $\vol(B_r(\zero))\in\bigO(M^n)$.	
 	
-	Gibt die Ellipsoidmethode nach $t$ Iterationen eine Ellipse $E$ aus, welche die Bedingungen $\vol(E) \leq \exp(-t / ({2n + 1}))\cdot (4M \sqrt{n})^n$ und $K\subseteq E$ erfüllt, gilt mit $\vol(E) \geq \vol(K)$:
+	Gibt die Ellipsoidmethode nach $t$ Iterationen eine Ellipse $E$ aus, welche die Bedingungen $\vol(E) \leq \exp(-t / ({2n + 1}))\cdot \vol(B_r(\zero))$ und $K\subseteq E$ erfüllt, gilt mit $\vol(E) \geq \vol(K)$:
 	\[ \exp(-t / ({2n + 1}))\cdot \vol(B_r(\zero)) \geq (nR)^{-(n+1)}
 	~ \Leftrightarrow ~ \exp(t) \leq \left( \vol(B_r(\zero))  (nR)^{n+1} \right)^{(2n+1)} \]
 	Insbesondere gilt also $t\in\bigO(n^2\log(M) + n^2\log(nR)) = \bigO(n^2\log(M) + n^3 \log(n m S))$.
