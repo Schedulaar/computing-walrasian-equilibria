@@ -1,0 +1,71 @@
+\section{Walras-Gleichgewichte}
+\subsection{Grundlegende Definitionen}
+
+\begin{frame}{Grundlagen}
+	\begin{notation}
+		Für $k\in\Z_{\geq0}$ bezeichne $\first{k}\coloneqq \{ 1, 2, \dots, k \}$, $\ffirst{k}\coloneqq \{0, 1, \dots, k \}$.
+		
+		\pause
+		Für $\fs=(s_1, \dots, s_n)\in\Z_{\geq0}^n$ bezeichne $\ffirst{\fs}\coloneqq \prod_{j\in\first{n}} \ffirst{s_j}$.
+	\end{notation}
+	\begin{definition}[Markt]
+		Ein Markt besteht aus:
+		\begin{itemize}[label=\color{darkblue}$\bullet$]
+			\item einer Menge $\first{n}$ von Gütern sowie einem Angebot $s_j\in\Z_{>0}$ von jedem Gut $j\in\first{n}$,
+			\item einer Menge $\first{m}$ von $m\geq 2$ Käufern mit je einer Bewertungsfunktion $v_i:\ffirst{\fs} \rightarrow \Z$ mit $v(\zero) = 0$ für $i\in\first{m}$.
+		\end{itemize}
+	\end{definition}
+	\begin{definition}[Nachfragebereich]
+		Bei Preisen $\fp\in\R^n$ ist $u_i(x; \fp)\coloneqq v_i(x) - \fp \bcdot x$ der \emph{Nutzen eines Bündels} $x\in\ffirst{\fs}$ für einen Käufer $i\in\first{m}$.
+		
+		Der \emph{Nachfragebereich} eines Käufers $i$ bei Preisen $\fp$ ist dann $\NB(v_i, \fp)\coloneqq \arg\max_{x\in\ffirst{\fs}} u_i(x; \fp)$.
+	\end{definition}
+\end{frame}
+
+\begin{frame}{Grundlagen}
+	\begin{definition}[Allokation]
+		Eine \emph{Allokation} $\fx\coloneqq(x^{(i)})_{i\in\first{m}}$ weist jedem Käufer $i\in\first{m}$ ein Bündel $x^{(i)}\in\ffirst{\fs}$ zu.
+		
+		Eine Allokation $\fx$ heißt \emph{gültig}, falls $\sum_{i\in\first{m}}v_i(x^{(i)}) = \fs$ gilt.
+		
+		Das \emph{soziale Wohl} einer gültigen Allokation ist $\SW(\fx)\coloneqq \sum_{i\in\first{m}} v_i(x^{(i)})$.
+		
+		Gültige Allokationen mit maximalem sozialen Wohl heißen \emph{optimal}.
+	\end{definition}
+	
+	\begin{definition}[Walras-Gleichgewicht]
+		Ein Paar $(\fx, \fp)$ aus einer gültigen Allokation $\fx$ und einem Preisvektor $\fp\in\R^n$ heißt \emph{(Walras-)Gleichgewicht}, falls $x^{(i)}\in\NB(v_i, \fp)$ für alle $i\in\first{m}$ gilt.
+		Dabei nennt man $\fx$ eine \emph{Walras-Allokation zu Walras-Preisen} $\fp$.
+	\end{definition}
+
+	\begin{lemma}[Wohlfahrtstheoreme]
+		Ist $(\fx, \fp)$ ein Gleichgewicht, so ist $\fx$ eine optimale Allokation.
+		
+		Ist $\fy$ eine optimale Allokation, so bildet auch $(\fy, \fp)$ ein Gleichgewicht.
+	\end{lemma}
+\end{frame}
+
+
+
+\subsection{Darstellung als lineares Optimierungsproblem}
+\begin{frame}
+\begin{lemma}[Darstellung als lineares Optimierungsproblem]
+	Es existiert genau dann ein Gleichgewicht, wenn~\eqref{LP} eine ganzzahlige Optimallösung hat.
+	Ist das der Fall, so sind die Walras-Preise gerade die Optimallösungen von~\eqref{DP} projiziert auf die $\fp$-Variablen.
+	\vspace{5pt}
+	\hrule
+	\begin{align*}
+	\tag{P}\label{LP}
+	&\max_{z} \sum_{i\in\first{m}, x\in\ffirst{\fs}} v_i(x) \cdot z_{i, x} \\
+	\text{udN.} \quad & \sum_{x\in\ffirst{\fs}} z_{i, x} = 1 & \text{für alle $i\in\first{m}$}\\
+	& \sum_{i\in\first{m}, x\in\ffirst{\fs}} x_j \cdot z_{i,x} = s_j & \text{für alle $j\in\first{n}$} \\
+	& z_{i, x} \geq 0 &\text{für alle $i\in\first{m}, x\in\ffirst{\fs}$}
+	\end{align*}
+	\hrule
+	\begin{align*}
+	\tag{D}\label{DP}
+	&\min_{\fp,\fu} \sum_{i\in\first{m}} u_i + \fp \bcdot \fs \\
+	\text{udN.} \quad &  u_i \geq v_i(x) - \fp \bcdot x & \text{für alle $i\in\first{m}, x\in\ffirst{\fs}$}
+	\end{align*}
+\end{lemma}
+\end{frame}

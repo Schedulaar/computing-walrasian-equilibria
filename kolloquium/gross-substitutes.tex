@@ -1,0 +1,67 @@
+\section{Brutto-Substituts-Bewertungen}
+\newcommand{\tild}[1]{\widetile{#1}}
+\subsection{Definition und Eigenschaften}
+\begin{frame}{Brutto-Substituts-Bewertungen}
+	\begin{definition}[Brutto-Substituts-Bewertung]
+		Eine Bewertungsfunktion $v: \ffirst{\fs} \rightarrow \Z$ heißt \emph{Brutto-Substituts-Bewertung},
+		falls für alle Preise $\fp,\fp'\in\R^n$ mit $\fp' \geq \fp$ und für alle Bündel $x\in\NB(v, \fp)$ ein Bündel $y\in\NB(v,\fp')$ existiert mit $y_i \geq x_i$ für alle $i$ mit $p_i' = p_i$.
+		
+		\pause\vspace{1em}
+		
+		\parbox{\textwidth}{Eine Bewertungsfunktion $v:\ffirst{\fs} \rightarrow \Z$ heißt \emph{unabhängige Brutto-Substituts-Bewertung}, falls die Funktion}
+		\[
+		\tilde{v}:\ffirst{1}^{N_\fs} \rightarrow \Z, \quad (x_{i,j})_{(i,j)\in N_\fs} \mapsto v \left( \left( \sum_{j\in\first{s_i}} x_{i,j} \right)_{i\in\first{n}} \right)
+		\]
+		Brutto-Substituts-Funktion ist.
+		Dabei ist $N_\fs \coloneqq \{ (i,j) \mid i\in\first{n}, j\in\first{s_i} \}$.
+	\end{definition}
+\end{frame}
+
+
+\begin{frame}{Brutto-Substituts-Bewertungen}
+\begin{definition}[Brutto-Substituts-Bewertung]
+Eine Bewertungsfunktion $v: \ffirst{\fs} \rightarrow \Z$ heißt \emph{Brutto-Substituts-Bewertung},
+falls für alle Preise $\fp,\fp'\in\R^n$ mit $\fp' \geq \fp$ und für alle Bündel $x\in\NB(v, \fp)$ ein Bündel $y\in\NB(v,\fp')$ existiert mit $y_i \geq x_i$ für alle $i$ mit $p_i' = p_i$.
+
+\pause\vspace{1em}
+
+\parbox{\textwidth}{Eine Bewertungsfunktion $v:\ffirst{\fs} \rightarrow \Z$ heißt \emph{unabhängige Brutto-Substituts-Bewertung}, falls die Funktion}
+\[
+\tilde{v}:\ffirst{1}^{N_\fs} \rightarrow \Z, \quad (x_{i,j})_{(i,j)\in N_\fs} \mapsto v \left( \left( \sum_{j\in\first{s_i}} x_{i,j} \right)_{i\in\first{n}} \right)
+\]
+Brutto-Substituts-Funktion ist.
+Dabei ist $N_\fs \coloneqq \{ (i,j) \mid i\in\first{n}, j\in\first{s_i} \}$.
+\end{definition}
+\end{frame}
+
+\subsection{Auswirkung auf Walras-Preise}
+\begin{frame}{Auswirkung auf Walras-Preise}
+\begin{theorem}[[FY03, Theorem 2.1]]
+Seien eine unabhängige Brutto-Substituts-Bewertung $v: \ffirst{\fs} \rightarrow \Z$ sowie Preise $\fp$ gegeben und man definiere $u(x) \coloneqq v(x) - \fp \bcdot x$ für $x\in\ffirst{\fs}$.
+
+Dann impliziert $u(x)\geq \max_{i,j\in\ffirst{n}} u(x - e_i + e_j)$ für alle $x\in\ffirst{\fs}$ bereits 
+$u(x) \geq u(y)$ für alle $x\in\ffirst{\fs}$.
+\end{theorem}
+
+\begin{theorem}
+	Haben alle Käufer unabhängige Brutto-Substituts-Bewertungen, bilden die Walras-Preise ein ganzzahliges Polytop.
+\end{theorem}
+Für eine Zahl $a\in\R$ sei $\fraction(a) \coloneqq a - \floor{a}$.
+\begin{proposition}
+	Seien $p_1,p_2\in\R$ und sei $\theta$ zufällig aus $[0,1]$ gewählt.
+	Setzt man \[ \hat{p_i}\coloneqq \begin{cases}
+		\ceil{p_i}, & \text{für $\fraction(p_i) > \theta$,} \\
+		\floor{p_i}, & \text{für $\fraction(p_i) \leq \theta$,}
+	\end{cases}  \]
+	so ist $\E(\hat{p_i}) = p_i$ für $i\in\first{2}$ und es gilt $\hat{p_1} - \hat{p_2}\in\{ \floor{p_1 - p_2}, \ceil{p_1 - p_2}  \}$.
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}{Auswirkung auf Walras-Preise}
+\begin{theorem}
+	Haben alle Käufer unabhängige Brutto-Substituts-Bewertungen und gilt $\interior(K)\neq\emptyset$ für die Menge $K$ der Walras-Preise, so kann man mit $\bigO(n^2 \log(M))$ Abfragen des Aggregierte-Nachfrage-Orakels einen Walras-Preisvektor bestimmen.
+	
+	Alternativ lässt sich mit $\bigO(n^4 m S \log(M))$ Abfragen des Wert-Orakels ein Walras-Gleichgewicht bestimmen.
+\end{theorem}
+\end{frame}
