@@ -129,7 +129,7 @@ Es gilt $\norm{g} = g \bcdot (g \cdot \norm{g}^{-1}) \leq  f(g \cdot \norm{g}^{-
 
 Zwar ist es schwierig mit dem Aggregierte-Nachfrage-Orakel Auswertungen von $f$ selbst zu machen, jedoch lassen sich sehr wohl Subgradienten von $f$ damit ermitteln:
 \begin{lemma}\label{lemma-subgradient}
-	Für alle $p\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von der Marktpotenzialfunktion $f$ an $\fp$.
+	Für alle $\fp\in\R^n$ ist $\fs - \dem(\fp)$ ein Subgradient von der Marktpotenzialfunktion $f$ an $\fp$.
 \end{lemma}
 \begin{proof}
 	Sei $\dem(\fp) = \sum_{i\in\first{m}} x^{(i)}$ die aggregierte Nachfrage zum Preis $\fp$.
@@ -191,7 +191,7 @@ Für einen Spezialfall hilft nun die Ellipsoid-Methode bei der Berechnung von Wa
 Diese wird beispielsweise in~\cite[Abschnitt~2]{ellipsoid} diskutiert und es lässt sich folgendes Theorem daraus ableiten:
 
 \begin{theorem}[Ellipsoid-Methode]
-Seien eine konvexe Menge $K\subseteq B_r(\zero)\subseteq \R^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in B_r(\zero)$  entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene $H=\{ \fp \in\R^n \mid \fa \bcdot \fp \leq b \}$ mit $K\subseteq H$ ausgibt.
+Seien eine konvexe Menge $K\subseteq B_r(\zero)\subseteq \R^n$ und ein Trennorakel gegeben, also ein Orakel, das für einen Punkt $\fp\in B_r(\zero)$  entweder die Meldung \glqq\,$\fp\in K$\grqq\ oder eine Halbebene, die $\fp$ und $K$ trennt, also einen Vektor $g\in\R^n$ mit $g\bcdot \fp \leq g \bcdot \fp^*$ für alle $\fp^*\in K$ ausgibt.
 
 Dann lässt sich mit $t$ Abfragen des Orakels entweder ein Punkt $\fp\in K$ oder eine Ellipse mit Maximalvolumen $\exp({-t / ({2n + 1}})) \cdot \vol(B_r(\zero))$, welche die Menge $K$ enthält, ermitteln.
 \end{theorem}
@@ -206,7 +206,7 @@ Bei der Suche nach einem Trennorakel hilft hier natürlich das Aggregierte-Nachf
 	Außerdem gilt $K = \arg\min_\fp f(\fp)$ wobei $f$ die Marktpotenzialfunktion ist.
 	Als Trennorakel dient hier das Aggregierte-Nachfrage-Orakel, welches mit $g \coloneqq \fs - \dem(\fp_0)$ für $\fp_0\in\R^n$ nach Lemma~\ref{lemma-subgradient} einen Subgradienten von $f$ an $\fp_0$ ermitteln kann.
 	Ist $g = \zero$, so kann \glqq$\fp_0 \in K$\grqq\ gemeldet werden.
-	Sonst gilt für die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp_0) + g \bcdot \fp_0 \leq g \bcdot \fp_0$ für alle $\fp^*\in K$, was $K\subseteq H$ impliziert.
+	Sonst gilt für die Halbebene $H\coloneqq\{ \fp\in\R^n \mid g\bcdot \fp \leq g\bcdot \fp_0 \}$ dann $g\bcdot \fp^* \leq f(\fp^*) - f(\fp_0) + g \bcdot \fp_0 \leq g \bcdot \fp_0$ für alle $\fp^*\in K$.
 	
 	Da $\interior(K)$ nichtleer ist, existieren Ecken $\fp_0, \dots, \fp_n$ von $K$, sodass der Simplex $S$, welcher durch diese Ecken aufgespannt wird, positives Volumen hat.
 	Dieses Volumen kann mit
