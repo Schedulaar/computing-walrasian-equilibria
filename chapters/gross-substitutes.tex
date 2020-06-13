@@ -232,3 +232,89 @@ Dafür sind folgende Notation und Proposition hilfreich:
 	Das Trennorakel liefert bei der Ellipsoid-Methode schließlich die Meldung \glqq$\fp\in K$\grqq\ für Preise $\fp\in\R^n$, was nach dem Beweis von Theorem~\ref{thm-compute-walras-with-ellipsoid} nur erfolgt, wenn $\dem(\fp) - \fs = 0$ gilt.
 	Da der Nachfrage-Vektor als Summe $\sum_{i\in\first{m}} \dem_i(\fp)$ berechnet wurde, bildet $(\dem_i(\fp))_{i\in\first{m}}$ eine Walras-Allokation.
 \end{proof}
+
+\subsection{Existence of equilibria in single-unit markets with gross substitutability}
+
+To prove the existence of equilibria in markets with single-unit supplies and gross-substitut\-ability some new concepts are introduced:
+
+\begin{definition}
+	Given a market with supply $\fs\in\Z_{>0}^n$ an allocation $\fx$ with $\sum_{i\in\first{n}} x^{(i)} \leq \fs$ is called a \emph{non-exceeding allocation}.
+	
+	A \emph{pre-equilibrium} of a market with supply $\fs\in\Z_{>0}^n$ is a  pair $(\fx, \fp)$ consisting of a non-exceeding allocation $\fx$ and prices $\fp$ that fulfill $x^{(i)}\in\NB(i, \fp)$ for all $i\in\first{m}$.
+\end{definition}
+
+It is easy to see, that for any market a pre-equilibrium always exists: It suffices to choose prices so high, that no agent demands any good; hence the empty allocation forms a pre-equilibrium together with these prices.
+
+Nevertheless, in the following a more complicated way for showing the existence of pre-equilibria is discussed which can be adjusted to also show the existence of equilibria for markets with gross substitute valuations.
+The following algorithm which was introduced by Kelso and Crawford as the \emph{Walrasian Tat\^{o}nnement procedure} is used following the ideas in~\cite[Section~1]{PaesLeme2017}.
+
+In this section market supplies are required to be single-unit supplies, i.e. $\fs = \ffirst{1}^n$ holds.
+Hence an allocation can be interpreted as $m$ subsets $(x^{(1)}, \dots, x^{(m)})$ of the goods $\first{n}$.
+Such an allocation is non-exceeding iff the subsets are pairwise disjoint and it is feasible iff the subsets form a partition of $\first{n}$.
+
+
+\begin{algorithm}
+	\DontPrintSemicolon
+	\KwIn{$\delta > 0$, $n,m\in\Z_{>0}$ and valuations $v_i$ for $i\in\first{m}$}
+	
+	$M \coloneqq \max_{i\in\first{m}, x\subseteq \first{n}} \abs{v_i(x)}$
+	
+	$\fp \coloneqq (-M)_{j\in\first{n}}$
+	
+	$x^{(1)} \coloneqq \first{n}$, $x^{(i)} \coloneqq \emptyset$ for $i\in\first{m}$
+	
+	Set $\fp^i$ as an implicit function returning the values $p_j^i \coloneqq\begin{cases}
+		p_j, & \text{if $j\in x^{(i)}$}, \\
+		p_j + \delta, & \text{if $j\notin x^{(i)}$.}
+	\end{cases}$
+	
+	\While{$\exists i\in\first{m}: x^{(i)} \notin \NB(i,\fp^i)$}
+	{
+		Find a demanded set $y$ in $\NB(i, \fp^i)$\label{line-find-dem-set}
+		
+		\lForEach(\tcc*{Update prices}){$j\in y \setminus x^{(i)}$}{$p_j \coloneqq p_j + \delta$} 
+				
+		\lForEach(\tcc*{Update allocations}){$k\in\first{n}$}{
+			$x^{(k)} \coloneqq \begin{cases}
+				y, & \text{if $k = i$,} \\
+				x^{(k)} \setminus y, & \text{if $k \neq i$.}
+			\end{cases}$}
+	}
+	\Return{$(\fp, \fx)$}
+	\caption{Walrasian Tat\^{o}nnement procedure}
+\end{algorithm}
+
+For any positive $\delta$ this algorithm terminates, since the price for a good can only rise as high as $M$ (as defined in the algorithm) until no agent may possibly demand a set containing this good and in every iteration the price of at least one good increases by $\delta$.
+The algorithm also always returns a non-exceeding allocation which suffices the condition $x^{(i)}\in\NB(i,\fp^i)$ for all $i\in\first{m}$, the latter of which corresponds to $v_i(x^{(i)}) - \fp \bcdot x^{(i)} \geq v_i(y) - y \bcdot \fp - \delta \cdot \abs{y \setminus x^{(i)}}$ for all $i\in\first{m}, y\subseteq\first{n}$.
+
+Setting $\delta_t \coloneqq 1/t$ and $(\fp^t, \fx^t)$ as the outcome of the algorithm with input $\delta_t$ for $t\in\N$, the sequence of the prices is bounded in $[0, M]^n$ and therefore has a convergent subsequence.
+Furthermore, in any sequence of allocations there is an allocation $\fx$ that occurs infinitely often as there are only finitely many allocations.
+Let $(\fp^t, \fx)_{t\in\N}$ now be the subsequence for which the prices converge and which only contains one allocation.
+This implies, that $v_i(x^{(i)}) - \fp^t \bcdot x^{(i)} \geq v_i(y) - \fp^t \bcdot y - t^{-1} \cdot \abs{ y \setminus x^{(i)}}$ holds for all $i\in\first{m}, y\subseteq\first{n}$ and $t\in\N$.
+Taking the limit $t\rightarrow\infty$ on both sides yields $v_i(x^{(i)}) - \fp \bcdot x^{(i)} \geq v_i(y) - \fp\bcdot y$ for all $i\in\first{m}, y\subseteq\first{n}$.
+Therefore $(\fp, \fx)$ forms a pre-equilibrium.
+
+The missing ingredient for a pre-equilibrium to become an actual equilibrium is that the allocated bundles need to form a partition of $\first{n}$; in particular that every good is contained in some allocated set $x^{(i)}$ making the allocation feasible.
+Here, the property of gross-substitutabilty helps out by making the slightly adjusted algorithm produce a sequence of feasible allocations:
+
+This is due to the fact, that the algorithm can choose the allocation to be feasible at all times:
+This can be shown, by specifying the algorithm such that in each iteration, it uses a superset $y$ of $x^{(i)}$ as a demanded set in $\NB(i, \fp)$:
+Once this is achieved, the algorithm only moves items from other sets of the allocation to the set $x^{(i)}$ preserving the partition structure given in the initialization. 
+
+In the initialization, $\first{n}$ is a demanded set of agent $1$ with prices $\fp= (-M)_{j\in\first{n}}$.
+Therefore, the following invariant can be found for the loop:
+For all agents $i\in\first{m}$ the allocated set $x^{(i)}$ is a subset of a demanded set in $D(i, \fp')$ with $\fp' \leq \fp$ and $\fp'_j = \fp_j$ for all $j\in x^{(i)}$.
+This is because the price for an item only gets increased iff an item is being allocated to some other agent.
+Now gross-substitutability implies, that in line~\ref{line-find-dem-set} the algorithm can choose a set $y$ in $\NB(i, \fp^i)$ with $x^{(i)}\subseteq y$.
+
+Therefore we have proven the following theorem:
+
+\begin{theorem}
+	For a single-unit market with gross substitute valuations, there exists a Walrasian equilibrium.
+\end{theorem}
+
+\begin{bemerkung}
+	In~\cite{PaesLeme2017} the algorithm initializes the price vector with zeros.
+	For a market with only one good and valuations $v_i$ with $v_i(\emptyset) = 0$ and $v_i(\{ 1 \}) = -1$, the algorithm would always return the empty allocation which is not feasible.
+	Hence it is necessary to initialize the prices with $-M$.
+\end{bemerkung}

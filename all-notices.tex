@@ -1,0 +1,110 @@
+\documentclass[paper=a4, 	% Seitenformat
+		fontsize=11pt, 		% Schriftgr\"o\ss{}e
+		abstracton, 	% mit Abstrakt
+		headsepline, 	% Trennlinie f\"ur die Kopfzeile
+		notitlepage	% keine extra Titelseite
+		]{scrartcl}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zusammenfassung einiger nützlicher und Befehle
+\input{header/rest}			    % restliche Befehle und Pakete
+\input{header/kopf}			    % Befehle und Pakete f\"ur Titelseite
+\input{header/theorem}			% Mathematische Befehle und Pakete
+\input{header/referenz}			% Befehle und Pakete für Referenzen
+
+%\newcommand{\todo}[1]{{\color{red} #1}}
+
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}	        % Betrag
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert_2}		        % Norm
+\providecommand*{\Lfloor}{\left\lfloor}                 % gro\ss{}es Abrunden
+\providecommand*{\Rfloor}{\right\rfloor}                % gro\ss{}es Abrunden
+\providecommand*{\floor}[1]{\Lfloor #1 \Rfloor}         % gro\ss{}es ganzes Abrunden
+\providecommand*{\ceil}[1]{\left\lceil #1 \right\rceil} % gro\ss{}es ganzes Aufrunden
+
+\newcommand{\R}{\mathbb{R}} 
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathbb{N}} 
+
+\DeclareMathOperator{\e}{ex}
+\DeclareMathOperator{\ma}{mate}
+\DeclareMathOperator{\Ex}{Ex}
+\DeclareMathOperator{\SW}{SW}
+\DeclareMathOperator{\NB}{D}
+\DeclareMathOperator{\dem}{d}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\fraction}{frac}
+\DeclareMathOperator{\FA}{\mathcal{A}}
+\newcommand{\bigO}{\mathcal{O}}
+
+\newcommand{\first}[1]{\left[ #1 \right]}
+\newcommand{\ffirst}[1]{\left\llbracket #1 \right\rrbracket}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\fp}{\mathbf{p}}
+\newcommand{\fx}{\mathbf{x}}
+\newcommand{\fy}{\mathbf{y}}
+\newcommand{\fs}{\mathbf{s}}
+\newcommand{\fu}{\mathbf{u}}
+\newcommand{\fa}{\mathbf{a}}
+\newcommand{\fr}{\mathbf{r}}
+\newcommand{\mnath}{\textrm{\textup{M}}^\natural}
+
+\newcommand{\todo}[1]{{\color{red}#1}}
+
+\makeatletter
+\newcommand*\bcdot{\mathpalette\bcdot@{.5}}
+\newcommand*\bcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Start des Dokuments
+\begin{document}		
+
+\ownautorefnames		% Änderung einiger automatischen Texte von hyperref (wie in referenz.tex definiert)
+\parindent0em 			% kein Einzug nach einer Leerzeile
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Titelseite
+\thispagestyle{empty}		% leerer Seitenstil, also keine Seitennummer
+\begin{titlepage}
+\seminarkopf 			% Titelblatt (wie in kopf.tex definiert)
+\begin{abstract} 
+Diese Arbeit gibt einen Einblick in die Berechnung von Walras-Gleichgewichten bei unteilbaren Gütern mit mehrfachem Angebot einzelner Güter.
+Es wird nach einer formalen  Definition von Walras-Gleichgewichten zunächst beleuchtet, welche Eigenschaften Walras-Gleichgewichte im Allgemeinen haben und wann solche existieren.
+Unter Benutzung eines makroskopischen Markt-Orakels wird anschließend die Methodik der Subgradientenverfahren genutzt, um Walras-Preise exakt zu berechnen, falls das Polytop dieser Preise volldimensional ist.
+Haben die Käufer sogenannte Brutto-Substituts-Bewertungen, lässt sich das Berechnungsverfahren beschleunigen, da in diesem Fall die Walras-Preise ein ganzzahliges Polytop bilden.
+Dabei spielen die verschiedenen Charakterisierungen von Brutto-Substituts-Bewertungen  als $\mnath$-konkave und als matroidale Funktionen eine zentrale Rolle.
+\end{abstract}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inhaltsverzeichnis
+\thispagestyle{empty}	
+\tableofcontents		% Inhaltsverzeichnis
+%\listoffigures			% Abbildungsverzeichnis (eventuell einfügen)
+%\listoftables			% Tabellenverzeichnis (eventuell einfügen)
+\setcounter{page}{0}% Eigentlicher Inhalt beginnt auf Seite 1
+\clearpage          % neue Seite für eigentlichen Inhalt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Eigentlicher Inhalt der Seminararbeit; die einzelnen Teile werden hier (aus Gründen der Übersichtlichkeit) über \input{file} eingebunden
+
+
+\input{chapters/introduction}
+\input{chapters/walras-equilibria}
+\input{chapters/computing-equilibria}
+\input{chapters/gross-substitutes}
+
+\clearpage          % neue Seite für Literaturverzeichnis
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Literaturverzeichnis
+\nocite*  % Nicht zitierte Quellen werden auch ins Literaturverzeichnis aufgenommen
+\thispagestyle{empty}
+\bibliography{literature/seminararbeit}  % Literaturverzeichnis liegt in der Datei seminararbeit
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ende des Dokuments
+\end{document}			
