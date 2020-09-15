@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+  
+  <script async>
+    const API_URL = "https://api.github.com"
+    const OWNER = "schedulaar"
+    const REPO = "computing-walrasian-equilibria"
+    const WORKFLOW_NAME = "CI"
+    const ARTIFACT_NAME = "notes.pdf"
+    const BRANCH = "master"
+    const WORKFLOW_EVENT = "push"
+    const PERSONAL_TOKEN = "7569bd0c66db651df27681131e0bde660ff5ed8d"
+  
+    const getWorkflowId = async () => {
+        const response = await fetch(`${API_URL}/repos/${OWNER}/${REPO}/actions/workflows`)
+        const jsonResponse = await response.json()
+        return jsonResponse.workflows.find(wf => wf.name === WORKFLOW_NAME)?.id
+    }
+    
+    const getLatestWorkflowRunId = async (workflowId, workflowEvent) => {
+        const response = await fetch(`${API_URL}/repos/${OWNER}/${REPO}/actions/workflows/${workflowId}/runs`)
+        const jsonResponse = await response.json()
+        
+        
+        for (let workflowRun of jsonResponse['workflow_runs']) {
+
+            // Only consider completed runs
+            if (workflowRun.status != "completed") continue;
+            if (workflowRun.conclusion != "success") continue;
+
+            // Match by BRANCH
+            if (workflowRun['head_branch'] != BRANCH) continue;
+
+            // Match by event
+            if (workflowRun.event != workflowEvent) continue;
+
+            return workflowRun['id']
+        }
+
+        return null
+    }
+    
+    const getArtifactId = async (workflowRunId, name) => {
+        const response = await fetch(`${API_URL}/repos/${OWNER}/${REPO}/actions/runs/${workflowRunId}/artifacts`)
+        const jsonResponse = await response.json()
+        return jsonResponse.artifacts.find(artifact => artifact.name === name)?.id
+    }
+    
+    const getLatestArtifactUrl = async (workflowName, workflowEvent, artifactName) => {
+        const workflowId = await getWorkflowId(workflowName)
+        const workflowRunId = await getLatestWorkflowRunId(workflowId, workflowEvent)
+        const artifactId = await getArtifactId(workflowRunId, artifactName)
+        return `${API_URL}/repos/${OWNER}/${REPO}/actions/artifacts/${artifactId}/zip`
+    }
+    
+    (async () => {
+        const artifactUrl = await getLatestArtifactUrl(WORKFLOW_NAME, WORKFLOW_EVENT, ARTIFACT_NAME)
+        const headers = new Headers();
+        headers.append('Authorization', `token ${PERSONAL_TOKEN}`);
+
+        const response = await fetch(artifactUrl, { method: 'GET', headers: headers })
+        const blob = await response.blob()
+        const objectUrl = window.URL.createObjectURL(blob)
+
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        a.href = objectUrl;
+        a.download = "notices.zip";
+        a.click();
+        window.URL.revokeObjectURL(objectUrl);
+        window.setTimeout(window.close, 100)
+    })()
+    
+  </script>
+  <div>Loading file...</div>
+  </body>
+</html>
