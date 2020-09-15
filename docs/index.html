@@ -14,7 +14,6 @@
     const ARTIFACT_NAME = "notes.pdf"
     const BRANCH = "master"
     const WORKFLOW_EVENT = "push"
-    const PERSONAL_TOKEN = "7569bd0c66db651df27681131e0bde660ff5ed8d"
   
     const getWorkflowId = async () => {
         const response = await fetch(`${API_URL}/repos/${OWNER}/${REPO}/actions/workflows`)
@@ -58,26 +57,18 @@
         return `${API_URL}/repos/${OWNER}/${REPO}/actions/artifacts/${artifactId}/zip`
     }
     
+    const getLatestRunUrl = async (workflowName, workflowEvent) => {
+        const workflowId = await getWorkflowId(workflowName)
+        const workflowRunId = await getLatestWorkflowRunId(workflowId, workflowEvent)
+        return `https://github.com/${OWNER}/${REPO}/actions/runs/${workflowRunId}`
+    }
+    
     (async () => {
-        const artifactUrl = await getLatestArtifactUrl(WORKFLOW_NAME, WORKFLOW_EVENT, ARTIFACT_NAME)
-        const headers = new Headers();
-        headers.append('Authorization', `token ${PERSONAL_TOKEN}`);
-
-        const response = await fetch(artifactUrl, { method: 'GET', headers: headers })
-        const blob = await response.blob()
-        const objectUrl = window.URL.createObjectURL(blob)
-
-        const a = document.createElement("a");
-        document.body.appendChild(a);
-        a.style = "display: none";
-        a.href = objectUrl;
-        a.download = "notices.zip";
-        a.click();
-        window.URL.revokeObjectURL(objectUrl);
-        window.setTimeout(window.close, 100)
+        const runUrl = await getLatestRunUrl(WORKFLOW_NAME, WORKFLOW_EVENT)
+        window.location.replace(runUrl)
     })()
     
   </script>
-  <div>Loading file...</div>
+  <div>Loading...</div>
   </body>
 </html>
